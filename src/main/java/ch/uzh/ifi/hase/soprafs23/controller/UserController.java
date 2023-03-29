@@ -37,21 +37,22 @@ public class UserController {
 
     // convert each user to the API representation
     for (User user : users) {
-      userGetDTOs.add(DTOMapper.INSTANCE.convertEntityToUserGetDTO(user));
+      userGetDTOs.add(DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(user));
     }
     return userGetDTOs;
   }
 
-  @PostMapping("/users")
+  @PostMapping("/lobbies/create")
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public UserGetDTO createUser(@RequestBody UserPostDTO userPostDTO) {
+
     // convert API user to internal representation
-    User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+    User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
 
     // create user
     User createdUser = userService.createUser(userInput);
     // convert internal representation of user back to API
-    return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
+    return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(createdUser);
   }
 }
