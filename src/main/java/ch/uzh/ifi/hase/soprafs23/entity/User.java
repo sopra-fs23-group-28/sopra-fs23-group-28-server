@@ -1,6 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
+import ch.uzh.ifi.hase.soprafs23.constant.CamelColors;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,12 +21,8 @@ public class User implements Serializable {
   @Column(nullable = false, unique = true)
   private String token;
 
-  @Column(nullable = false)
-  private String avatar;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "lobby_id")
-  private Lobby lobby;
+  @Column()
+  private CamelColors camelColor;
 
   public Long getId() {
     return id;
@@ -36,9 +32,11 @@ public class User implements Serializable {
     this.id = id;
   }
 
-  public String getUsername() {
-    return username;
+  public CamelColors getCamelColor() {
+    return this.camelColor;
   }
+
+  public void setCamelColor(CamelColors camelColor) {this.camelColor = camelColor;}
 
   public void setUsername(String username) {
     this.username = username;

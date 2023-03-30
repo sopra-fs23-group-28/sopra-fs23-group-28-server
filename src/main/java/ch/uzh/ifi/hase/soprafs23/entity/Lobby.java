@@ -1,7 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -16,25 +14,35 @@ public class Lobby implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column
+    private Long creatorId;
+
     @Column(nullable = false)
     private Long roundNumber;
 
     @Column(nullable = false, unique = true)
     private Long maxSteps;
 
-    @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users;
+    @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL)
+    private List<Player> gameState;
+
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public Long getCreatorId() {
+        return this.creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {this.creatorId = creatorId;}
+
     public Long getRoundNumber() {
-        return roundNumber;
+        return this.roundNumber;
     }
 
     public void setRoundNumber(Long roundNumber) {
@@ -42,18 +50,11 @@ public class Lobby implements Serializable {
     }
 
     public Long getMaxSteps() {
-        return maxSteps;
+        return this.maxSteps;
     }
 
     public void setMaxSteps(Long maxSteps) {
         this.maxSteps = maxSteps;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }
