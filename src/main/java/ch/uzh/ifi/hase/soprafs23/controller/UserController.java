@@ -9,6 +9,9 @@ import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User Controller
  * This class is responsible for handling all REST request that are related to
@@ -31,14 +34,36 @@ public class UserController {
       return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(mockUser);
   }
 
-  @PutMapping("/users/{userId}/camelcolor") //TODO: @Pathvariable reinnehmen
+  @PutMapping("/users/{userId}/camelcolor")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public UserGetDTO setCamelColor() {
+  public UserGetDTO setCamelColor(@PathVariable Long userId) {
       User mockUser = new User();
       mockUser.setUsername("Bob");
       mockUser.setToken("token");
       mockUser.setCamelColor(CamelColors.RED);
       return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(mockUser);
   }
+
+  @GetMapping("/users/{lobbyid}")
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<UserGetDTO> getAllUsers(@PathVariable Long lobbyid) {
+      // fetch all users in the called lobby
+      User mockUser = new User();
+      mockUser.setUsername("Bob");
+      mockUser.setToken("token");
+
+      List<User> users = List.of(new User[]{mockUser});
+      List<UserGetDTO> userGetDTOs = new ArrayList<>();
+
+      // convert each user to the API representation
+      for (User user : users) {
+          userGetDTOs.add(DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(user));
+      }
+      return userGetDTOs;
+
+
+  }
+
 }

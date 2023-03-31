@@ -10,3 +10,11 @@ created two UserController endpoints with mock data created Player entity, fitte
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/22
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/25
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/26
+* *31.03.2023, Friday: People: Elia, Samuel, Harris. Description: pair programming: adjust UserGetDTO/UserPostDTO, created LobbyGetDTO, adjust DTOMapper, created addotional get All Users Endpoint,
+created Lobby Endpoints, updated REST specifications. Issues:
+                                                          * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/14
+                                                          * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/19
+                                                          * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/21
+                                                          * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/22
+                                                          * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/25
+                                                          * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/26

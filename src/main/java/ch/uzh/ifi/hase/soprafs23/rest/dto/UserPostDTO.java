@@ -1,18 +1,9 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
 public class UserPostDTO {
-
-  private String name;
-
   private String username;
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  private String token;
 
   public String getUsername() {
     return username;
@@ -21,4 +12,10 @@ public class UserPostDTO {
   public void setUsername(String username) {
     this.username = username;
   }
+  public String getToken() {
+        return token;
+    }
+  public void setToken(String token) {
+        this.token = token;
+    }
 }

@@ -24,6 +24,8 @@ public class User implements Serializable {
   @Column()
   private CamelColors camelColor;
 
+  @OneToOne @JoinColumn(name = "player_id") private Player player;
+
   public Long getId() {
     return id;
   }

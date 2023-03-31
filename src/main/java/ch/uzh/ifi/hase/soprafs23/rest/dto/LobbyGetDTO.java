@@ -1,33 +1,19 @@
-package ch.uzh.ifi.hase.soprafs23.entity;
+package ch.uzh.ifi.hase.soprafs23.rest.dto;
+import ch.uzh.ifi.hase.soprafs23.constant.CamelColors;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Collections;
 import java.util.List;
 
-@Entity
-@Table(name = "LOBBY")
-public class Lobby implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue
+public class LobbyGetDTO {
     private Long id;
-
-    @Column(nullable = false)
     private Long creatorId;
-
-    @Column
     private Long roundNumber;
-
-    @Column
     private Long maxSteps;
-
-    @Column
-    @ElementCollection
     private List<Long> playerIds;
-
 
     public Long getId() {
         return this.id;

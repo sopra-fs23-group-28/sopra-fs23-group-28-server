@@ -18,24 +18,18 @@ public class Player {
 
     @Column()
     private BonusTools bonusTool;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lobby_id")
-    private Lobby lobby;
+    @OneToOne(mappedBy = "player") private User user;
 
     public Long getPlayerId() {return playerId;}
     public void setPlayerId(Long playerId) {this.playerId = playerId;}
-
     public Long getplayerId() {
         return playerId;
     }
-
     public void setplayerId(Long playerId) {
         this.playerId = playerId;
     }
-
     public BonusTools getBonusTools() {return bonusTool;}
     public void setBonusTools(BonusTools bonusTool) {this.bonusTool = bonusTool;}
     public Long getStepState() {return this.stepState;}
-
     public void setStepState(Long stepState) {this.stepState = stepState;}
 }
