@@ -7,12 +7,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "LOBBY")
-public class Lobby implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Lobby{
 
     @Id
-    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -26,7 +23,7 @@ public class Lobby implements Serializable {
 
     @Column
     @ElementCollection
-    private List<Long> playerIds;
+    private List<Long> userIds;
 
 
     public Long getId() {
@@ -59,7 +56,7 @@ public class Lobby implements Serializable {
         this.maxSteps = maxSteps;
     }
 
-    public List<Long> getPlayerIds() {return Collections.unmodifiableList(playerIds);}
+    public List<Long> getUserIds() {return Collections.unmodifiableList(userIds);}
 
-    public void addPlayerId(Long playerId){this.playerIds.add(playerId);}
+    public void addUserId(Long userId){this.userIds.add(userId);}
 }

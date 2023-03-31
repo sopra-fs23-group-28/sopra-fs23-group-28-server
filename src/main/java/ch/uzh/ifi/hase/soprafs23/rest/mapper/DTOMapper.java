@@ -1,11 +1,11 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.startPostDTO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -28,6 +28,11 @@ public interface DTOMapper {
 
   DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
 
+
+  @Mapping(source = "maxSteps", target = "maxSteps")
+  Lobby convertStartPostDTOtoLobbyEntity(startPostDTO startPostDTO);
+  @Mapping(source = "token", target = "token")
+  User convertStartPostDTOtoUserEntity(startPostDTO startPostDTO);
   @Mapping(source = "username", target = "username")
   @Mapping(source = "token", target = "token")
   User convertUserPostDTOtoUserEntity(UserPostDTO userPostDTO);
@@ -39,16 +44,15 @@ public interface DTOMapper {
   UserGetDTO convertUserEntityToUserGetDTO(User user);
 
   @Mapping(source = "id", target = "id")
-  @Mapping(source = "creatorId", target = "creatorId")
   @Mapping(source = "roundNumber", target = "roundNumber")
   @Mapping(source = "maxSteps", target = "maxSteps")
-  @Mapping(source = "playerIds", target = "playerIds")
+  @Mapping(source = "userIds", target = "userIds")
   LobbyGetDTO convertLobbyEntityToLobbyGetDTO(Lobby lobby);
 
-  // because the playerIds in the Player entity consist of a List of players, its mapping needs to be defined separately.
-  default List<Long> mapPlayerIds(List<Player> players) {
-      return players.stream()
-              .map(Player::getPlayerId)
+  // because the playerIds in the User entity consist of a List of users, its mapping needs to be defined separately.
+  default List<Long> mapPlayerIds(List<User> users) {
+      return users.stream()
+              .map(User::getId)
               .collect(Collectors.toList());
   }
 

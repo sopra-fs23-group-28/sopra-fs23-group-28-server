@@ -13,7 +13,7 @@ public class LobbyGetDTO {
     private Long creatorId;
     private Long roundNumber;
     private Long maxSteps;
-    private List<Long> playerIds;
+    private List<Long> userIds;
 
     public Long getId() {
         return this.id;
@@ -45,7 +45,7 @@ public class LobbyGetDTO {
         this.maxSteps = maxSteps;
     }
 
-    public List<Long> getPlayerIds() {return Collections.unmodifiableList(playerIds);}
+    public List<Long> getUserIds() {return Collections.unmodifiableList(userIds);}
 
-    public void addPlayerId(Long playerId){this.playerIds.add(playerId);}
+    public void addUserId(Long playerId){this.userIds.add(playerId);}
 }

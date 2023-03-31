@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
+import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,39 +23,44 @@ import java.util.List;
 @RestController
 public class UserController {
   private final UserService userService;
-  UserController(UserService userService) {this.userService = userService;}
+  private final LobbyService lobbyService;
+  UserController(UserService userService, LobbyService lobbyService) {
+      this.userService = userService;
+      this.lobbyService = lobbyService;
+  }
 
   @PostMapping("/users")
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public UserGetDTO createUser() {
-      User mockUser = new User();
-      mockUser.setUsername("Bob");
-      mockUser.setToken("token");
-      return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(mockUser);
+  public UserGetDTO createUser(@RequestBody UserPostDTO userPostDTO) {
+
+      //convert to internal representation
+      User newUser = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
+
+      //create user
+      User createdUser = userService.createUser(newUser);
+
+      //return created User
+      return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(createdUser);
   }
 
-  @PutMapping("/users/{userId}/camelcolor")
+  @PutMapping("/users/{userId}/camelColor")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public UserGetDTO setCamelColor(@PathVariable Long userId) {
-      User mockUser = new User();
-      mockUser.setUsername("Bob");
-      mockUser.setToken("token");
-      mockUser.setCamelColor(CamelColors.RED);
-      return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(mockUser);
+  public UserGetDTO setCamelColor(@PathVariable Long userId, @RequestBody String camelColor) {
+
+      //update color
+      User updatedUser = userService.setCamelColor(userId, camelColor);
+      return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(updatedUser);
   }
 
-  @GetMapping("/users/{lobbyid}")
+
+  @GetMapping("/users/{lobbyId}")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<UserGetDTO> getAllUsers(@PathVariable Long lobbyid) {
+  public List<UserGetDTO> getAllUsers(@PathVariable Long lobbyId) {
       // fetch all users in the called lobby
-      User mockUser = new User();
-      mockUser.setUsername("Bob");
-      mockUser.setToken("token");
-
-      List<User> users = List.of(new User[]{mockUser});
+      List<User> users = lobbyService.getUsersFromLobby(lobbyId);
       List<UserGetDTO> userGetDTOs = new ArrayList<>();
 
       // convert each user to the API representation
@@ -62,8 +68,5 @@ public class UserController {
           userGetDTOs.add(DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(user));
       }
       return userGetDTOs;
-
-
   }
-
 }

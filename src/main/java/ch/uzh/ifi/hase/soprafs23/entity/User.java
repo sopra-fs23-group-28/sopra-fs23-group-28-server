@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
+import ch.uzh.ifi.hase.soprafs23.constant.BonusTools;
 import ch.uzh.ifi.hase.soprafs23.constant.CamelColors;
 
 import javax.persistence.*;
@@ -24,32 +25,38 @@ public class User implements Serializable {
   @Column()
   private CamelColors camelColor;
 
-  @OneToOne @JoinColumn(name = "player_id") private Player player;
+  @Column()
+  private Long stepState;
+
+  @Column()
+  private BonusTools bonusTool;
+
+  @Column()
+  private boolean gameCreator;
 
   public Long getId() {
     return id;
   }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
+  public void setId(Long id) {this.id = id;}
   public CamelColors getCamelColor() {
     return this.camelColor;
   }
-
   public void setCamelColor(CamelColors camelColor) {this.camelColor = camelColor;}
-
   public void setUsername(String username) {
     this.username = username;
   }
   public String getUsername() {return this.username;}
-    public String getToken() {
+  public String getToken() {
     return token;
   }
-
   public void setToken(String token) {
     this.token = token;
   }
+  public BonusTools getBonusTools() {return bonusTool;}
+  public void setBonusTools(BonusTools bonusTool) {this.bonusTool = bonusTool;}
+  public Long getStepState() {return this.stepState;}
+  public void setStepState(Long stepState) {this.stepState = stepState;}
+  public void setGameCreator(boolean gameCreator){this.gameCreator = gameCreator;}
+  public boolean getGameCreator(){return this.gameCreator;}
 
 }
