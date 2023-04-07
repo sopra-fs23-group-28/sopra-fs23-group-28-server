@@ -34,4 +34,4 @@ Endpoints (POST createUser, PUT setCamelColor, GET getAllUsers), updated REST sp
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/28
 
 * *07.04.2023, Friday:* People: Harris. Description: wrote two Tests for Issue 14
- * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/14
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/14
