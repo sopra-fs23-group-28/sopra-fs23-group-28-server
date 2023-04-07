@@ -1,10 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
-import ch.uzh.ifi.hase.soprafs23.constant.CamelColors;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,6 +10,10 @@ public class LobbyGetDTO {
     private Long roundNumber;
     private Long maxSteps;
     private List<Long> userIds;
+
+    public LobbyGetDTO() {
+        this.userIds = new ArrayList<>();
+    }
 
     public Long getId() {
         return this.id;
