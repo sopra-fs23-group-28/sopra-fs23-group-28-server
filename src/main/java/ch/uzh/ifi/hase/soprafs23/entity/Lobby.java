@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Lobby{
 
     @Column
     @ElementCollection
-    private List<Long> userIds;
+    private List<Long> userIds = new ArrayList<>();
 
 
     public Long getId() {
