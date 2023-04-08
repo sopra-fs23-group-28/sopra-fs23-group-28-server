@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -88,4 +89,19 @@ class LobbyServiceTest {
 
         assertEquals(testLobby.getMaxSteps(), maxSteps);
     }
+
+    @Test
+    void validateTest() {
+        // create a new user
+        User tuser = new User();
+        tuser.setId(2L);
+
+        // try to validate user with non-matching creatorId
+        assertThrows(ResponseStatusException.class, () -> {
+            Lobby lobby = new Lobby();
+            lobby.setCreatorId(1L);
+            LobbyService.validate(lobby, tuser);
+        }, "Not authenticated!");
+    }
+
 }
