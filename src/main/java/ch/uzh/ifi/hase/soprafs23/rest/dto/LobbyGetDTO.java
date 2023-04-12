@@ -1,7 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LobbyGetDTO {

@@ -3,8 +3,6 @@ package ch.uzh.ifi.hase.soprafs23.service;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
-import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
-import org.hibernate.annotations.common.util.impl.Log_$logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -43,6 +41,7 @@ class LobbyServiceTest {
 
         // Mocking LobbyRepository
         Mockito.when(LobbyRepository.findById(Mockito.any())).thenReturn(Optional.ofNullable(testLobby));
+        Mockito.when(LobbyRepository.save(Mockito.any())).thenReturn(testLobby);
 
     }
 
