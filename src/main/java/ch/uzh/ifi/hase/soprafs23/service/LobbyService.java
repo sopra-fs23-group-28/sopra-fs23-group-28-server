@@ -44,6 +44,9 @@ public class LobbyService {
         user.setGameCreator(true);
         lobby.addUserId(user.getId());
 
+        //save lobby
+        lobbyRepository.flush();
+
         return lobby;
     }
 

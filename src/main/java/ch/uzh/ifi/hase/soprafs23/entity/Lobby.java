@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class Lobby{
     @ElementCollection
     private List<Long> userIds;
 
+    public Lobby() {
+        this.userIds = new ArrayList<>();
+    }
 
     public Long getId() {
         return this.id;
@@ -56,7 +60,6 @@ public class Lobby{
         this.maxSteps = maxSteps;
     }
 
-    public List<Long> getUserIds() {return Collections.unmodifiableList(userIds);}
-
+    public List<Long> getUserIds() {return new ArrayList<>(userIds);} //unmodifiableCollection is not okay, DTOMapper can't comprehend unmodifiableCollection
     public void addUserId(Long userId){this.userIds.add(userId);}
 }
