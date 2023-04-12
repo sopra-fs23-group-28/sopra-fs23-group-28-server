@@ -33,7 +33,12 @@ Endpoints (POST createUser, PUT setCamelColor, GET getAllUsers), updated REST sp
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/26
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/28
 
-* *07.04.2023, Friday:* People: Harris. Description: wrote two Tests for Issue 14, started test for Issue 19 but failed.
-tried several approaches that might have been missing (saving lobby, initializing empty List instead of null object)
+* *07.04.2023, Friday:* People: Harris. Description: wrote two Tests for Issue 14
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/14
-    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/19
+
+* *08.04.2023, Saturday:* People: Elia. Description: wrote two Tests for Issue 28 and Issue 21
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/28
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/21
+
+* *08.04.2023, Saturday:* People: Samuel. Description: wrote one Tests for Issue 25
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/25

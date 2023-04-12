@@ -24,7 +24,7 @@ public class Lobby{
 
     @Column
     @ElementCollection
-    private List<Long> userIds;
+    private List<Long> userIds = new ArrayList<>();
 
     public Lobby() {
         this.userIds = new ArrayList<>();
