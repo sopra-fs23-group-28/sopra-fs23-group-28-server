@@ -49,7 +49,7 @@ public class LobbyController {
      * PUT /lobbies/{id}/join
      * the RequestBody consist only of a User token. This is why the userPostDTO is being used.
      **/
-    @PutMapping("/lobbies/{lobbyId}/join")
+    @PutMapping("/lobbies/{lobbyId}/users")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void joinLobby(@PathVariable Long lobbyId, @RequestBody UserPostDTO userPostDTO){
         //fetch user
@@ -80,7 +80,7 @@ public class LobbyController {
      /**
      * START THE GAME
      **/
-    @PutMapping("/lobbies/{lobbyId}/start")
+    @PutMapping("/lobbies/{lobbyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void startGame(@PathVariable Long lobbyId, @RequestBody startPostDTO startPostDTO){
         //fetch user

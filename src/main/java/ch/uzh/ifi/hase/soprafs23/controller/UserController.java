@@ -44,7 +44,7 @@ public class UserController {
       return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(createdUser);
   }
 
-  @PutMapping("/users/{userId}/camelColor")
+  @PutMapping("/users/{userId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public UserGetDTO setCamelColor(@PathVariable Long userId, @RequestBody String camelColor) {
@@ -69,4 +69,14 @@ public class UserController {
       }
       return userGetDTOs;
   }
+
+    @DeleteMapping ("/users")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable UserPostDTO userPostDTO) {
+
+      User user = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
+      userService.deleteUser(user);
+    }
+
+
 }

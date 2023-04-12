@@ -45,6 +45,7 @@ tried several approaches that might have been missing (saving lobby, initializin
 * *08.04.2023, Saturday:* People: Samuel. Description: wrote one Tests for Issue 25
   * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/25
 
-* *12.04.2023, Wednesday:* People: Samuel, Elia, Harris. Description: fixed Test for Issue 19
+* *12.04.2023, Wednesday:* People: Samuel, Elia, Harris. Description: fixed Test for Issue 19, created delete mapping
+for user and renamed endpoints.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/19
 

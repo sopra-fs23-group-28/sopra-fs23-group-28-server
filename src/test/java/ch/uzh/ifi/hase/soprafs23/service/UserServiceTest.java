@@ -60,4 +60,6 @@ class UserServiceTest {
 
         assertEquals(UserWithCamel.getCamelColor(), CamelColors.BLUE);
     }
+
+
 }
