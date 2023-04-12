@@ -30,7 +30,7 @@ class LobbyControllerTest {
     @MockBean
     private UserService userService;
 
-    /*
+
     @Test
     void createLobbyAndGetPin() throws Exception {
 
@@ -57,5 +57,5 @@ class LobbyControllerTest {
                 .content("{\"token\": \"123\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", allOf(greaterThanOrEqualTo(1000), lessThanOrEqualTo(9999))));
-    }*/
+    }
 }

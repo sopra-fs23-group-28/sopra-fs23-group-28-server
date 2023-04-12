@@ -45,7 +45,7 @@ public class LobbyGetDTO {
         this.maxSteps = maxSteps;
     }
 
-    public List<Long> getUserIds() {return Collections.unmodifiableList(userIds);}
+    public List<Long> getUserIds() {return new ArrayList<>(userIds);}
 
     public void addUserId(Long playerId){this.userIds.add(playerId);}
 }

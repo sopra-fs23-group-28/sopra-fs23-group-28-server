@@ -45,6 +45,7 @@ public class LobbyService {
         lobby.addUserId(user.getId());
 
         //save lobby
+        lobby = lobbyRepository.save(lobby);
         lobbyRepository.flush();
 
         return lobby;
