@@ -39,3 +39,6 @@ Endpoints (POST createUser, PUT setCamelColor, GET getAllUsers), updated REST sp
 * *08.04.2023, Saturday:* People: Elia. Description: wrote two Tests for Issue 28 and Issue 21
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/28
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/21
+
+* *08.04.2023, Saturday:* People: Samuel. Description: wrote one Tests for Issue 25
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/25
