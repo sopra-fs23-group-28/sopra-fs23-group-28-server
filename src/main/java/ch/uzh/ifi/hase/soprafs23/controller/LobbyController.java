@@ -41,7 +41,6 @@ public class LobbyController {
         //create lobby
         Lobby lobby = lobbyService.createLobby(user);
 
-
         return DTOMapper.INSTANCE.convertLobbyEntityToLobbyGetDTO(lobby);
     }
 
@@ -61,6 +60,7 @@ public class LobbyController {
 
         //join lobby
         lobbyService.joinLobby(lobby, user);
+        //TODO send message to socket.io endpoint NEWUSER
     }
 
      /**

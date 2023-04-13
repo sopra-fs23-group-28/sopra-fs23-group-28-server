@@ -10,16 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @Transactional
 public class LobbyService {
     private final UserService userService;
     private final LobbyRepository lobbyRepository;
+
     @Autowired
     public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
         this.userService = userService;
@@ -27,11 +25,11 @@ public class LobbyService {
     }
 
     /**
-     *      LobbyService Methods
+     * LobbyService Methods
      */
 
     //create a lobby
-    public Lobby createLobby(User user){
+    public Lobby createLobby(User user) {
         Lobby lobby = new Lobby();
 
         //generate Id
@@ -52,12 +50,25 @@ public class LobbyService {
     }
 
     //fetches lobby from repository
-    public Lobby getLobby(Long id){
+    public Lobby getLobby(Long id) {
         Optional<Lobby> OPlobby = lobbyRepository.findById(id);
         Lobby lobby = OPlobby.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "Lobby not found"));
         return lobby;
     }
+
+    //checks if given token of a user exists in a given lobby
+    public void isUserTokenInLobby(String token, Lobby lobby) {
+        List<User> users = getUsersFromLobby(lobby.getId());
+
+        for (User user2 : users) {
+            if (user2.getToken().equals(token)) {
+                return;
+            }
+        }
+        throw new IllegalCallerException();
+    }
+
 
     //lets a user join a lobby
     public void joinLobby(Lobby lobby, User user) {

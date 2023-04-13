@@ -24,11 +24,13 @@ public class SocketService {
     }
 
      */
+    public void sendMessage(String eventName, SocketIOClient client, String message) {
+        client.sendEvent(eventName, new Message(MessageType.SERVER, message));
+    }
 
-    public void sendMessage(String room, String eventName, SocketIOClient senderClient, String message) {
+    public void sendMessageToRoom(String room, String eventName, SocketIOClient senderClient, String message) {
 
-        for (
-                SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) {
+        for (SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) { //go through all clients
             log.info(String.valueOf(client.getNamespace()));
             log.info(client.getNamespace().getRoomOperations(room).toString());
             log.info(senderClient.getNamespace().getRoomOperations(room).getClients().toString());
