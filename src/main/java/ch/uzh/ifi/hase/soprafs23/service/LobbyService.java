@@ -106,8 +106,16 @@ public class LobbyService {
     }
 
     //authenticate that request is from creator
-    public void validate(Lobby lobby, User user){
-        if(lobby.getCreatorId() != user.getId()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+    public void validate(Lobby lobby, User user) {
+        if (lobby.getCreatorId() != user.getId()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "Not authenticated!");
     }
+
+    public boolean isLobbyReady(Long id){
+        for(User u : getUsersFromLobby(id)){
+            if (!u.getIsReady())return false;
+        }
+        return true;
+    }
+
 }

@@ -100,8 +100,6 @@ public class LobbyController {
         //set maxSteps
         lobbyService.setMaxSteps(maxSteps, lobby);
 
-        //start the Game
-        //TODO: Will sockets do this?
 
     }
 }

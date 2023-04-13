@@ -34,6 +34,9 @@ public class User implements Serializable {
   @Column()
   private boolean gameCreator;
 
+  @Column()
+  private boolean isReady;
+
   public Long getId() {
     return id;
   }
@@ -58,5 +61,9 @@ public class User implements Serializable {
   public void setStepState(Long stepState) {this.stepState = stepState;}
   public void setGameCreator(boolean gameCreator){this.gameCreator = gameCreator;}
   public boolean getGameCreator(){return this.gameCreator;}
+  public boolean getIsReady(){return this.isReady;}
+  public void setIsReady(boolean isReady){this.isReady = isReady;}
+
+
 
 }

@@ -22,6 +22,7 @@ public class Lobby{
     @Column
     private Long maxSteps;
 
+
     @Column
     @ElementCollection
     private List<Long> userIds = new ArrayList<>();

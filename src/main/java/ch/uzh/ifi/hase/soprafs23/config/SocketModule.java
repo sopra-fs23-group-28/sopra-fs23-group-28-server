@@ -32,10 +32,11 @@ public class SocketModule {
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("send_message", Message.class, onChatReceived());
-        server.addEventListener("LETSSTART", Message.class, onLetsstartReceived());
+        server.addEventListener("GAMESTART", Message.class, onGamestartReceived());
+        server.addEventListener("READY", Message.class, onReadyReceived());
     }
 
-    private DataListener<Message> onLetsstartReceived(){
+    private DataListener<Message> onGamestartReceived(){
         return (senderClient, data, ackSender) -> {
             //if Lobby was not initiated for the start yet, send back an error message. We check if maxSteps was set or not
             if (lobbyService.getLobby(Long.valueOf(data.getRoom())).getMaxSteps() == null) {
@@ -44,6 +45,18 @@ public class SocketModule {
             else {
                 //if successful, send message to room that the Game can be started
                 socketService.sendMessageToRoom(data.getRoom(), "GAMESTART", senderClient, "GAMESTART");
+            }
+        };
+    }
+    private DataListener<Message> onReadyReceived(){
+        return (senderClient, data, ackSender) -> {
+            //if Lobby was not initiated for the start yet, send back an error message. We check if maxSteps was set or not
+            if (lobbyService.isLobbyReady(Long.valueOf(data.getRoom()))) {
+                socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "ALLREADY");
+            }
+            else {
+                //if successful, send message to room that the Game can be started
+                socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "NOTREADYYET");
             }
         };
     }
