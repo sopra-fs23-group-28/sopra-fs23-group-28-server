@@ -32,7 +32,10 @@ public class SocketModule {
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("send_message", Message.class, onChatReceived());
+        //server.addEventListener("LETSSTART", Message.class, onLetsstartReceived());
     }
+
+    //private onLetsstartReceived
 
     private DataListener<Message> onChatReceived() {
         return (senderClient, data, ackSender) -> {

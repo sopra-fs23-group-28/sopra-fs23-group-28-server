@@ -72,8 +72,7 @@ public class UserController {
 
     @DeleteMapping ("/users")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable UserPostDTO userPostDTO) {
-
+    public void deleteUser(@RequestBody UserPostDTO userPostDTO) {
       User user = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
       userService.deleteUser(user);
     }

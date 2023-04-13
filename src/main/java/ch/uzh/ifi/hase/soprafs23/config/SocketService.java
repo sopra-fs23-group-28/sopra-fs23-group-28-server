@@ -9,21 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SocketService {
     private static final Logger log = LoggerFactory.getLogger(SocketModule.class);
-    /*
-    public void sendMessage(String room, String eventName, SocketIOClient senderClient, String message) {
 
-        for (
-                SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) {
-            log.info("vor if: " + client.getSessionId());
-            if (!client.getSessionId().equals(senderClient.getSessionId())) {
-                log.info(senderClient.toString());
-                client.sendEvent(eventName,
-                        new Message(MessageType.SERVER, message));
-            }
-        }
-    }
-
-     */
     public void sendMessage(String eventName, SocketIOClient client, String message) {
         client.sendEvent(eventName, new Message(MessageType.SERVER, message));
     }
