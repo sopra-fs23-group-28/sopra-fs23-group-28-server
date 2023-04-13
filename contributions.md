@@ -48,4 +48,13 @@ tried several approaches that might have been missing (saving lobby, initializin
 * *12.04.2023, Wednesday:* People: Samuel, Elia, Harris. Description: fixed Test for Issue 19, created delete mapping
 for user and renamed endpoints. Started with socket.io 
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/19
+
+* *12.04.2023, Thursday:* People: Samuel, Elia, Harris, Cédric. Description: finished socketIO configuration -> able to
+start Server
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/32
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/36
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/38
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39
     

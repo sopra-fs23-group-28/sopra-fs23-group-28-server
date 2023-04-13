@@ -40,6 +40,8 @@ public class LobbyController {
 
         //create lobby
         Lobby lobby = lobbyService.createLobby(user);
+
+
         return DTOMapper.INSTANCE.convertLobbyEntityToLobbyGetDTO(lobby);
     }
 
