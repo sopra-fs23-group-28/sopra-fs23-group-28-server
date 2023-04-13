@@ -4,6 +4,7 @@ public class UserPostDTO {
   private String username;
 
   private String token;
+  private String camelColor;
 
   public String getUsername() {
     return username;
@@ -18,4 +19,7 @@ public class UserPostDTO {
   public void setToken(String token) {
         this.token = token;
     }
+  public void setCamelColor(String camelColor){this.camelColor = camelColor;}
+  public String getCamelColor(){return camelColor;}
+
 }

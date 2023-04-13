@@ -56,8 +56,13 @@ public class UserService {
 
       //update camelColor
       try {
+          System.out.println(color);
+          System.out.println(id);
+          System.out.println(user.getUsername());
+          System.out.println(user.getId());
           CamelColors camelColor = CamelColors.valueOf(color.toUpperCase());
           user.setCamelColor(camelColor);
+          System.out.println(user.getUsername());
       } catch(Exception e) {
           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid color");
       }

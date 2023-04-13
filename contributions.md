@@ -65,7 +65,7 @@ start Server
 * *12.04.2023, Thursday:* People: Samuel, Elia, Harris. Description: started with the socketIO connection and its user authentication. As the user
 joins, a message is being sent to all Users. GameMaster receives notification about game is ready to start. updating SocketIO specifications.
 Lobbyservice updated with regard to user entity changes for lobby ready management. 
-All Clients receive message as the game was started.
+All Clients receive message as the game was started. Socket/endpoints tests with postman and minor fixes in lobbyController/socketmodule
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/32
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35

@@ -94,9 +94,8 @@ public class LobbyService {
         List<Long> ids = lobby.getUserIds();
         List<User> users = new ArrayList<>();
         for(Long Id : ids){
-            users.add(userService.getUserById(id));
+            users.add(userService.getUserById(Id));
         }
-
         return users;
     }
 

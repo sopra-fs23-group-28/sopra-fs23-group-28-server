@@ -82,6 +82,7 @@ public class SocketModule {
                     Lobby lobby = lobbyService.getLobby(parseLong(room));
 
                     //is this user approved to join?
+
                     lobbyService.isUserTokenInLobby(token, lobby);
 
                     //send message to whole room about a new user having joined
@@ -89,7 +90,9 @@ public class SocketModule {
 
                     //join the socketIO room
                     client.joinRoom(room);
+
                     socketService.sendMessage("JOIN", client, "JOINEDROOM");
+
 
                     //check if lobby is full, if yes, send Message to room that round can be started
                     if (lobbyService.getUsersFromLobby(lobby.getId()).size() == 4) {
@@ -103,6 +106,8 @@ public class SocketModule {
                     log.info("disconnected bc user is not in lobby");
                 }
                 catch(Exception e) {
+                    System.out.println(e.getStackTrace());
+                    e.printStackTrace();
                     socketService.sendMessage("JOIN", client, "WRONGPIN");
                     client.disconnect();
                     log.info("disconnected bc of wrong PIN");
