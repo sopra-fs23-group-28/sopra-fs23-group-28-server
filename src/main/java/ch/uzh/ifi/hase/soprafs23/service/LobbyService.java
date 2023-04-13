@@ -62,6 +62,8 @@ public class LobbyService {
     //lets a user join a lobby
     public void joinLobby(Lobby lobby, User user) {
         List<User> users = getUsersFromLobby(lobby.getId());
+        if(users.size() >= 4) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Lobby is full!");
 
         //check if username already taken
         for (User userToBeChecked : users) {
