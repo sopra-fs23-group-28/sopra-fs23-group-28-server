@@ -47,6 +47,7 @@ public class SocketModule {
             //fetch room from URL parameter
             String room = client.getHandshakeData().getSingleUrlParam("room");
             String token = client.getHandshakeData().getSingleUrlParam("token");
+
                 //try to get the Lobby with this specific room PIN - if it does not exist, an error is being raised and caught.
                 try {
                     log.info("Socket ID[{}]  Client tries to connect...", client.getSessionId().toString());
@@ -60,10 +61,15 @@ public class SocketModule {
                     //send message to whole room about a new user having joined
                     socketService.sendMessageToRoom(room,"NEWUSER",client,"ANEWUSERJOINED");
 
+                    //join the socketIO room
                     client.joinRoom(room);
                     socketService.sendMessage("JOIN", client, "JOINEDROOM");
 
-                    log.info("Socket ID[{}]  successfully connected", client.getSessionId().toString());
+                    //check if lobby is full, if yes, send Message to room that round can be started
+                    if (lobbyService.getUsersFromLobby(lobby.getId()).size() == 4) {
+                        socketService.sendMessageToRoom(room,"GAMEMASTER",client,"LOBBYISFULL");
+                    }
+
                 }
                 catch(IllegalCallerException ice){
                     socketService.sendMessage("JOIN", client, "USERNOTINLOBBY");
@@ -75,6 +81,7 @@ public class SocketModule {
                     client.disconnect();
                     log.info("disconnected bc of wrong PIN");
                 }
+
         };
     }
 
