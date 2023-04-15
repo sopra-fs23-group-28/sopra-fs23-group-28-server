@@ -7,7 +7,6 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
-import io.netty.channel.unix.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -50,12 +49,14 @@ public class SocketModule {
     }
     private DataListener<Message> onReadyReceived(){
         return (senderClient, data, ackSender) -> {
-            //if Lobby was not initiated for the start yet, send back an error message. We check if maxSteps was set or not
+            //we check if each user in the lobby is ready (has sent something to the READY listener).
+            // if yes, send out GETCATEGORY
             if (lobbyService.isLobbyReady(Long.valueOf(data.getRoom()))) {
-                socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "ALLREADY");
+                lobbyService.createRound(Long.valueOf(data.getRoom()));
+                socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "GETCATEGORY");
             }
             else {
-                //if successful, send message to room that the Game can be started
+                //if not, send out NOTREADYYET
                 socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "NOTREADYYET");
             }
         };
@@ -100,17 +101,12 @@ public class SocketModule {
                     }
 
                 }
-                catch(IllegalCallerException ice){
-                    socketService.sendMessage("JOIN", client, "USERNOTINLOBBY");
-                    client.disconnect();
-                    log.info("disconnected bc user is not in lobby");
-                }
-                catch(Exception e) {
+                catch(ResponseStatusException e) {
                     System.out.println(e.getStackTrace());
                     e.printStackTrace();
-                    socketService.sendMessage("JOIN", client, "WRONGPIN");
+                    socketService.sendMessage("JOIN", client, "AUTHFAIL");
                     client.disconnect();
-                    log.info("disconnected bc of wrong PIN");
+                    log.info("disconnected bc of wrong PIN or bc user is not in lobby");
                 }
 
         };

@@ -1,12 +1,11 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.startPostDTO;
-import org.mapstruct.*;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -49,7 +48,12 @@ public interface DTOMapper {
   @Mapping(source = "userIds", target = "userIds")
   LobbyGetDTO convertLobbyEntityToLobbyGetDTO(Lobby lobby);
 
-  // because the playerIds in the User entity consist of a List of users, its mapping needs to be defined separately.
+  @Mapping(source = "categories", target = "categories")
+  @Mapping(source = "chosenCategory", target = "chosenCategory")
+  @Mapping(source = "currentQuestions", target = "currentQuestions")
+  RoundGetDTO convertRoundEntityToRoundGetDTO(Round round);
+
+    // because the playerIds in the User entity consist of a List of users, its mapping needs to be defined separately.
   default List<Long> mapPlayerIds(List<User> users) {
       return users.stream()
               .map(User::getId)

@@ -1,14 +1,15 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
 @Table(name = "LOBBY")
 public class Lobby{
+
+    @OneToOne(mappedBy = "Round", cascade = CascadeType.ALL) //1. mapping, 2. if Lobby gets saved, round gets saved too
+    private Round round;
 
     @Id
     private Long id;
@@ -64,4 +65,12 @@ public class Lobby{
 
     public List<Long> getUserIds() {return new ArrayList<>(userIds);} //unmodifiableCollection is not okay, DTOMapper can't comprehend unmodifiableCollection
     public void addUserId(Long userId){this.userIds.add(userId);}
+
+    public Round getRound() {
+        return round;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
 }

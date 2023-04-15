@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -72,8 +71,12 @@ public class UserService {
 
   //two methods for finding users
   public User getUserByToken(String token){
-      return userRepository.findByToken(token);
+      User user = userRepository.findByToken(token);
+      if (user == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+              "User not found");
+      else return user;
   }
+
   public User getUserById(Long id){
       //fetch user
       Optional<User> OPUser = userRepository.findById(id);

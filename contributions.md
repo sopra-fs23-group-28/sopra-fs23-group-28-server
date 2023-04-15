@@ -73,4 +73,11 @@ All Clients receive message as the game was started. Socket/endpoints tests with
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/38
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39
 
-* *15.04.2023, Saturday:* People: Samuel, Elia, Harris. Description: return something with the CamelColor PUT request.
+* *15.04.2023, Saturday:* People: Samuel, Elia, Harris. Description: return something with the CamelColor PUT request. Create Round entity, DTOMapping,
+create Endpoints to retrieve question incl. authentication
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/32
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/36
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/38
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39

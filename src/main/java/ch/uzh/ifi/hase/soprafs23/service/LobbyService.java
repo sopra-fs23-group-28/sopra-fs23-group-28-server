@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,6 @@ public class LobbyService {
 
         //save lobby
         lobby = lobbyRepository.save(lobby);
-        lobbyRepository.flush();
 
         return lobby;
     }
@@ -66,7 +67,7 @@ public class LobbyService {
                 return;
             }
         }
-        throw new IllegalCallerException();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
 
@@ -83,6 +84,7 @@ public class LobbyService {
                         "Name already taken!");
         }
         lobby.addUserId(user.getId());
+        lobbyRepository.save(lobby);
     }
 
     //get all users from a lobby
@@ -102,6 +104,7 @@ public class LobbyService {
     //sets the maximum steps for a game
     public void setMaxSteps(Long steps, Lobby lobby){
         lobby.setMaxSteps(steps);
+        lobbyRepository.save(lobby);
     }
 
     //authenticate that request is from creator
@@ -117,4 +120,31 @@ public class LobbyService {
         return true;
     }
 
+/**
+ *
+ *  all round-related methods
+ *
+ * */
+
+    public void createRound(Long id) {
+        Lobby lobby = getLobby(id);
+        Round round = new Round();
+
+        //map round and lobby
+        lobby.setRound(round);
+        round.setLobby(lobby);
+
+        //fetch 4 random questions
+        round.setCategories(generateCategories());
+
+        lobbyRepository.save(lobby);
+    }
+
+    private List<Categories> generateCategories() {
+        //get Enums in an Array, shuffle it, get the first 4
+        List<Categories> enumList = new ArrayList<Categories>(Arrays.asList(Categories.values()));
+        Collections.shuffle(enumList);
+        List<Categories> randomEnums = enumList.subList(0, 4);
+        return randomEnums;
+    }
 }
