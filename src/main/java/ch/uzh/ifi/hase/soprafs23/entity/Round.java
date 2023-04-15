@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "ROUND")
 public class Round{
 
-    @OneToOne(mappedBy = "Lobby")
+    @OneToOne
+    @JoinColumn(name = "id")
     private Lobby lobby;
 
     @Id

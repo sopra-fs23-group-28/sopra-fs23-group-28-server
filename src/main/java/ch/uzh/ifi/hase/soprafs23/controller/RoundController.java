@@ -26,12 +26,12 @@ public class RoundController {
      * GET /lobbies/{id}/categories
      * get 4 possible categories to choose from
      **/
-    @GetMapping("/lobbies/{lobbyId}/categories")
+    @GetMapping("/lobbies/{lobbyId}/roundinfo")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public RoundGetDTO getCategories(@PathVariable Long lobbyId, @RequestBody UserPostDTO userPostDTO) {
         //authentication
-        lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
+        // TODO lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
 
         //fetch & return the round
         Lobby lobby = lobbyService.getLobby(lobbyId);
@@ -47,7 +47,8 @@ public class RoundController {
     @ResponseBody
     public void receiveCategoryAnswers(@PathVariable Long lobbyId, @PathVariable int categoryId, @RequestBody UserPostDTO userPostDTO) {
         //authentication
-        lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
+        // TODO lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
+
         if (categoryId < 1 || categoryId > 4) {throw new ResponseStatusException(HttpStatus.BAD_REQUEST);}
 
         //fetch round
@@ -56,9 +57,12 @@ public class RoundController {
         //in the Pathvariable, we get 1-4 as the chosen category, this is how we get which Category enum was meant with that.
         Categories category = round.getCategories().get(categoryId-1);
 
-        //TODO check if all categories were set
-
         //add Category enum to Category votes
         round.addCategoryVotes(category);
+
+        //if all votes have been taken the timer can be aborted
+        if(round.getCategoryVotes().size() == 4){
+          lobbyService.chooseCategory(lobbyId);
+        }
     }
 }

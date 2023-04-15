@@ -37,13 +37,14 @@ public class SocketModule {
 
     private DataListener<Message> onGamestartReceived(){
         return (senderClient, data, ackSender) -> {
+            //TODO get room id from url param, spec update
             //if Lobby was not initiated for the start yet, send back an error message. We check if maxSteps was set or not
             if (lobbyService.getLobby(Long.valueOf(data.getRoom())).getMaxSteps() == null) {
                 socketService.sendMessage("GAMESTART", senderClient, "NOSTART");
             }
             else {
                 //if successful, send message to room that the Game can be started
-                socketService.sendMessageToRoom(data.getRoom(), "GAMESTART", senderClient, "GAMESTART");
+                socketService.sendMessageToRoom(data.getRoom(), "GAMESTART", "GAMESTART");
             }
         };
     }
@@ -56,12 +57,12 @@ public class SocketModule {
 
             if (lobbyService.isLobbyReady(lobbyId)) {
                 lobbyService.createRound(lobbyId);
-                socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "GETCATEGORY");
+                socketService.sendMessageToRoom(data.getRoom(), "READY", "GETCATEGORY");
                 lobbyService.startCategoryVote(lobbyId);
             }
             else {
                 //if not, send out NOTREADYYET
-                socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "NOTREADYYET");
+                socketService.sendMessageToRoom(data.getRoom(), "READY", "NOTREADYYET");
             }
         };
     }
@@ -69,7 +70,7 @@ public class SocketModule {
     private DataListener<Message> onChatReceived() {
         return (senderClient, data, ackSender) -> {
             log.info(data.toString());
-            socketService.sendMessageToRoom(data.getRoom(),"get_message", senderClient, data.getMessage());
+            socketService.sendMessageToRoom(data.getRoom(),"get_message", data.getMessage());
         };
     }
 
@@ -91,7 +92,7 @@ public class SocketModule {
                     lobbyService.isUserTokenInLobby(token, lobby);
 
                     //send message to whole room about a new user having joined
-                    socketService.sendMessageToRoom(room,"NEWUSER",client,"ANEWUSERJOINED");
+                    socketService.sendMessageToRoom(room,"NEWUSER","ANEWUSERJOINED");
 
                     //join the socketIO room
                     client.joinRoom(room);
@@ -101,7 +102,7 @@ public class SocketModule {
 
                     //check if lobby is full, if yes, send Message to room that round can be started
                     if (lobbyService.getUsersFromLobby(lobby.getId()).size() == 4) {
-                        socketService.sendMessageToRoom(room,"GAMEMASTER",client,"LOBBYISFULL");
+                        socketService.sendMessageToRoom(room,"GAMEMASTER","LOBBYISFULL");
                     }
 
                 }
@@ -121,5 +122,7 @@ public class SocketModule {
             log.info("Client[{}] - Disconnected from socket", client.getSessionId().toString());
         };
     }
+
+
 
 }

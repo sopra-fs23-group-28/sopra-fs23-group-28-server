@@ -7,8 +7,8 @@ import java.util.List;
 @Entity
 @Table(name = "LOBBY")
 public class Lobby{
-
-    @OneToOne(mappedBy = "Round", cascade = CascadeType.ALL) //1. mapping, 2. if Lobby gets saved, round gets saved too
+    //1. mapping, 2. if Lobby gets saved, round gets saved too
+    @OneToOne(mappedBy = "lobby", cascade = CascadeType.ALL)
     private Round round;
 
     @Id

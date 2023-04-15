@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
+import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
@@ -21,12 +23,14 @@ public class LobbyService {
     private final LobbyRepository lobbyRepository;
 
     private final TimerService timerService;
+    private final SocketService socketService;
 
     @Autowired
-    public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository, TimerService timerService) {
+    public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository, TimerService timerService, SocketService socketService) {
         this.userService = userService;
         this.lobbyRepository = lobbyRepository;
         this.timerService = timerService;
+        this.socketService = socketService;
     }
 
     /**
@@ -112,7 +116,7 @@ public class LobbyService {
 
     //authenticate that request is from creator
     public void validate(Lobby lobby, User user) {
-        if (lobby.getCreatorId() != user.getId()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+        if (!lobby.getCreatorId().equals(user.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "Not authenticated!");
     }
 
@@ -166,9 +170,46 @@ public class LobbyService {
 
         //fetch Array with Category votes
         List<Categories> categoryVotes = round.getCategoryVotes();
+        List<Categories> categories = round.getCategories();
 
+        //Call helper method to find which category got the most votes
+        Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
+        round.setChosenCategory(chosenCategory);
 
-
+        socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
         return null;
     }
+
+  private Categories getCategoryWithMostVotes(List<Categories> categories, List<Categories> categoryVotes){
+      Random random = new Random();
+
+      //setup Hash Map with empty values
+      Map<Categories, Integer> voteCounts = new HashMap<>();
+      for (Categories category : categories) {
+          voteCounts.put(category, 0);
+      }
+
+      // Count the votes for each category
+      for (Categories vote : categoryVotes) {
+          voteCounts.put(vote, voteCounts.get(vote) + 1);
+      }
+
+      // Find the category with the most votes
+      Categories mostVotedCategory = null;
+      //init with -1 in case no votes were taken
+      int maxVotes = -1;
+      for (Map.Entry<Categories, Integer> entry : voteCounts.entrySet()) {
+          if (entry.getValue() > maxVotes) {
+              maxVotes = entry.getValue();
+              mostVotedCategory = entry.getKey();
+          }
+          //if two categories have the same number votes there is a 50/50 chance which category is going to be taken
+          else if (entry.getValue() == maxVotes) {
+              if(random.nextInt(2) == 1){
+                  mostVotedCategory = entry.getKey();
+              }
+          }
+      }
+      return mostVotedCategory;
+  }
 }
