@@ -45,11 +45,12 @@ public class UserController {
   }
 
   @PutMapping("/users/{userId}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public void setCamelColor(@PathVariable Long userId, @RequestBody UserPostDTO userPostDTO) {
+  public UserGetDTO setCamelColor(@PathVariable Long userId, @RequestBody UserPostDTO userPostDTO) {
       //update color
       User updatedUser = userService.setCamelColor(userId, userPostDTO.getCamelColor());
+      return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(updatedUser);
 
   }
 
