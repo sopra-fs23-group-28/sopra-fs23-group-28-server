@@ -21,6 +21,10 @@ public class Round{
     private List<Categories> categories = new ArrayList<>();
 
     @Column
+    @ElementCollection
+    private List<Categories> categoryVotes = new ArrayList<>();
+
+    @Column
     private Categories chosenCategory;
 
     @Column
@@ -47,8 +51,8 @@ public class Round{
         return chosenCategory;
     }
 
-    public void setChosenCategory(Categories choosenCategory) {
-        this.chosenCategory = choosenCategory;
+    public void setChosenCategory(Categories chosenCategory) {
+        this.chosenCategory = chosenCategory;
     }
 
     public List<String> getCurrentQuestions() {
@@ -66,4 +70,17 @@ public class Round{
     public void setLobby(Lobby lobby) {
         this.lobby = lobby;
     }
+
+    public List<Categories> getCategoryVotes() {
+        return new ArrayList<Categories>(categoryVotes);
+    }
+
+    public void addCategoryVotes(Categories category) {
+        this.categoryVotes.add(category);
+    }
+
+    public void resetCategoryVotes(Categories category) {
+        this.categoryVotes = new ArrayList<Categories>();
+    }
+
 }

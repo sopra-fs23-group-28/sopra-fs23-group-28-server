@@ -51,9 +51,13 @@ public class SocketModule {
         return (senderClient, data, ackSender) -> {
             //we check if each user in the lobby is ready (has sent something to the READY listener).
             // if yes, send out GETCATEGORY
-            if (lobbyService.isLobbyReady(Long.valueOf(data.getRoom()))) {
-                lobbyService.createRound(Long.valueOf(data.getRoom()));
+
+            Long lobbyId = Long.valueOf(data.getRoom());
+
+            if (lobbyService.isLobbyReady(lobbyId)) {
+                lobbyService.createRound(lobbyId);
                 socketService.sendMessageToRoom(data.getRoom(), "READY", senderClient, "GETCATEGORY");
+                lobbyService.startCategoryVote(lobbyId);
             }
             else {
                 //if not, send out NOTREADYYET

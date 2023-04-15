@@ -20,10 +20,13 @@ public class LobbyService {
     private final UserService userService;
     private final LobbyRepository lobbyRepository;
 
+    private final TimerService timerService;
+
     @Autowired
-    public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
+    public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository, TimerService timerService) {
         this.userService = userService;
         this.lobbyRepository = lobbyRepository;
+        this.timerService = timerService;
     }
 
     /**
@@ -144,7 +147,28 @@ public class LobbyService {
         //get Enums in an Array, shuffle it, get the first 4
         List<Categories> enumList = new ArrayList<Categories>(Arrays.asList(Categories.values()));
         Collections.shuffle(enumList);
-        List<Categories> randomEnums = enumList.subList(0, 4);
+        List<Categories> randomEnums = enumList.subList(0, 3);
         return randomEnums;
+    }
+
+    public void startCategoryVote(Long lobbyId) {
+        timerService.startTimer(chooseCategory(lobbyId),6);
+    }
+
+    public Runnable chooseCategory(Long lobbyId){
+
+        //stop timer in case method did not get started by timer, but got started as every player put in their category input
+        timerService.stopTimer();
+        System.out.println("choose Category method started, LobbyID: " + lobbyId);
+
+        //fetch lobby
+        Round round = getLobby(lobbyId).getRound();
+
+        //fetch Array with Category votes
+        List<Categories> categoryVotes = round.getCategoryVotes();
+
+
+
+        return null;
     }
 }
