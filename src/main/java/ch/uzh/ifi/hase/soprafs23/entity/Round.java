@@ -17,6 +17,8 @@ public class Round{
 
     @Id
     private Long id;
+
+
     @Column
     @ElementCollection
     private List<Categories> categories = new ArrayList<>();
@@ -41,7 +43,7 @@ public class Round{
     }
 
     public List<Categories> getCategories() {
-        return new ArrayList<>(categories);
+        return this.categories;
     }
 
     public void setCategories(List<Categories> categories) {
@@ -57,7 +59,7 @@ public class Round{
     }
 
     public List<String> getCurrentQuestions() {
-        return new ArrayList<>(currentQuestions);
+        return this.currentQuestions;
     }
 
     public void setCurrentQuestions(List<String> currentQuestions) {
@@ -73,7 +75,7 @@ public class Round{
     }
 
     public List<Categories> getCategoryVotes() {
-        return new ArrayList<Categories>(categoryVotes);
+        return this.categoryVotes;
     }
 
     public void addCategoryVotes(Categories category) {

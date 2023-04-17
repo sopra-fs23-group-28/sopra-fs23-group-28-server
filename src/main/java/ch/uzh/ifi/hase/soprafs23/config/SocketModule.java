@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.config;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -55,8 +56,8 @@ public class SocketModule {
 
             Long lobbyId = Long.valueOf(data.getRoom());
             String token = senderClient.getHandshakeData().getSingleUrlParam("token");
-            userService.getUserByToken(token).setIsReady(true);
-            System.out.println(userService.getUserByToken(token));
+            User user = userService.getUserByToken(token);
+            userService.userIsReady(user.getId());
 
             if (lobbyService.isLobbyReady(lobbyId)) {
                 lobbyService.createRound(lobbyId);

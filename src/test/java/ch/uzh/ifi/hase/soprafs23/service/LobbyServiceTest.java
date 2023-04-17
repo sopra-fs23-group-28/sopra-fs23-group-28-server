@@ -103,4 +103,9 @@ class LobbyServiceTest {
         }, "Not authenticated!");
     }
 
+    @Test
+    void debugger() {
+        LobbyService.startCategoryVote(9767L);
+    }
+
 }

@@ -122,8 +122,8 @@ public class LobbyService {
 
     public boolean isLobbyReady(Long id){
         for(User u : getUsersFromLobby(id)){
-            System.out.println(u.getIsReady());
-            if (!u.getIsReady())return false;
+            System.out.println("User "+ u.getUsername() + " is " + u.getIsReady());
+            if (!u.getIsReady()) return false;
         }
         return true;
     }
@@ -145,14 +145,18 @@ public class LobbyService {
         //fetch 4 random questions
         round.setCategories(generateCategories());
 
+        //set round id since it is a primary key
+        round.setId(id);
+
         lobbyRepository.save(lobby);
+
     }
 
     private List<Categories> generateCategories() {
         //get Enums in an Array, shuffle it, get the first 4
         List<Categories> enumList = new ArrayList<Categories>(Arrays.asList(Categories.values()));
         Collections.shuffle(enumList);
-        List<Categories> randomEnums = enumList.subList(0, 3);
+        List<Categories> randomEnums = enumList.subList(0, 4);
         return randomEnums;
     }
 
@@ -160,25 +164,38 @@ public class LobbyService {
         timerService.startTimer(chooseCategory(lobbyId),6);
     }
 
-    public Runnable chooseCategory(Long lobbyId){
+    public Runnable chooseCategory(Long lobbyId) {
+        return ()-> {
+            //stop timer in case method did not get started by timer, but got started as every player put in their category input
+            timerService.stopTimer();
+            System.out.println("choose Category method started, LobbyID: " + lobbyId);
 
-        //stop timer in case method did not get started by timer, but got started as every player put in their category input
-        timerService.stopTimer();
-        System.out.println("choose Category method started, LobbyID: " + lobbyId);
 
-        //fetch lobby
-        Round round = getLobby(lobbyId).getRound();
+            //fetch lobby
+            Round round = getLobby(lobbyId).getRound();
+            System.out.println("choose Category method started, LobbyID: 1" + lobbyId);
+            //fetch Array with Category votes
+            List<Categories> categoryVotes = round.getCategoryVotes();
+            System.out.println("choose Category method started, LobbyID: 2" + lobbyId);
+            List<Categories> categories = round.getCategories();
+            System.out.println("choose Category method started, LobbyID: 3" + lobbyId);
 
-        //fetch Array with Category votes
-        List<Categories> categoryVotes = round.getCategoryVotes();
-        List<Categories> categories = round.getCategories();
+            try {
+                System.out.println(round.getId());
+            }
+            catch (Exception e){
+                System.out.println(e.getStackTrace());
+            }
 
-        //Call helper method to find which category got the most votes
-        Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
-        round.setChosenCategory(chosenCategory);
+            System.out.println("test");
 
-        socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
-        return null;
+            //Call helper method to find which category got the most votes
+            Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
+            System.out.println(chosenCategory + "came back from method");
+            round.setChosenCategory(chosenCategory);
+
+            socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
+        };
     }
 
   private Categories getCategoryWithMostVotes(List<Categories> categories, List<Categories> categoryVotes){
@@ -203,11 +220,13 @@ public class LobbyService {
           if (entry.getValue() > maxVotes) {
               maxVotes = entry.getValue();
               mostVotedCategory = entry.getKey();
+              System.out.println(entry.getKey() + " shall be played");
           }
           //if two categories have the same number votes there is a 50/50 chance which category is going to be taken
           else if (entry.getValue() == maxVotes) {
               if(random.nextInt(2) == 1){
                   mostVotedCategory = entry.getKey();
+                  System.out.println(entry.getKey() + " shall be played instead");
               }
           }
       }

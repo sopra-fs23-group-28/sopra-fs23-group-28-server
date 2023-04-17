@@ -82,3 +82,6 @@ complete, logic of category choosing complete, first testing session with postma
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/36
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/38
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39
+
+* *17.04.2023, Monday:* People: Samuel, Elia, Harris. Description: automated postman websockets tests with javascript 
+code, fixed minor bugs

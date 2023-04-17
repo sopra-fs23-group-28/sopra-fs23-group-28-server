@@ -102,4 +102,11 @@ public class UserService {
       if (userByUsername != null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
               baseErrorMessage);
   }
+
+    public void userIsReady(Long id) {
+      User user = getUserById(id);
+      user.setIsReady(true);
+      userRepository.save(user);
+
+    }
 }
