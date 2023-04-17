@@ -122,6 +122,7 @@ public class LobbyService {
 
     public boolean isLobbyReady(Long id){
         for(User u : getUsersFromLobby(id)){
+            System.out.println(u.getIsReady());
             if (!u.getIsReady())return false;
         }
         return true;

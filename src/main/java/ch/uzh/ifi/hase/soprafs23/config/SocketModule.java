@@ -54,6 +54,9 @@ public class SocketModule {
             // if yes, send out GETCATEGORY
 
             Long lobbyId = Long.valueOf(data.getRoom());
+            String token = senderClient.getHandshakeData().getSingleUrlParam("token");
+            userService.getUserByToken(token).setIsReady(true);
+            System.out.println(userService.getUserByToken(token));
 
             if (lobbyService.isLobbyReady(lobbyId)) {
                 lobbyService.createRound(lobbyId);
@@ -63,6 +66,7 @@ public class SocketModule {
             else {
                 //if not, send out NOTREADYYET
                 socketService.sendMessageToRoom(data.getRoom(), "READY", "NOTREADYYET");
+
             }
         };
     }
