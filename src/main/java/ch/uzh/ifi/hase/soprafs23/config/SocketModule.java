@@ -26,6 +26,7 @@ public class SocketModule {
     private final LobbyService lobbyService;
     private final RoundService roundService;
     private final UserService userService;
+    private final QuestionService questionService;
 
     public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService) {
         this.lobbyService = lobbyService;

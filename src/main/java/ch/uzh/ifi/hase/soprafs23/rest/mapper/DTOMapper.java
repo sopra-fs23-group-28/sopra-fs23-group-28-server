@@ -48,7 +48,8 @@ public interface DTOMapper {
 
   @Mapping(source = "categories", target = "categories")
   @Mapping(source = "chosenCategory", target = "chosenCategory")
-  @Mapping(source = "currentQuestions", target = "currentQuestions")
+  @Mapping(source = "answers", target = "answers")
+  @Mapping(source = "currentQuestion", target = "currentQuestion")
   RoundGetDTO convertRoundEntityToRoundGetDTO(Round round);
 
     // because the playerIds in the User entity consist of a List of users, its mapping needs to be defined separately.
