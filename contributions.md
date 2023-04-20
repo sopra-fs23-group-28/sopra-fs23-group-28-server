@@ -93,7 +93,7 @@ that better represent our done work:
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/61
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/60
 
-* *20.04.2023, Monday:* People: Samuel, Elia, Harris. Description: fixed the Timer matter and brought that to be working
+* *20.04.2023, Monday:* People: Samuel, Elia, Harris. Description: fixed the Timer matter and brought that to be working. Refactored RoundService.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/32
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35
