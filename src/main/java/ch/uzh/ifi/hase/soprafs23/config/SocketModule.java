@@ -42,8 +42,16 @@ public class SocketModule {
 
     private DataListener<Message> onTimerStopReceived(){
         return (client, data, ackSender) -> {
-            //execute chooseCategory as soon as timer is over
-            roundService.chooseCategory(Long.valueOf(data.getRoom()));
+
+            if(lobbyService.isLobbyTimerOver(Long.valueOf(data.getRoom()))) {
+                socketService.sendMessageToRoom(data.getRoom(), "CATEGORY", "TIMERALREADYSTOPPED");
+            }
+            else {
+                //execute chooseCategory as soon as timer is over
+                roundService.chooseCategory(Long.valueOf(data.getRoom()));
+                socketService.sendMessageToRoom(data.getRoom(), "CATEGORY", "VOTINGDONE");
+                questionService.createQuestion(Long.valueOf(data.getRoom()));
+            }
         };
     }
 

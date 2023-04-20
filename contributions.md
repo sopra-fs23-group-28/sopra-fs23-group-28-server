@@ -94,6 +94,8 @@ that better represent our done work:
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/60
 
 * *20.04.2023, Monday:* People: Samuel, Elia, Harris. Description: fixed the Timer matter and brought that to be working. Refactored RoundService.
+Fetching API questions and storing them in a Java object works properly. Possible to retrieve the questions and answers via RestAPI.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/32
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/36

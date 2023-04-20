@@ -69,12 +69,7 @@ public class RoundService {
         Round round = getRound(lobbyId);
 
         //check: is the timer over yet? if not, it means that it's the first call to startCategoryVote. Thus chooseCategory can start.
-        if(!round.isTimerOver()) {
-            round.setTimerOver(true);
-            lobbyRepository.save(lobbyService.getLobby(lobbyId));
 
-            chooseCategory(lobbyId);
-        }
 
         //fetch Array with Category votes
         List<Categories> categoryVotes = round.getCategoryVotes();

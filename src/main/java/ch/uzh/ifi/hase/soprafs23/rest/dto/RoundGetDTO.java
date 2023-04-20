@@ -33,4 +33,12 @@ public class RoundGetDTO {
     public void setCurrentQuestions(List<String> currentQuestions) {
         this.currentQuestions = currentQuestions;
     }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
 }

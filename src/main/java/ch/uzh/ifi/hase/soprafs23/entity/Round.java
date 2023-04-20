@@ -33,8 +33,14 @@ public class Round{
     private Categories chosenCategory;
 
     @Column
+    private String currentQuestion;
+
+    @Column
     @ElementCollection
-    private List<String> currentQuestions = new ArrayList<>();
+    private List<String> answers;
+
+    @Column
+    private Long rightAnswer;
 
     public Long getId() {
         return id;
@@ -58,14 +64,6 @@ public class Round{
 
     public void setChosenCategory(Categories chosenCategory) {
         this.chosenCategory = chosenCategory;
-    }
-
-    public List<String> getCurrentQuestions() {
-        return this.currentQuestions;
-    }
-
-    public void setCurrentQuestions(List<String> currentQuestions) {
-        this.currentQuestions = currentQuestions;
     }
 
     public Lobby getLobby() {
@@ -94,5 +92,30 @@ public class Round{
 
     public void setTimerOver(boolean timerOver) {
         isTimerOver = timerOver;
+    }
+
+    public String getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(String currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
+
+    public Long getRightAnswer() {
+        return rightAnswer;
+    }
+
+    public void setRightAnswer(Long rightAnswer) {
+        this.rightAnswer = rightAnswer;
     }
 }

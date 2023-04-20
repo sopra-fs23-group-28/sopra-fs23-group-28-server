@@ -24,7 +24,7 @@ public class RoundController {
         this.userService = userService;
         this.roundService= roundService;
     }
-
+    //todo fix this comments
     /**
      * GET /lobbies/{id}/categories
      * get 4 possible categories to choose from
