@@ -28,7 +28,7 @@ public class RoundController {
         this.questionService = questionService;
         this.roundService= roundService;
     }
-    //todo fix this comments
+    //todo fix this comments and method names
     /**
      * GET /lobbies/{id}/categories
      * get 4 possible categories to choose from
@@ -66,24 +66,30 @@ public class RoundController {
 
         //add Category enum to Category votes
         round.addCategoryVotes(category);
+        //TODO is this being saved????
 
         //if all votes have been taken the timer can be aborted
         if(round.getCategoryVotes().size() == 4){
           roundService.chooseCategory(lobbyId);
         }
     }
-    
-    
-    @GetMapping("/lobbies/{lobbyId}/questions")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void GetQuestion(@PathVariable Long lobbyId) {
-        //authentication
-        // TODO lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
 
-        //fetch & return the round
-        Lobby lobby = lobbyService.getLobby(lobbyId);
-        //return DTOMapper.INSTANCE.convertRoundEntityToRoundGetDTO(lobby.getRound());
+    @PutMapping("/lobbies/{lobbyId}/answers")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void receiveQuestionAnswers(@PathVariable Long lobbyId, @RequestBody UserPutDTO userPutDTO) {
+        //authentication
+        lobbyService.isUserTokenInLobby(userPutDTO.getToken(), lobbyService.getLobby(lobbyId));
+        Long answerIndex = userPutDTO.getAnswerIndex();
+        if (answerIndex < 1 || answerIndex > 4) {throw new ResponseStatusException(HttpStatus.BAD_REQUEST);}
+
+        //update User
+        userService.updateTimeAndAnswer(userPutDTO.getToken(), userPutDTO.getTime(), userPutDTO.getAnswerIndex());
+        roundService.incVoteCount(lobbyId);
+
+        if(roundService.getRound(lobbyId).getAnswerCount() == 4) {
+            //gamelogic.evaluateAnswers(lobbyId);
+        }
     }
 
 }

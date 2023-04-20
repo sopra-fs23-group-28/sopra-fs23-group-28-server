@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "ROUND")
 public class Round{
@@ -41,6 +40,9 @@ public class Round{
 
     @Column
     private Long rightAnswer;
+
+    @Column
+    private Long answerCount = 0L;
 
     public Long getId() {
         return id;
@@ -117,5 +119,13 @@ public class Round{
 
     public void setRightAnswer(Long rightAnswer) {
         this.rightAnswer = rightAnswer;
+    }
+
+    public Long getAnswerCount() {
+        return answerCount;
+    }
+
+    public void incrementAnswerCount() {
+        this.answerCount+=1;
     }
 }
