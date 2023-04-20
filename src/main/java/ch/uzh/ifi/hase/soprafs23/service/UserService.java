@@ -92,6 +92,16 @@ public class UserService {
       userRepository.flush();
     }
 
+    public void updateTimeAndAnswer(String token, float time, Long answerIdx){
+      User user = getUserByToken(token);
+      user.setTime(time);
+      user.setAnswerIndex(answerIdx);
+
+      userRepository.save(user);
+
+    }
+
+
   /**
         Helper Methods
   **/

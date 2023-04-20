@@ -68,8 +68,7 @@ public class RoundService {
 
     public void chooseCategory(Long lobbyId) {
         Round round = getRound(lobbyId);
-
-        //check: is the timer over yet? if not, it means that it's the first call to startCategoryVote. Thus chooseCategory can start.
+        lobbyService.getLobby(lobbyId).getRound().setTimerOver(false);
 
 
         //fetch Array with Category votes
@@ -117,6 +116,10 @@ public class RoundService {
             }
         }
         return mostVotedCategory;
+    }
+
+    public void incVoteCount(Long lobbyId){
+        getRound(lobbyId).incrementAnswerCount();
     }
 
 

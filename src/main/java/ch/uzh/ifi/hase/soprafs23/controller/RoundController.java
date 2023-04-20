@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.RoundGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.QuestionService;
@@ -84,5 +85,5 @@ public class RoundController {
         Lobby lobby = lobbyService.getLobby(lobbyId);
         //return DTOMapper.INSTANCE.convertRoundEntityToRoundGetDTO(lobby.getRound());
     }
-    
+
 }
