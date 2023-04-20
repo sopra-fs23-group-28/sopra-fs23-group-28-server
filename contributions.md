@@ -84,4 +84,16 @@ complete, logic of category choosing complete, first testing session with postma
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39
 
 * *17.04.2023, Monday:* People: Samuel, Elia, Harris. Description: automated postman websockets tests with javascript 
-code, fixed minor bugs
+code, fixed minor bugs, did really a lot of testing and timer debugging, decided to let the client handle that. Created new development tasks
+that better represent our done work:
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/65
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/64
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/63
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/62
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/61
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/60
+
+* *20.04.2023, Monday:* People: Samuel, Elia, Harris. Description: fixed the Timer matter and brought that to be working
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/32
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35

@@ -104,8 +104,6 @@ class LobbyServiceTest {
     }
 
     @Test
-    void debugger() {
-        LobbyService.startCategoryVote(9767L);
-    }
+    void debugger() {}
 
 }

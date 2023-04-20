@@ -86,4 +86,11 @@ public class Round{
         this.categoryVotes = new ArrayList<Categories>();
     }
 
+    public boolean isTimerOver() {
+        return isTimerOver;
+    }
+
+    public void setTimerOver(boolean timerOver) {
+        isTimerOver = timerOver;
+    }
 }

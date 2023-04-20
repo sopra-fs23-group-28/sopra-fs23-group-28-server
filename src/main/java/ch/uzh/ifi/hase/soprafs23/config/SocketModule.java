@@ -22,6 +22,7 @@ public class SocketModule {
     private final SocketService socketService;
     private static final Logger log = LoggerFactory.getLogger(SocketModule.class);
     private final LobbyService lobbyService;
+    private final RoundService roundService;
     private final UserService userService;
 
     public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService) {
@@ -31,9 +32,9 @@ public class SocketModule {
         this.userService = userService;
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
-        server.addEventListener("send_message", Message.class, onChatReceived());
         server.addEventListener("GAMESTART", Message.class, onGamestartReceived());
         server.addEventListener("READY", Message.class, onReadyReceived());
+        server.addEventListener("TIMERSTOP", Message.class, onTimerStopReceived());
     }
 
     private DataListener<Message> onGamestartReceived(){
@@ -59,15 +60,15 @@ public class SocketModule {
             User user = userService.getUserByToken(token);
             userService.userIsReady(user.getId());
 
+            //if lobby is ready, create the Round and send a message to all clients that they can fetch the category
             if (lobbyService.isLobbyReady(lobbyId)) {
-                lobbyService.createRound(lobbyId);
+                roundService.createRound(lobbyId);
                 socketService.sendMessageToRoom(data.getRoom(), "READY", "GETCATEGORY");
                 lobbyService.startCategoryVote(lobbyId);
             }
             else {
                 //if not, send out NOTREADYYET
                 socketService.sendMessageToRoom(data.getRoom(), "READY", "NOTREADYYET");
-
             }
         };
     }
@@ -112,7 +113,6 @@ public class SocketModule {
 
                 }
                 catch(ResponseStatusException e) {
-                    System.out.println(e.getStackTrace());
                     e.printStackTrace();
                     socketService.sendMessage("JOIN", client, "AUTHFAIL");
                     client.disconnect();

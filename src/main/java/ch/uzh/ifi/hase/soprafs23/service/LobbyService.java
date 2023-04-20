@@ -1,10 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
-import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
-import ch.uzh.ifi.hase.soprafs23.config.SocketService;
-import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -22,15 +21,11 @@ public class LobbyService {
     private final UserService userService;
     private final LobbyRepository lobbyRepository;
 
-    private final TimerService timerService;
-    private final SocketService socketService;
 
     @Autowired
-    public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository, TimerService timerService, SocketService socketService) {
+    public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
         this.userService = userService;
         this.lobbyRepository = lobbyRepository;
-        this.timerService = timerService;
-        this.socketService = socketService;
     }
 
     /**
@@ -44,7 +39,7 @@ public class LobbyService {
         //generate Id
         Random random = new Random();
         int pin = random.nextInt(9000) + 1000;
-        lobby.setId(Long.valueOf(pin));
+        lobby.setId((long) pin);
 
         //set Creator
         lobby.setCreatorId(user.getId());
@@ -127,109 +122,4 @@ public class LobbyService {
         }
         return true;
     }
-
-/**
- *
- *  all round-related methods
- *
- * */
-
-    public void createRound(Long id) {
-        Lobby lobby = getLobby(id);
-        Round round = new Round();
-
-        //map round and lobby
-        lobby.setRound(round);
-        round.setLobby(lobby);
-
-        //fetch 4 random questions
-        round.setCategories(generateCategories());
-
-        //set round id since it is a primary key
-        round.setId(id);
-
-        lobbyRepository.save(lobby);
-
-    }
-
-    private List<Categories> generateCategories() {
-        //get Enums in an Array, shuffle it, get the first 4
-        List<Categories> enumList = new ArrayList<Categories>(Arrays.asList(Categories.values()));
-        Collections.shuffle(enumList);
-        List<Categories> randomEnums = enumList.subList(0, 4);
-        return randomEnums;
-    }
-
-    public void startCategoryVote(Long lobbyId) {
-        timerService.startTimer(chooseCategory(lobbyId),6);
-    }
-
-    public Runnable chooseCategory(Long lobbyId) {
-        return ()-> {
-            //stop timer in case method did not get started by timer, but got started as every player put in their category input
-            timerService.stopTimer();
-            System.out.println("choose Category method started, LobbyID: " + lobbyId);
-
-
-            //fetch lobby
-            Round round = getLobby(lobbyId).getRound();
-            System.out.println("choose Category method started, LobbyID: 1" + lobbyId);
-            //fetch Array with Category votes
-            List<Categories> categoryVotes = round.getCategoryVotes();
-            System.out.println("choose Category method started, LobbyID: 2" + lobbyId);
-            List<Categories> categories = round.getCategories();
-            System.out.println("choose Category method started, LobbyID: 3" + lobbyId);
-
-            try {
-                System.out.println(round.getId());
-            }
-            catch (Exception e){
-                System.out.println(e.getStackTrace());
-            }
-
-            System.out.println("test");
-
-            //Call helper method to find which category got the most votes
-            Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
-            System.out.println(chosenCategory + "came back from method");
-            round.setChosenCategory(chosenCategory);
-
-            socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
-        };
-    }
-
-  private Categories getCategoryWithMostVotes(List<Categories> categories, List<Categories> categoryVotes){
-      Random random = new Random();
-
-      //setup Hash Map with empty values
-      Map<Categories, Integer> voteCounts = new HashMap<>();
-      for (Categories category : categories) {
-          voteCounts.put(category, 0);
-      }
-
-      // Count the votes for each category
-      for (Categories vote : categoryVotes) {
-          voteCounts.put(vote, voteCounts.get(vote) + 1);
-      }
-
-      // Find the category with the most votes
-      Categories mostVotedCategory = null;
-      //init with -1 in case no votes were taken
-      int maxVotes = -1;
-      for (Map.Entry<Categories, Integer> entry : voteCounts.entrySet()) {
-          if (entry.getValue() > maxVotes) {
-              maxVotes = entry.getValue();
-              mostVotedCategory = entry.getKey();
-              System.out.println(entry.getKey() + " shall be played");
-          }
-          //if two categories have the same number votes there is a 50/50 chance which category is going to be taken
-          else if (entry.getValue() == maxVotes) {
-              if(random.nextInt(2) == 1){
-                  mostVotedCategory = entry.getKey();
-                  System.out.println(entry.getKey() + " shall be played instead");
-              }
-          }
-      }
-      return mostVotedCategory;
-  }
 }
