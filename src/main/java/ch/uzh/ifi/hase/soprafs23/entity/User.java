@@ -37,6 +37,12 @@ public class User implements Serializable {
   @Column()
   private boolean isReady;
 
+  @Column()
+  private float time;
+
+  @Column()
+  private Long answerIndex;
+
   public Long getId() {
     return id;
   }
@@ -63,7 +69,8 @@ public class User implements Serializable {
   public boolean getGameCreator(){return this.gameCreator;}
   public boolean getIsReady(){return this.isReady;}
   public void setIsReady(boolean isReady){this.isReady = isReady;}
-
-
-
+  public void setAnswerIndex(Long answerIndex){this.answerIndex = answerIndex;}
+  public Long getAnswerIndex(){return answerIndex;}
+  public float getTime() {return time;}
+  public void setTime(float time) {this.time = time;}
 }
