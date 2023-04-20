@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.config;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs23.service.RoundService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
@@ -25,9 +26,10 @@ public class SocketModule {
     private final RoundService roundService;
     private final UserService userService;
 
-    public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService) {
+    public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService, RoundService roundService) {
         this.lobbyService = lobbyService;
         this.server = server;
+        this.roundService = roundService;
         this.socketService = socketService;
         this.userService = userService;
         server.addConnectListener(onConnected());
@@ -35,6 +37,14 @@ public class SocketModule {
         server.addEventListener("GAMESTART", Message.class, onGamestartReceived());
         server.addEventListener("READY", Message.class, onReadyReceived());
         server.addEventListener("TIMERSTOP", Message.class, onTimerStopReceived());
+    }
+
+
+    private DataListener<Message> onTimerStopReceived(){
+        return (client, data, ackSender) -> {
+            //execute chooseCategory as soon as timer is over
+            roundService.chooseCategory(Long.valueOf(data.getRoom()));
+        };
     }
 
     private DataListener<Message> onGamestartReceived(){
@@ -64,7 +74,6 @@ public class SocketModule {
             if (lobbyService.isLobbyReady(lobbyId)) {
                 roundService.createRound(lobbyId);
                 socketService.sendMessageToRoom(data.getRoom(), "READY", "GETCATEGORY");
-                lobbyService.startCategoryVote(lobbyId);
             }
             else {
                 //if not, send out NOTREADYYET
@@ -73,12 +82,6 @@ public class SocketModule {
         };
     }
 
-    private DataListener<Message> onChatReceived() {
-        return (senderClient, data, ackSender) -> {
-            log.info(data.toString());
-            socketService.sendMessageToRoom(data.getRoom(),"get_message", data.getMessage());
-        };
-    }
 
     private ConnectListener onConnected() {
         return (client) -> {

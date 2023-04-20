@@ -18,6 +18,8 @@ public class Round{
     @Id
     private Long id;
 
+    @Column
+    private boolean isTimerOver = false;
 
     @Column
     @ElementCollection

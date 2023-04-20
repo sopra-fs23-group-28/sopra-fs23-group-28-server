@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.RoundGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs23.service.RoundService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class RoundController {
     private final LobbyService lobbyService;
     private final UserService userService;
+    private final RoundService roundService;
 
     RoundController(LobbyService lobbyService, UserService userService) {
         this.lobbyService = lobbyService;
@@ -62,7 +64,7 @@ public class RoundController {
 
         //if all votes have been taken the timer can be aborted
         if(round.getCategoryVotes().size() == 4){
-          lobbyService.chooseCategory(lobbyId);
+          roundService.chooseCategory(lobbyId);
         }
     }
 }
