@@ -19,9 +19,10 @@ public class RoundController {
     private final UserService userService;
     private final RoundService roundService;
 
-    RoundController(LobbyService lobbyService, UserService userService) {
+    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
+        this.roundService= roundService;
     }
 
     /**
