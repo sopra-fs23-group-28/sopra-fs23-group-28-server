@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.RoundGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs23.service.QuestionService;
 import ch.uzh.ifi.hase.soprafs23.service.RoundService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,12 @@ public class RoundController {
     private final LobbyService lobbyService;
     private final UserService userService;
     private final RoundService roundService;
+    private final QuestionService questionService;
 
-    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService) {
+    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
+        this.questionService = questionService;
         this.roundService= roundService;
     }
     //todo fix this comments
@@ -29,12 +32,12 @@ public class RoundController {
      * GET /lobbies/{id}/categories
      * get 4 possible categories to choose from
      **/
-    @GetMapping("/lobbies/{lobbyId}/roundinfo")
+    @GetMapping("/lobbies/{lobbyId}/rounds")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public RoundGetDTO getCategories(@PathVariable Long lobbyId, @RequestBody UserPostDTO userPostDTO) {
         //authentication
-        // TODO lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
+        lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
 
         //fetch & return the round
         Lobby lobby = lobbyService.getLobby(lobbyId);
@@ -50,7 +53,7 @@ public class RoundController {
     @ResponseBody
     public void receiveCategoryAnswers(@PathVariable Long lobbyId, @PathVariable int categoryId, @RequestBody UserPostDTO userPostDTO) {
         //authentication
-        // TODO lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
+        lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
 
         if (categoryId < 1 || categoryId > 4) {throw new ResponseStatusException(HttpStatus.BAD_REQUEST);}
 
@@ -68,4 +71,18 @@ public class RoundController {
           roundService.chooseCategory(lobbyId);
         }
     }
+    
+    
+    @GetMapping("/lobbies/{lobbyId}/questions")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void GetQuestion(@PathVariable Long lobbyId) {
+        //authentication
+        // TODO lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
+
+        //fetch & return the round
+        Lobby lobby = lobbyService.getLobby(lobbyId);
+        //return DTOMapper.INSTANCE.convertRoundEntityToRoundGetDTO(lobby.getRound());
+    }
+    
 }

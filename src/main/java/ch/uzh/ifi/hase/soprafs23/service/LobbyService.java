@@ -110,6 +110,18 @@ public class LobbyService {
         lobbyRepository.save(lobby);
     }
 
+    public boolean isLobbyTimerOver(Long lobbyId){
+        Lobby lobby = getLobby(lobbyId);
+        Round round = lobby.getRound();
+
+        if(!round.isTimerOver()) {
+            round.setTimerOver(true);
+            lobbyRepository.save(getLobby(lobbyId));
+            return false;
+        }
+        else return true;
+    }
+
     //authenticate that request is from creator
     public void validate(Lobby lobby, User user) {
         if (!lobby.getCreatorId().equals(user.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

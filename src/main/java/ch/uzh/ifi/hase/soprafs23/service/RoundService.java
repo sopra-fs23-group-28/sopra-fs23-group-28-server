@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.TriviaAPIHandler.APIOutput;
 import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
@@ -81,8 +82,6 @@ public class RoundService {
             System.out.println(chosenCategory + "came back from method");
             round.setChosenCategory(chosenCategory);
 
-            socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
-
     }
 
     private Categories getCategoryWithMostVotes(List<Categories> categories, List<Categories> categoryVotes){
@@ -118,5 +117,29 @@ public class RoundService {
             }
         }
         return mostVotedCategory;
+    }
+
+
+    public void setAPIOutput(Long lobbyId, APIOutput question){
+
+        //fetch lobby and round
+        Lobby lobby = lobbyService.getLobby(lobbyId);
+        Round round = getRound(lobbyId);
+
+        //get random index to insert the correct answer at a random place into all Answers
+        Random rand = new Random();
+        int randIndex = rand.nextInt(4);
+
+        //set index of correct answer and the current questions
+        round.setRightAnswer((long) randIndex);
+        round.setCurrentQuestion(question.getApiOutputQuestion().getText());
+
+        //add the correct answer to all answers at a random index and save it
+        List<String> allAnswers = question.getIncorrectAnswers();
+        allAnswers.add(randIndex, question.getCorrectAnswer());
+        round.setAnswers(allAnswers);
+
+        lobbyRepository.save(lobby);
+
     }
 }

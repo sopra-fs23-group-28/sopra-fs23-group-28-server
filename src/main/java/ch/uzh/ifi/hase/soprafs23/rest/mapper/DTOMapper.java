@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 public interface DTOMapper {
 
   DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
-
-
   @Mapping(source = "maxSteps", target = "maxSteps")
   Lobby convertStartPostDTOtoLobbyEntity(startPostDTO startPostDTO);
   @Mapping(source = "token", target = "token")

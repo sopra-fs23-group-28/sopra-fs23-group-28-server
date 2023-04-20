@@ -8,7 +8,9 @@ import java.util.List;
 public class RoundGetDTO {
     private List<Categories> categories = new ArrayList<>();
     private Categories chosenCategory;
-    private List<String> currentQuestions = new ArrayList<>();
+    private List<String> answers = new ArrayList<>();
+    private String currentQuestion;
+
 
     public List<Categories> getCategories() {
         return categories;
@@ -26,12 +28,12 @@ public class RoundGetDTO {
         this.chosenCategory = chosenCategory;
     }
 
-    public List<String> getCurrentQuestions() {
-        return currentQuestions;
+    public String getCurrentQuestion() {
+        return currentQuestion;
     }
 
-    public void setCurrentQuestions(List<String> currentQuestions) {
-        this.currentQuestions = currentQuestions;
+    public void setCurrentQuestion(String currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
 
     public List<String> getAnswers() {

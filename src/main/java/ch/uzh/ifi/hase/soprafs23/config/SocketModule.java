@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.config;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs23.service.QuestionService;
 import ch.uzh.ifi.hase.soprafs23.service.RoundService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -26,8 +27,9 @@ public class SocketModule {
     private final RoundService roundService;
     private final UserService userService;
 
-    public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService, RoundService roundService) {
+    public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService) {
         this.lobbyService = lobbyService;
+        this.questionService = questionService;
         this.server = server;
         this.roundService = roundService;
         this.socketService = socketService;
