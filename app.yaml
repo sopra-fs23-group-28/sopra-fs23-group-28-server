@@ -1,19 +1,12 @@
 # https://cloud.google.com/appengine/docs/the-appengine-environments#comparing_high-level_features
 # https://cloud.google.com/appengine/docs/standard
 
-runtime: java17
-instance_class: F2
-
-
-# [START appengine_websockets_yaml]
+runtime: java
 env: flex
 
-# Use only a single instance, so that this local-memory-only chat app will work
-# consistently with multiple users. To work across multiple instances, an
-# extra-instance messaging system or data store would be needed.
-manual_scaling:
-  instances: 1
+automatic_scaling:
+  max_num_instances: 1
 
-network:
-  session_affinity: true
-# [END appengine_websockets_yaml]
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "17"
