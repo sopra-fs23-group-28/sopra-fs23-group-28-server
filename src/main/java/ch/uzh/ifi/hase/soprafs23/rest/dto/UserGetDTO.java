@@ -5,6 +5,8 @@ public class UserGetDTO {
   private Long id;
   private String username;
   private CamelColors camelColor;
+
+  private Long stepState;
   private String token;
 
   public Long getId() {
@@ -19,4 +21,12 @@ public class UserGetDTO {
   public void setCamelColor(CamelColors camelColor) {this.camelColor = camelColor;}
   public String getToken() {return token;}
   public void setToken(String token) {this.token = token;}
+
+    public Long getStepState() {
+        return stepState;
+    }
+
+    public void setStepState(Long stepState) {
+        this.stepState = stepState;
+    }
 }

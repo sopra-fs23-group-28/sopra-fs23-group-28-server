@@ -38,6 +38,7 @@ public interface DTOMapper {
   @Mapping(source = "camelColor", target = "camelColor")
   @Mapping(source = "username", target = "username")
   @Mapping(source = "token", target = "token")
+  @Mapping(source = "stepState", target = "stepState")
   UserGetDTO convertUserEntityToUserGetDTO(User user);
 
   @Mapping(source = "id", target = "id")

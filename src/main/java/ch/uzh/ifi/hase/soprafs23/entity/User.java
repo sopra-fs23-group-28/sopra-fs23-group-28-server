@@ -26,7 +26,7 @@ public class User implements Serializable {
   private CamelColors camelColor;
 
   @Column()
-  private Long stepState;
+  private Long stepState = 0L;
 
   @Column()
   private BonusTools bonusTool;

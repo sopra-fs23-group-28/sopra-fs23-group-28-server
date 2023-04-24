@@ -121,6 +121,11 @@ public class LobbyService {
         }
         else return true;
     }
+    public void setTimerOver(Long lobbyId){
+        Round round = getLobby(lobbyId).getRound();
+        round.setTimerOver(false);
+        lobbyRepository.save(getLobby(lobbyId));
+    }
 
     //authenticate that request is from creator
     public void validate(Lobby lobby, User user) {
@@ -134,5 +139,11 @@ public class LobbyService {
             if (!u.getIsReady()) return false;
         }
         return true;
+    }
+
+    public void resetAnswerCounter(Long lobbyId) {
+        Round round = getLobby(lobbyId).getRound();
+        round.resetAnswerCount();
+        lobbyRepository.save(getLobby(lobbyId));
     }
 }

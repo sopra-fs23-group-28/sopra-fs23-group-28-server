@@ -36,7 +36,7 @@ public class RoundController {
     @GetMapping("/lobbies/{lobbyId}/rounds")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public RoundGetDTO getCategories(@PathVariable Long lobbyId, @RequestBody UserPostDTO userPostDTO) {
+    public RoundGetDTO getRoundInfo(@PathVariable Long lobbyId, @RequestBody UserPostDTO userPostDTO) {
         //authentication
         lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
 
@@ -45,7 +45,9 @@ public class RoundController {
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
         //set the timer to false because at this point evaluating answer has finished completely
-        lobby.getRound().setTimerOver(false);
+        lobbyService.setTimerOver(lobbyId);
+        lobbyService.resetAnswerCounter(lobbyId);
+        //TODO ADD ROUNT COUNTER
         return DTOMapper.INSTANCE.convertRoundEntityToRoundGetDTO(lobby.getRound());
     }
 
@@ -90,9 +92,12 @@ public class RoundController {
         //update User with the time he voted and the index of the answer
         userService.updateTimeAndAnswer(userPutDTO.getToken(), userPutDTO.getTime(), userPutDTO.getAnswerIndex());
         roundService.incVoteCount(lobbyId);
-
+        System.out.println("ANSWER COUNT: " + roundService.getRound(lobbyId).getAnswerCount());
         if(roundService.getRound(lobbyId).getAnswerCount() == 4) {
             gameService.evaluateAnswers(lobbyId);
+            questionService.createQuestion(lobbyId);
+            //TODO Socket MESSage with right answer and ROUND COUNTER
+            //TODO EVT category change after 4 rounds
         }
     }
 

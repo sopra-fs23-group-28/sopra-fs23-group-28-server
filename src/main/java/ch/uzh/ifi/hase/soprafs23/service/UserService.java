@@ -47,6 +47,12 @@ public class UserService {
     return newUser;
   }
 
+  public void updateStepStateOfUser(Long val, Long id){
+      User user = getUserById(id);
+      user.updateStepState(val);
+      userRepository.save(user);
+  }
+
   //sets the color of a camel
   public User setCamelColor(Long id, String color){
 

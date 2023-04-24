@@ -96,6 +96,7 @@ public class Round{
         isTimerOver = timerOver;
     }
 
+
     public String getCurrentQuestion() {
         return currentQuestion;
     }
@@ -124,6 +125,8 @@ public class Round{
     public Long getAnswerCount() {
         return answerCount;
     }
+
+    public void resetAnswerCount(){this.answerCount = 0L;}
 
     public void incrementAnswerCount() {
         this.answerCount+=1;
