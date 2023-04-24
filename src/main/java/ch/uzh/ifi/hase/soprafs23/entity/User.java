@@ -73,4 +73,5 @@ public class User implements Serializable {
   public Long getAnswerIndex(){return answerIndex;}
   public float getTime() {return time;}
   public void setTime(float time) {this.time = time;}
+  public void updateStepState(Long stepUpdate){this.stepState += stepUpdate;}
 }

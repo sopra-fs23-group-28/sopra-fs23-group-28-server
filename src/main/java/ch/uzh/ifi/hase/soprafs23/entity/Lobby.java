@@ -27,7 +27,7 @@ public class Lobby{
     @Column
     @ElementCollection
     private List<Long> userIds = new ArrayList<>();
-    //TODO RAUUUUS MIT DIE VIECHER
+
 
     public Lobby() {
         this.userIds = new ArrayList<>();
