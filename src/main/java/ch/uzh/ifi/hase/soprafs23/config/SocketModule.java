@@ -40,7 +40,34 @@ public class SocketModule {
         server.addEventListener("READY", Message.class, onReadyReceived());
         server.addEventListener("TIMERSTOPCATEGORY", Message.class, onTimerStopCategoryReceived());
         server.addEventListener("TIMERSTOPQUESTION", Message.class, onTimerStopQuestionReceived());
+        server.addEventListener("ROUND", Message.class, onRoundReceived());
     }
+
+    private DataListener<Message> onRoundReceived(){
+        return (client, data, ackSender) -> {
+            Long lobbyId = Long.valueOf(data.getRoom());
+            String token = client.getHandshakeData().getSingleUrlParam("token");
+            try {
+                lobbyService.isUserTokenInLobby(token, lobbyService.getLobby(lobbyId));
+
+            } catch (Exception e) {
+                socketService.sendMessage("ROUND", client, "AUTHFAIL");
+                return;
+            }
+            if(!userService.getUserByToken(token).getGameCreator()) {
+                socketService.sendMessage("ROUND", client, "NOT GAME CREATOR");
+                return;
+            }
+
+            //set the timer to false because at this point evaluating answer has finished completely
+            lobbyService.setTimerOver(lobbyId);
+            lobbyService.resetAnswerCounter(lobbyId);
+            lobbyService.increaseRoundNumber(lobbyId);
+            questionService.createQuestion(lobbyId);
+        };
+    };
+
+
 
     private DataListener<Message> onTimerStopQuestionReceived(){
         return (client, data, ackSender) -> {
@@ -54,7 +81,7 @@ public class SocketModule {
                 socketService.sendMessageToRoom(data.getRoom(), "ROUND", "VOTINGDONE");
                 gameService.evaluateAnswers(lobbyId);
                 socketService.sendMessageToRoom(data.getRoom(), "ROUND", roundService.getRound(lobbyId).getRightAnswer().toString());
-                questionService.createQuestion(lobbyId);
+
             }
         };
     }

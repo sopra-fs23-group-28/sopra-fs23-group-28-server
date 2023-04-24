@@ -146,4 +146,12 @@ public class RoundService {
         lobbyRepository.save(lobby);
 
     }
+
+    public void addCategoryVote(Categories category, Long lobbyId) {
+        Round round = getRound(lobbyId);
+        round.addCategoryVotes(category);
+        lobbyRepository.save(lobbyService.getLobby(lobbyId));
+    }
+
+
 }

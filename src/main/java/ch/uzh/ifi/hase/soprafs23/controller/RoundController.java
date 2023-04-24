@@ -71,8 +71,8 @@ public class RoundController {
         Categories category = round.getCategories().get(categoryId-1);
 
         //add Category enum to Category votes
-        round.addCategoryVotes(category);
-        //TODO is this being saved????
+        roundService.addCategoryVote(category, lobbyId);
+
 
         //if all votes have been taken the timer can be aborted
         if(round.getCategoryVotes().size() == 4){
@@ -95,9 +95,6 @@ public class RoundController {
         System.out.println("ANSWER COUNT: " + roundService.getRound(lobbyId).getAnswerCount());
         if(roundService.getRound(lobbyId).getAnswerCount() == 4) {
             gameService.evaluateAnswers(lobbyId);
-            questionService.createQuestion(lobbyId);
-            //TODO Socket MESSage with right answer and ROUND COUNTER
-            //TODO EVT category change after 4 rounds
         }
     }
 

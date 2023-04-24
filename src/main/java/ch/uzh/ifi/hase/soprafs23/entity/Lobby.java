@@ -51,9 +51,10 @@ public class Lobby{
         return this.roundNumber;
     }
 
-    public void setRoundNumber(Long roundNumber) {
-        this.roundNumber = roundNumber;
+    public void incRoundNumber() {
+        this.roundNumber += 1;
     }
+    public void resetRoundNumber(){this.roundNumber = 0L;}
 
     public Long getMaxSteps() {
         return this.maxSteps;
