@@ -61,7 +61,7 @@ public class RoundService {
         //get Enums in an Array, shuffle it, get the first 4
         List<Categories> enumList = new ArrayList<Categories>(Arrays.asList(Categories.values()));
         Collections.shuffle(enumList);
-        List<Categories> randomEnums = enumList.subList(0, 4);
+        List<Categories> randomEnums = enumList.subList(0, 3);
         return randomEnums;
     }
 

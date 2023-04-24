@@ -7,12 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+
 public class SocketIOConfig {
 
-    @Value("${socketio.host:#{systemEnvironment['SOCKETIO_HOST']}}")
-    private String host;
-    @Value("${socketio.port:#{systemEnvironment['SOCKETIO_PORT']}}")
-    private Integer port;
+
+    private String host = "0.0.0.0";
+
+    private Integer port = 9092;
 
     @Bean
     public SocketIOServer socketIOServer() {
