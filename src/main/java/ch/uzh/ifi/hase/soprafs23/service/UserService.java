@@ -98,7 +98,6 @@ public class UserService {
       user.setAnswerIndex(answerIdx);
 
       userRepository.save(user);
-
     }
 
 

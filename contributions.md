@@ -100,3 +100,8 @@ receive question answers.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/33
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/36
+
+* *20.04.2023, Monday:* People: Samuel, Elia, Harris. Description: receive answer questions, handle player punishment / advance based on
+answers, notify FrontEnd at state changes
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/38
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39

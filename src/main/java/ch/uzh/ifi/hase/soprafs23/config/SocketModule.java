@@ -2,10 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.config;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
-import ch.uzh.ifi.hase.soprafs23.service.QuestionService;
-import ch.uzh.ifi.hase.soprafs23.service.RoundService;
-import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import ch.uzh.ifi.hase.soprafs23.service.*;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
@@ -27,19 +24,22 @@ public class SocketModule {
     private final RoundService roundService;
     private final UserService userService;
     private final QuestionService questionService;
+    private final GameService gameService;
 
-    public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService) {
+    public SocketModule(SocketIOServer server, SocketService socketService, LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService, GameService gameService) {
         this.lobbyService = lobbyService;
         this.questionService = questionService;
         this.server = server;
         this.roundService = roundService;
         this.socketService = socketService;
         this.userService = userService;
+        this.gameService = gameService;
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("GAMESTART", Message.class, onGamestartReceived());
         server.addEventListener("READY", Message.class, onReadyReceived());
-        server.addEventListener("TIMERSTOP", Message.class, onTimerStopReceived());
+        server.addEventListener("TIMERSTOPCATEGORY", Message.class, onTimerStopCategoryReceived());
+        server.addEventListener("TIMERSTOPQUESTION", Message.class, onTimerStopQuestionReceived());
     }
 
     private DataListener<Message> onTimerStopQuestionReceived(){
@@ -75,7 +75,6 @@ public class SocketModule {
 
     private DataListener<Message> onGamestartReceived(){
         return (senderClient, data, ackSender) -> {
-            //TODO get room id from url param, spec update
             //if Lobby was not initiated for the start yet, send back an error message. We check if maxSteps was set or not
             if (lobbyService.getLobby(Long.valueOf(data.getRoom())).getMaxSteps() == null) {
                 socketService.sendMessage("GAMESTART", senderClient, "NOSTART");

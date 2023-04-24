@@ -68,18 +68,19 @@ public class RoundService {
 
     public void chooseCategory(Long lobbyId) {
         Round round = getRound(lobbyId);
-        lobbyService.getLobby(lobbyId).getRound().setTimerOver(false);
 
 
         //fetch Array with Category votes
         List<Categories> categoryVotes = round.getCategoryVotes();
         List<Categories> categories = round.getCategories();
 
-
             //Call helper method to find which category got the most votes
             Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
             System.out.println(chosenCategory + "came back from method");
             round.setChosenCategory(chosenCategory);
+
+
+        lobbyService.getLobby(lobbyId).getRound().setTimerOver(false);
 
     }
 

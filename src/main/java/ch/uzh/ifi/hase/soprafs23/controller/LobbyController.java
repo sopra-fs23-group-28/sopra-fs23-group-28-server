@@ -53,7 +53,6 @@ public class LobbyController {
 
         //join lobby
         lobbyService.joinLobby(lobby, user);
-        //TODO send message to socket.io endpoint NEWUSER
     }
 
      /**

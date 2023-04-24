@@ -7,10 +7,7 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.RoundGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
-import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
-import ch.uzh.ifi.hase.soprafs23.service.QuestionService;
-import ch.uzh.ifi.hase.soprafs23.service.RoundService;
-import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import ch.uzh.ifi.hase.soprafs23.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,11 +19,14 @@ public class RoundController {
     private final RoundService roundService;
     private final QuestionService questionService;
 
-    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService) {
+    private final GameService gameService;
+
+    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, QuestionService questionService, GameService gameService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
         this.questionService = questionService;
         this.roundService= roundService;
+        this.gameService = gameService;
     }
     //todo fix this comments and method names
     /**
@@ -87,7 +87,7 @@ public class RoundController {
         Long answerIndex = userPutDTO.getAnswerIndex();
         if (answerIndex < 1 || answerIndex > 4) {throw new ResponseStatusException(HttpStatus.BAD_REQUEST);}
 
-        //update User
+        //update User with the time he voted and the index of the answer
         userService.updateTimeAndAnswer(userPutDTO.getToken(), userPutDTO.getTime(), userPutDTO.getAnswerIndex());
         roundService.incVoteCount(lobbyId);
 
