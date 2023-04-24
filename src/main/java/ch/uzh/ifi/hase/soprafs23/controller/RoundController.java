@@ -44,10 +44,7 @@ public class RoundController {
         //fetch & return the round
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
-        //set the timer to false because at this point evaluating answer has finished completely
-        lobbyService.setTimerOver(lobbyId);
-        lobbyService.resetAnswerCounter(lobbyId);
-        //TODO ADD ROUNT COUNTER
+
         return DTOMapper.INSTANCE.convertRoundEntityToRoundGetDTO(lobby.getRound());
     }
 

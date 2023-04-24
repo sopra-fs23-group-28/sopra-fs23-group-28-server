@@ -141,6 +141,12 @@ public class LobbyService {
         return true;
     }
 
+    public void resetAnswerCounter(Long lobbyId) {
+        Round round = getLobby(lobbyId).getRound();
+        round.resetAnswerCount();
+        lobbyRepository.save(getLobby(lobbyId));
+    }
+
     public void increaseRoundNumber(Long lobbyId) {
         Lobby lobby = getLobby(lobbyId);
         lobby.incRoundNumber();
