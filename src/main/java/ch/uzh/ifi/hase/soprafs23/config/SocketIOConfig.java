@@ -11,7 +11,7 @@ public class SocketIOConfig {
 
     private String host = "https://sopra-fs23-group-28-server.oa.r.appspot.com/";
 
-    private Integer port = 8080;
+    private Integer port = 65080;
 
     @Bean
     public SocketIOServer socketIOServer() {
