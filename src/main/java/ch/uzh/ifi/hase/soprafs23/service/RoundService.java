@@ -74,13 +74,12 @@ public class RoundService {
         List<Categories> categoryVotes = round.getCategoryVotes();
         List<Categories> categories = round.getCategories();
 
-            //Call helper method to find which category got the most votes
-            Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
-            System.out.println(chosenCategory + "came back from method");
-            round.setChosenCategory(chosenCategory);
+        //Call helper method to find which category got the most votes
+        Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
+        System.out.println(chosenCategory + "came back from method");
+        round.setChosenCategory(chosenCategory);
 
-
-        lobbyService.getLobby(lobbyId).getRound().setTimerOver(false);
+        socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
 
     }
 
@@ -116,6 +115,7 @@ public class RoundService {
                 }
             }
         }
+
         return mostVotedCategory;
     }
 

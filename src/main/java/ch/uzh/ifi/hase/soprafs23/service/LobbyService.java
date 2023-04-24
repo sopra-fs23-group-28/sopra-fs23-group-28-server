@@ -121,9 +121,9 @@ public class LobbyService {
         }
         else return true;
     }
-    public void setTimerOver(Long lobbyId){
+    public void setTimerOver(Long lobbyId, boolean val){
         Round round = getLobby(lobbyId).getRound();
-        round.setTimerOver(false);
+        round.setTimerOver(val);
         lobbyRepository.save(getLobby(lobbyId));
     }
 

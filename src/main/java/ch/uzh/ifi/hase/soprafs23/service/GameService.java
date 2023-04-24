@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
@@ -17,15 +18,21 @@ import java.util.Objects;
 @Transactional
 public class GameService {
     private final UserService userService;
-    private final LobbyRepository lobbyRepository;
+
     private final LobbyService lobbyService;
+
+    private final SocketService socketService;
+    private final RoundService roundService;
 
 
     @Autowired
-    public GameService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository, LobbyService lobbyService) {
+    public GameService(UserService userService, LobbyService lobbyService, SocketService socketService, RoundService roundService) {
         this.userService = userService;
-        this.lobbyRepository = lobbyRepository;
+
         this.lobbyService = lobbyService;
+
+        this.socketService = socketService;
+        this.roundService = roundService;
     }
 
     public void evaluateAnswers(Long lobbyId) {
@@ -38,6 +45,7 @@ public class GameService {
         List<User> correctUsers = new ArrayList<>();
         for (User user : users) {
             //if user got the right answer, did a -1 because round saves right answer from 0 to 3, while user has 1 to 4
+
             if (Objects.equals(user.getAnswerIndex()-1, round.getRightAnswer())) {
                 correctUsers.add(user);
             }
@@ -75,7 +83,7 @@ public class GameService {
                     break;
             }
         }
-
+        socketService.sendRightAnswer(lobbyId, roundService.getRound(lobbyId).getRightAnswer()+1);
         System.out.println("EVALUATE HAS FINISHED");
     }
 }

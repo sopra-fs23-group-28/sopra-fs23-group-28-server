@@ -73,6 +73,7 @@ public class RoundController {
 
         //if all votes have been taken the timer can be aborted
         if(round.getCategoryVotes().size() == 4){
+            lobbyService.setTimerOver(lobbyId, true);
           roundService.chooseCategory(lobbyId);
         }
     }

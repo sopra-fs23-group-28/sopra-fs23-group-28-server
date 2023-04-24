@@ -18,7 +18,7 @@ public class Lobby{
     private Long creatorId;
 
     @Column
-    private Long roundNumber;
+    private Long roundNumber = 0L;
 
     @Column
     private Long maxSteps;

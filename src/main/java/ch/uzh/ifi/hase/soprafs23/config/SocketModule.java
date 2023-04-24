@@ -60,13 +60,12 @@ public class SocketModule {
             }
 
             //set the timer to false because at this point evaluating answer has finished completely
-            lobbyService.setTimerOver(lobbyId);
+            lobbyService.setTimerOver(lobbyId, false);
             lobbyService.resetAnswerCounter(lobbyId);
             lobbyService.increaseRoundNumber(lobbyId);
             questionService.createQuestion(lobbyId);
         };
     };
-
 
 
     private DataListener<Message> onTimerStopQuestionReceived(){
@@ -80,7 +79,7 @@ public class SocketModule {
                 //execute evaluateAnswers as soon as timer is over
                 socketService.sendMessageToRoom(data.getRoom(), "ROUND", "VOTINGDONE");
                 gameService.evaluateAnswers(lobbyId);
-                socketService.sendMessageToRoom(data.getRoom(), "ROUND", roundService.getRound(lobbyId).getRightAnswer().toString());
+
 
             }
         };
@@ -95,7 +94,6 @@ public class SocketModule {
                 //execute chooseCategory as soon as timer is over
                 roundService.chooseCategory(Long.valueOf(data.getRoom()));
                 socketService.sendMessageToRoom(data.getRoom(), "CATEGORY", "VOTINGDONE");
-                questionService.createQuestion(Long.valueOf(data.getRoom()));
             }
         };
     }

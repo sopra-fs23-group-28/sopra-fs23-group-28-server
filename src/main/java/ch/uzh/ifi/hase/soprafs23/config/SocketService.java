@@ -1,8 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.config;
 
+import ch.uzh.ifi.hase.soprafs23.service.RoundService;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ public class SocketService {
     @Autowired
     public SocketService(SocketIOServer socketIOServer) {
         this.socketIOServer = socketIOServer;
+
     }
 
     public void sendMessage(String eventName, SocketIOClient client, String message) {
@@ -33,6 +34,12 @@ public class SocketService {
 
         }
     }
+    public void sendRightAnswer(Long lobbyId, Long answer){
+        sendMessageToRoom(lobbyId.toString(), "ROUND", answer.toString());
+
+    }
+
+
 
 
 
