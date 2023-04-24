@@ -40,8 +40,12 @@ public class RoundController {
         //authentication
         lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
 
+
         //fetch & return the round
         Lobby lobby = lobbyService.getLobby(lobbyId);
+
+        //set the timer to false because at this point evaluating answer has finished completely
+        lobby.getRound().setTimerOver(false);
         return DTOMapper.INSTANCE.convertRoundEntityToRoundGetDTO(lobby.getRound());
     }
 
@@ -88,7 +92,7 @@ public class RoundController {
         roundService.incVoteCount(lobbyId);
 
         if(roundService.getRound(lobbyId).getAnswerCount() == 4) {
-            //gamelogic.evaluateAnswers(lobbyId);
+            gameService.evaluateAnswers(lobbyId);
         }
     }
 

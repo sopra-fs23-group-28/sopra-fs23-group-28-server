@@ -42,8 +42,23 @@ public class SocketModule {
         server.addEventListener("TIMERSTOP", Message.class, onTimerStopReceived());
     }
 
+    private DataListener<Message> onTimerStopQuestionReceived(){
+        return (client, data, ackSender) -> {
+            Long lobbyId = Long.valueOf(data.getRoom());
 
-    private DataListener<Message> onTimerStopReceived(){
+            if(lobbyService.isLobbyTimerOver(lobbyId)) {
+                socketService.sendMessageToRoom(data.getRoom(), "ROUND", "TIMERALREADYSTOPPED");
+            }
+            else {
+                //execute evaluateAnswers as soon as timer is over
+                socketService.sendMessageToRoom(data.getRoom(), "ROUND", "VOTINGDONE");
+                gameService.evaluateAnswers(lobbyId);
+                socketService.sendMessageToRoom(data.getRoom(), "ROUND", roundService.getRound(lobbyId).getRightAnswer().toString());
+                questionService.createQuestion(lobbyId);
+            }
+        };
+    }
+    private DataListener<Message> onTimerStopCategoryReceived(){
         return (client, data, ackSender) -> {
 
             if(lobbyService.isLobbyTimerOver(Long.valueOf(data.getRoom()))) {
