@@ -15,13 +15,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 @WebMvcTest(LobbyController.class)
-class LobbyControllerTest {
+class RoundControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -64,8 +65,7 @@ class LobbyControllerTest {
     }
 
     @Test
-    void joinLobby() throws Exception {
-
+    void getRoundInfo() throws Exception {
         // setup user
         User user = new User();
         user.setId(1L);
@@ -79,46 +79,16 @@ class LobbyControllerTest {
         lobby.setCreatorId(1L);
         user.setGameCreator(true);
 
-        //mock userService.getUserByToken, needed by LobbyService.createLobby
-        given(userService.getUserByToken(Mockito.any())).willReturn(user);
+
         given(lobbyService.createLobby(user)).willReturn(lobby);
 
-        //send request and check if it throws errors
-        mockMvc.perform(put("/lobbies/4400/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"token\": \"123\"}"))
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    void lobbyInfo() throws Exception {
-
-        // setup user
-        User user = new User();
-        user.setId(1L);
-        user.setUsername("uniqueUsername");
-        user.setToken("123");
-
-        //setup lobby & set lobbycreator for user
-        Lobby lobby = new Lobby();
-        lobby.setId(4400L);
-        lobby.addUserId(1L);
-        lobby.setCreatorId(1L);
-        user.setGameCreator(true);
-
-        //mock userService.getUserByToken, needed by LobbyService.createLobby
-        given(userService.getUserByToken(Mockito.any())).willReturn(user);
-        given(lobbyService.createLobby(user)).willReturn(lobby);
-
-        //send request and check if it throws errors
-        mockMvc.perform(put("/lobbies/4400/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"token\": \"123\"}"))
+        mockMvc.perform(get("/lobbies/4400/rounds"))
                 .andExpect(status().isOk());
+
     }
 
     @Test
-    void startGame() throws Exception {
+    void receiveCategoryAnswers() throws Exception {
         // setup user
         User user = new User();
         user.setId(1L);
@@ -132,15 +102,19 @@ class LobbyControllerTest {
         lobby.setCreatorId(1L);
         user.setGameCreator(true);
 
-        //mock userService.getUserByToken, needed by LobbyService.createLobby
-        given(userService.getUserByToken(Mockito.any())).willReturn(user);
-        given(lobbyService.createLobby(user)).willReturn(lobby);
 
-        //send request and check if pin meets criteria
-        mockMvc.perform(put("/lobbies/4400")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"token\": \"123\"}"))
+        given(lobbyService.createLobby(user)).willReturn(lobby);
+        //given(lobbyService.isUserTokenInLobby(Mockito.any(), Mockito.any()));
+
+
+        mockMvc.perform(put("/lobbies/4400/categories/1"))
                 .andExpect(status().isNoContent());
+
+
+
     }
 
+    @Test
+    void receiveQuestionAnswers() {
+    }
 }

@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ class LobbyServiceTest {
 
 
     @InjectMocks
-    private LobbyService LobbyService;
+    private LobbyService lobbyService;
 
     private Lobby testLobby;
     private User testUser;
@@ -49,7 +50,7 @@ class LobbyServiceTest {
     void createLobby() {
 
         //create test lobby
-        Lobby createdLobby = LobbyService.createLobby(testUser);
+        Lobby createdLobby = lobbyService.createLobby(testUser);
 
         //assertions
         assertTrue(createdLobby.getId() instanceof Long);
@@ -59,13 +60,13 @@ class LobbyServiceTest {
 
     @Test
     void getLobby() {
-        Lobby foundLobby = LobbyService.getLobby(1111L);
+        Lobby foundLobby = lobbyService.getLobby(1111L);
         assertEquals(testLobby.getId(), foundLobby.getId());
     }
 
     @Test
     void joinLobby() {
-        LobbyService.joinLobby(testLobby, testUser);
+        lobbyService.joinLobby(testLobby, testUser);
 
         //check that userId is in Lobby
         List<Long> ids = testLobby.getUserIds();
@@ -74,7 +75,7 @@ class LobbyServiceTest {
 
     @Test
     void getUsersFromLobby() {
-        List<User> users = LobbyService.getUsersFromLobby(1111L);
+        List<User> users = lobbyService.getUsersFromLobby(1111L);
 
         //check that list is empty
         assertTrue(users.isEmpty());
@@ -84,13 +85,13 @@ class LobbyServiceTest {
     @Test
     void setMaxSteps() {
         Long maxSteps = 3L;
-        LobbyService.setMaxSteps(maxSteps, testLobby);
+        lobbyService.setMaxSteps(maxSteps, testLobby);
 
         assertEquals(testLobby.getMaxSteps(), maxSteps);
     }
 
     @Test
-    void validateTest() {
+    void validate() {
         // create a new user
         User tuser = new User();
         tuser.setId(2L);
@@ -99,11 +100,39 @@ class LobbyServiceTest {
         assertThrows(ResponseStatusException.class, () -> {
             Lobby lobby = new Lobby();
             lobby.setCreatorId(1L);
-            LobbyService.validate(lobby, tuser);
+            lobbyService.validate(lobby, tuser);
         }, "Not authenticated!");
     }
 
     @Test
-    void debugger() {}
+    void isLobbyTimerOver() {
+        Lobby lobby = new Lobby();
+        Long id= lobby.getId();
 
+        Round round = new Round();
+        lobby.setRound(round);
+        round.setTimerOver(false);
+
+        assertFalse(lobbyService.isLobbyTimerOver(id));
+
+    }
+
+    @Test
+    void setTimerOver() {
+
+    }
+
+
+
+    @Test
+    void isLobbyReady() {
+    }
+
+    @Test
+    void resetAnswerCounter() {
+    }
+
+    @Test
+    void increaseRoundNumber() {
+    }
 }

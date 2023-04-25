@@ -20,6 +20,7 @@ public class RoundService {
     private final LobbyRepository lobbyRepository;
     private final LobbyService lobbyService;
     private final SocketService socketService;
+    private final Random random = new Random();
 
     @Autowired
     public RoundService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository,
@@ -47,7 +48,7 @@ public class RoundService {
         lobby.setRound(round);
         round.setLobby(lobby);
 
-        //fetch 4 random questions
+        //fetch 3 random questions
         round.setCategories(generateCategories());
 
         //set round id since it is a primary key
@@ -84,7 +85,6 @@ public class RoundService {
     }
 
     private Categories getCategoryWithMostVotes(List<Categories> categories, List<Categories> categoryVotes){
-        Random random = new Random();
 
         //setup Hash Map with empty values
         Map<Categories, Integer> voteCounts = new HashMap<>();
@@ -131,8 +131,7 @@ public class RoundService {
         Round round = getRound(lobbyId);
 
         //get random index to insert the correct answer at a random place into all Answers
-        Random rand = new Random();
-        int randIndex = rand.nextInt(4);
+        int randIndex = random.nextInt(4);
 
         //set index of correct answer and the current questions
         round.setRightAnswer((long) randIndex);

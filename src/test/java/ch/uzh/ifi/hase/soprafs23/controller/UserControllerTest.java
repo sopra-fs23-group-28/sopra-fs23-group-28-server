@@ -66,4 +66,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(status().reason("The username provided is not unique. Therefore, the user could not be created!"));
     }
+
+
+
 }
