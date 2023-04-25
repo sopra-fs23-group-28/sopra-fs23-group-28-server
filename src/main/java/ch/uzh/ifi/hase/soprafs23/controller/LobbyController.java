@@ -23,7 +23,6 @@ import static java.net.InetAddress.getLocalHost;
 public class LobbyController {
     private final LobbyService lobbyService;
     private final UserService userService;
-
     LobbyController(LobbyService lobbyService, UserService userService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
@@ -108,7 +107,7 @@ public class LobbyController {
     @GetMapping("/ips")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void ip() throws UnknownHostException {
+    public String ip() throws UnknownHostException {
 
         try {
 
@@ -120,8 +119,8 @@ public class LobbyController {
         catch( Exception e ) { System.out.println( e ); }
 
 
-        //String h = environment.getProperty("server.address");
-        //return h;
+        String h = String.valueOf(getLocalHost());
+        return h;
     }
 
 
