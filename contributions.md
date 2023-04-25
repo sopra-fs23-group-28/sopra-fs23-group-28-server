@@ -101,7 +101,12 @@ receive question answers.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/35
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/36
 
-* *20.04.2023, Monday:* People: Samuel, Elia, Harris. Description: receive answer questions, handle player punishment / advance based on
-answers, notify FrontEnd at state changes
+* *24.04.2023, Monday:* People: Samuel, Elia, Harris. Description: receive answer questions, handle player punishment / advance based on
+answers, notify FrontEnd at state changes, worked heavily on GCloud and sockets
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/38
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/39
+
+* *25.04.2023, Tuesday:*: People: Samuel, Elia, Harris, Cedric. Description: tried everything possible to get socket.io to run on GCloud.
+the problem is that it is possible to connect via the IP address of the AppEngine instance, but not via the domain as the domain handler
+does not allow portforwarding for what we needed. A static IP was also not possible for our GCloud plan without having to pay a fortune per day
+and with reverse proxies in a separate VM. This is we went with different approaches to get this IP via an API to the FrontEnd.

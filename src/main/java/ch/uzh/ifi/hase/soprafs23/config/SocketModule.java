@@ -168,7 +168,7 @@ public class SocketModule {
                 catch(ResponseStatusException e) {
                     e.printStackTrace();
                     socketService.sendMessage("JOIN", client, "AUTHFAIL");
-                    //client.disconnect();
+                    client.disconnect();
                     log.info("disconnected bc of wrong PIN or bc user is not in lobby");
                 }
 
