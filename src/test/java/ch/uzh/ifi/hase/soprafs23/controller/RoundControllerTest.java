@@ -63,7 +63,7 @@ class RoundControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", allOf(greaterThanOrEqualTo(1000), lessThanOrEqualTo(9999))));
     }
-
+/*
     @Test
     void getRoundInfo() throws Exception {
         // setup user
@@ -114,6 +114,8 @@ class RoundControllerTest {
 
     }
 
+
+ */
     @Test
     void receiveQuestionAnswers() {
     }

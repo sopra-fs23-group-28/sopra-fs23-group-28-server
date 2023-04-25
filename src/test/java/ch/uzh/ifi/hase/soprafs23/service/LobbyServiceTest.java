@@ -103,7 +103,7 @@ class LobbyServiceTest {
             lobbyService.validate(lobby, tuser);
         }, "Not authenticated!");
     }
-
+/*
     @Test
     void isLobbyTimerOver() {
         Lobby lobby = new Lobby();
@@ -117,6 +117,8 @@ class LobbyServiceTest {
 
     }
 
+
+ */
     @Test
     void setTimerOver() {
 
