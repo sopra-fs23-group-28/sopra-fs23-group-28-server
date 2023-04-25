@@ -10,6 +10,9 @@ import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import java.net.*;
+
+import static java.net.InetAddress.getLocalHost;
 
 @RestController
 public class LobbyController {
@@ -93,5 +96,25 @@ public class LobbyController {
         lobbyService.setMaxSteps(maxSteps, lobby);
 
 
+    }
+
+    //TRAASH
+    @GetMapping("/ips")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public String ip() throws UnknownHostException {
+
+        try {
+
+
+            System.out.println( "Host Name und Adresse: " +
+                    getLocalHost());
+
+        }
+        catch( Exception e ) { System.out.println( e ); }
+
+
+        String h = String.valueOf(getLocalHost());
+        return h;
     }
 }
