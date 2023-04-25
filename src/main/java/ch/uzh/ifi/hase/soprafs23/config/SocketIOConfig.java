@@ -13,7 +13,7 @@ public class SocketIOConfig {
 
     private String host = "0.0.0.0";
 
-    private Integer port = 65080;
+    private Integer port = 8080;
 
     @Bean
     public SocketIOServer socketIOServer() {
