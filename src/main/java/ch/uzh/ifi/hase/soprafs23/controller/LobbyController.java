@@ -11,6 +11,14 @@ import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.UnknownHostException;
+
+import static java.net.InetAddress.getLocalHost;
+
 @RestController
 public class LobbyController {
     private final LobbyService lobbyService;
@@ -94,4 +102,50 @@ public class LobbyController {
 
 
     }
+
+    //TRAASH
+    @GetMapping("/ips")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public String ip() throws UnknownHostException {
+
+        try {
+
+
+            System.out.println( "Host Name und Adresse: " +
+                    getLocalHost());
+
+        }
+        catch( Exception e ) { System.out.println( e ); }
+
+
+        String h = String.valueOf(getLocalHost());
+        return h;
+    }
+
+
+    @GetMapping("/external-ip")
+    @ResponseStatus(HttpStatus.OK)
+    public String getExternalIP() {
+        try {
+            URL url = new URL("http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Metadata-Flavor", "Google");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuilder content = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            conn.disconnect();
+            return content.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error fetching external IP";
+        }
+    }
+
+
 }

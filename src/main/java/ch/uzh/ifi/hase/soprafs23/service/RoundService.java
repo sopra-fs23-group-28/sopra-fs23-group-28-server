@@ -153,5 +153,4 @@ public class RoundService {
         lobbyRepository.save(lobbyService.getLobby(lobbyId));
     }
 
-
 }
