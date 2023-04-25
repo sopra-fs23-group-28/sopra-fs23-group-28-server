@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class SocketIOConfig {
 
 
-    private String host = "https://sopra-fs23-group-28-server.oa.r.appspot.com/";
+    private String host = "0.0.0.0";
 
     private Integer port = 65080;
 
