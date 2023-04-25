@@ -35,11 +35,7 @@ public class RoundController {
      **/
     @GetMapping("/lobbies/{lobbyId}/rounds")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public RoundGetDTO getRoundInfo(@PathVariable Long lobbyId, @RequestBody UserPostDTO userPostDTO) {
-        //authentication
-        lobbyService.isUserTokenInLobby(userPostDTO.getToken(), lobbyService.getLobby(lobbyId));
-
+    public RoundGetDTO getRoundInfo(@PathVariable Long lobbyId) {
 
         //fetch & return the round
         Lobby lobby = lobbyService.getLobby(lobbyId);
