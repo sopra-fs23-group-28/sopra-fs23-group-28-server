@@ -25,6 +25,8 @@ automatic_scaling:
 
 network:
   session_affinity: true
+  forwarded_ports:
+    - 65080/tcp
 # [END appengine_websockets_yaml]
 
 
