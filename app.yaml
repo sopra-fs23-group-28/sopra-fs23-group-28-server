@@ -2,6 +2,10 @@
 # https://cloud.google.com/appengine/docs/standard
 
 runtime: java
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "17"
+
 
 handlers:
 - url: /images
@@ -18,6 +22,9 @@ env: flex
 # extra-instance messaging system or data store would be needed.
 #manual_scaling:
  # instances: 1
+ 
+  automatic_scaling:
+  max_num_instances: 1
 
 network:
   session_affinity: true
