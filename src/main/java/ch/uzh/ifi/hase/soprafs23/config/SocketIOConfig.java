@@ -13,13 +13,14 @@ public class SocketIOConfig {
 
     private String host = "0.0.0.0";
 
-    private Integer port = 65080;
+    private Integer port = 8080;
 
     @Bean
     public SocketIOServer socketIOServer() {
         com.corundumstudio.socketio.Configuration config = new com.corundumstudio.socketio.Configuration();
         config.setHostname(host);
         config.setPort(port);
+        config.setContext("/socket");
         return new SocketIOServer(config);
     }
 }

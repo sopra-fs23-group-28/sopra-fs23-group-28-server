@@ -8,6 +8,8 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.startPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.net.*;
@@ -18,6 +20,7 @@ import static java.net.InetAddress.getLocalHost;
 public class LobbyController {
     private final LobbyService lobbyService;
     private final UserService userService;
+
     LobbyController(LobbyService lobbyService, UserService userService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
@@ -102,7 +105,7 @@ public class LobbyController {
     @GetMapping("/ips")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String ip() throws UnknownHostException {
+    public void ip() throws UnknownHostException {
 
         try {
 
@@ -114,7 +117,7 @@ public class LobbyController {
         catch( Exception e ) { System.out.println( e ); }
 
 
-        String h = String.valueOf(getLocalHost());
-        return h;
+        //String h = environment.getProperty("server.address");
+        //return h;
     }
 }
