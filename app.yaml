@@ -2,7 +2,16 @@
 # https://cloud.google.com/appengine/docs/standard
 
 runtime: java17
+
 instance_class: F2
+
+
+handlers:
+- url: /images
+  static_dir: static/images
+  http_headers:
+    Access-Control-Allow-Origin: *
+  # ...
 
 
 # [START appengine_websockets_yaml]
