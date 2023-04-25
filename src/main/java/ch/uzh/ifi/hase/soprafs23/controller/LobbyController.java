@@ -15,9 +15,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.UnknownHostException;
-
-import static java.net.InetAddress.getLocalHost;
 
 @RestController
 public class LobbyController {
@@ -103,26 +100,12 @@ public class LobbyController {
 
     }
 
-    //TRAASH
-    @GetMapping("/ips")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public String ip() throws UnknownHostException {
-
-        try {
-
-
-            System.out.println( "Host Name und Adresse: " +
-                    getLocalHost());
-
-        }
-        catch( Exception e ) { System.out.println( e ); }
-
-
-        String h = String.valueOf(getLocalHost());
-        return h;
-    }
-
+/**
+ *
+ * GET the current IP address under which the socket can be reached.
+ * Believe me, there is absolutely no possibility to solve it otherwise.
+ *
+ * */
 
     @GetMapping("/external-ip")
     @ResponseStatus(HttpStatus.OK)
@@ -146,6 +129,4 @@ public class LobbyController {
             return "Error fetching external IP";
         }
     }
-
-
 }
