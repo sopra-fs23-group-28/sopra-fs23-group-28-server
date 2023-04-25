@@ -10,9 +10,8 @@ handlers:
 - url: /images
   static_dir: static/images
   http_headers:
-    Access-Control-Allow-Origin: *
+    Access-Control-Allow-Origin: '*'
   # ...
-
 
 # [START appengine_websockets_yaml]
 env: flex
