@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Test and Sonarqube
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
@@ -23,16 +23,16 @@ jobs:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Test and analyze
-        run: ./gradlew test jacocoTestReport sonarqube
+      - name: Test
+        run: ./gradlew test jacocoTestReport
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     name: Deploying to Google Cloud
     runs-on: ubuntu-latest
     needs: test
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout
@@ -47,4 +47,4 @@ jobs:
           credentials: ${{ secrets.GCP_SERVICE_CREDENTIALS }}
 
       - name: Test
-        run: curl "${{ steps.deploy.outputs.url }}"
+        run: curl "${{ steps.deploy.outputs.url }}"
