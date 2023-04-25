@@ -1,11 +1,6 @@
 # https://cloud.google.com/appengine/docs/the-appengine-environments#comparing_high-level_features
 # https://cloud.google.com/appengine/docs/standard
 
-runtime: java17
-
-instance_class: F2
-
-
 handlers:
 - url: /images
   static_dir: static/images
@@ -13,6 +8,8 @@ handlers:
     Access-Control-Allow-Origin: '*'
   # ...
 
+env_variables:
+  PORT: 65080
 # [START appengine_websockets_yaml]
 env: flex
 
