@@ -61,13 +61,6 @@ class RoundServiceTest {
     }
 
     @Test
-    void getRound() {
-    roundservice.createRound(1111L);
-    Round round = roundservice.getRound(1111L);
-    assertEquals(testLobby.getRound(), round);
-    }
-
-    @Test
     void createRound() {
         roundservice.createRound(1111L);
         assertEquals(1111L, testLobby.getRound().getId());

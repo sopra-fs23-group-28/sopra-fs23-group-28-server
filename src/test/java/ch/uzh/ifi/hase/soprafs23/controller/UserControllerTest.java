@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.controller;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,17 +45,20 @@ class UserControllerTest {
         user.setUsername("uniqueUsername");
         user.setToken("123");
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
         //mock userService.createUser
         given(userService.createUser(Mockito.any())).willReturn(user);
 
         // send request and except correct answer
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"username\": \"uniqueUsername\"}"))
+                        .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(user.getId().intValue())))
                 .andExpect(jsonPath("$.username", is(user.getUsername())))
                 .andExpect(jsonPath("$.token", is(user.getToken())));
+
     }
 
     @Test
@@ -99,7 +103,6 @@ class UserControllerTest {
         user.setUsername("testuser");
 
         Mockito.doNothing().when(userService).deleteUser(Mockito.any());
-
 
         // Send request and expect correct answer
         mockMvc.perform(delete("/users")
