@@ -74,4 +74,6 @@ public class Lobby{
     public void setRound(Round round) {
         this.round = round;
     }
+
+    public void removeUserId(Long id){this.userIds.remove(id);}
 }
