@@ -84,7 +84,7 @@ class RoundServiceTest {
 
     /**
      * This test case validates the setAPIOutput() method of the RoundService class.
-     * This method is responsible for the external Trivia API in our project and therefor crucial.
+     * This method is responsible for the external Trivia API in our project and therefore crucial.
      * The test ensures that the current question is not null and the logic of fetching external questions work.
      */
     @Test
@@ -96,7 +96,7 @@ class RoundServiceTest {
         // get the created round
         Round round = roundservice.getRound(1111L);
 
-        // setup a few dummy answers and set them to the round
+        // set up a few dummy answers and set them to the round
         List<String> answers = new ArrayList<String>();
         answers.add("dummyanswer");
         answers.add("dummyanswer");
