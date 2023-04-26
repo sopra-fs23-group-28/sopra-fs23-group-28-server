@@ -118,7 +118,7 @@ public class UserService {
               baseErrorMessage);
   }
 
-    public void userIsReady(Long id) {
+    public void setUserIsReady(Long id) {
       User user = getUserById(id);
       user.setIsReady(true);
       userRepository.save(user);

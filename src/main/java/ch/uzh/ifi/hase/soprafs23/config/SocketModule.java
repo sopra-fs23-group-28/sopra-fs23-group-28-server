@@ -36,7 +36,6 @@ public class SocketModule {
         this.gameService = gameService;
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
-        server.addEventListener("GAMESTART", Message.class, onGamestartReceived());
         server.addEventListener("READY", Message.class, onReadyReceived());
         server.addEventListener("TIMERSTOPCATEGORY", Message.class, onTimerStopCategoryReceived());
         server.addEventListener("TIMERSTOPQUESTION", Message.class, onTimerStopQuestionReceived());
@@ -98,32 +97,27 @@ public class SocketModule {
         };
     }
 
-    private DataListener<Message> onGamestartReceived(){
-        return (senderClient, data, ackSender) -> {
-            //if Lobby was not initiated for the start yet, send back an error message. We check if maxSteps was set or not
-            if (lobbyService.getLobby(Long.valueOf(data.getRoom())).getMaxSteps() == null) {
-                socketService.sendMessage("GAMESTART", senderClient, "NOSTART");
-            }
-            else {
-                //if successful, send message to room that the Game can be started
-                socketService.sendMessageToRoom(data.getRoom(), "GAMESTART", "GAMESTART");
-            }
-        };
-    }
     private DataListener<Message> onReadyReceived(){
         return (senderClient, data, ackSender) -> {
             //we check if each user in the lobby is ready (has sent something to the READY listener).
             // if yes, send out GETCATEGORY
 
             Long lobbyId = Long.valueOf(data.getRoom());
+            Lobby lobby = lobbyService.getLobby(lobbyId);
             String token = senderClient.getHandshakeData().getSingleUrlParam("token");
             User user = userService.getUserByToken(token);
-            userService.userIsReady(user.getId());
+            userService.setUserIsReady(user.getId());
 
             //if lobby is ready, create the Round and send a message to all clients that they can fetch the category
             if (lobbyService.isLobbyReady(lobbyId)) {
                 roundService.createRound(lobbyId);
-                socketService.sendMessageToRoom(data.getRoom(), "READY", "GETCATEGORY");
+                // if roundNumber == 0, the game didn't start yet and it is meant to be for the Category
+                if(lobby.getRoundNumber() == 0) socketService.sendMessageToRoom(data.getRoom(), "READY", "GETCATEGORY");
+                // else it is for the Question
+                else socketService.sendMessageToRoom(data.getRoom(), "READY", "GETQUESTION");
+
+                //reset isReady for the lobby
+                lobbyService.resetIsLobbyReady(lobbyId);
             }
             else {
                 //if not, send out NOTREADYYET
@@ -176,11 +170,13 @@ public class SocketModule {
     }
 
     private DisconnectListener onDisconnected() {
-        return client -> {
-            log.info("Client[{}] - Disconnected from socket", client.getSessionId().toString());
+        return (client) -> {
+            // nothing happens here except that client automatically leaves the room he is in
         };
     }
 
-
-
+    //method to send message after game start
+    public void sendMessage(Long lobbyId, String eventName, String message) {
+        socketService.sendMessageToRoom(lobbyId.toString(), eventName, message);
+    }
 }

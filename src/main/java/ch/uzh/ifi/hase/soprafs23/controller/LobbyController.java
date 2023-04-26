@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyGetDTO;
@@ -20,8 +21,10 @@ import java.net.URL;
 public class LobbyController {
     private final LobbyService lobbyService;
     private final UserService userService;
-    LobbyController(LobbyService lobbyService, UserService userService) {
+    private final SocketModule socketModule;
+    LobbyController(LobbyService lobbyService, UserService userService, SocketModule socketModule) {
         this.lobbyService = lobbyService;
+        this.socketModule = socketModule;
         this.userService = userService;
     }
 
@@ -43,7 +46,7 @@ public class LobbyController {
     }
 
      /**
-     * PUT /lobbies/{id}/join
+     * PUT /lobbies/{id}/user
      * the RequestBody consist only of a User token. This is why the userPostDTO is being used.
      **/
     @PutMapping("/lobbies/{lobbyId}/users")
@@ -58,6 +61,25 @@ public class LobbyController {
 
         //join lobby
         lobbyService.joinLobby(lobby, user);
+    }
+
+    /**
+     * PUT /lobbies/{lobbyId}/users/{userId}
+     * the RequestBody consist only of a User token. This is why the userPostDTO is being used.
+     **/
+    @PutMapping("/lobbies/{lobbyId}/users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void leaveLobby(@PathVariable Long lobbyId, @PathVariable Long userId, @RequestBody UserPostDTO userPostDTO){
+
+        //fetch user
+        User internalUser = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
+        User user = userService.getUserByToken(internalUser.getToken());
+
+        //fetch lobby
+        Lobby lobby = lobbyService.getLobby(lobbyId);
+
+        //join lobby
+        lobbyService.leaveLobby(lobby, user);
     }
 
      /**

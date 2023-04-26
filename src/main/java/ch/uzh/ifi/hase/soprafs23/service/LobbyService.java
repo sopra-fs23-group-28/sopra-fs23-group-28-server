@@ -136,10 +136,15 @@ public class LobbyService {
 
     public boolean isLobbyReady(Long id){
         for(User u : getUsersFromLobby(id)){
-            System.out.println("User "+ u.getUsername() + " is " + u.getIsReady());
             if (!u.getIsReady()) return false;
         }
         return true;
+    }
+
+    public void resetIsLobbyReady(Long id){
+        for(User u : getUsersFromLobby(id)) {
+            u.setIsReady(false);
+        }
     }
 
     public void resetAnswerCounter(Long lobbyId) {
