@@ -63,7 +63,6 @@ class RoundServiceTest {
         assertEquals(1111L, testLobby.getRound().getId());
     }
 
-
     @Test
     void chooseCategory() {
         roundservice.createRound(1111L);
@@ -73,8 +72,6 @@ class RoundServiceTest {
         assertTrue(round.getCategories().contains(round.getChosenCategory()));
     }
 
-
- */
     @Test
     void incVoteCount() {
         roundservice.createRound(1111L);

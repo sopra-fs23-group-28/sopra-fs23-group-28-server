@@ -79,7 +79,6 @@ public class SocketModule {
                 socketService.sendMessageToRoom(data.getRoom(), "ROUND", "VOTINGDONE");
                 gameService.evaluateAnswers(lobbyId);
 
-
             }
         };
     }

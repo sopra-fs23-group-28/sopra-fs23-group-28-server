@@ -110,3 +110,5 @@ answers, notify FrontEnd at state changes, worked heavily on GCloud and sockets
 the problem is that it is possible to connect via the IP address of the AppEngine instance, but not via the domain as the domain handler
 does not allow portforwarding for what we needed. A static IP was also not possible for our GCloud plan without having to pay a fortune per day
 and with reverse proxies in a separate VM. This is we went with different approaches to get this IP via an API to the FrontEnd.
+
+* *26.04.2023, Wednesday:*: People: Samuel, Elia, Harris. Description: Small refactoring to support FrontEnd Flow, worked heavily on Unit tests

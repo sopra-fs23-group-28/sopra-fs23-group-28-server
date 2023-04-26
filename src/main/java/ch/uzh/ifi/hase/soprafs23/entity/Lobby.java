@@ -50,7 +50,6 @@ public class Lobby{
     public Long getRoundNumber() {
         return this.roundNumber;
     }
-
     public void incRoundNumber() {
         this.roundNumber += 1;
     }

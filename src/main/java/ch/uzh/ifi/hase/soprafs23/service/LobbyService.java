@@ -74,8 +74,27 @@ public class LobbyService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    public void leaveLobby(Lobby lobby, User user) {
+        //check if user was in the round before deleting it
+        List<User> users = getUsersFromLobby(lobby.getId());
+        boolean userFound = false;
+        for (User userToBeChecked : users) {
+            if (user.getUsername().equals(userToBeChecked.getUsername())) {
+                userFound = true;
+                break;
+            }
+        }
+        if (!userFound) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "User was never in round!");
+        }
 
-    //lets a user join a lobby
+        //remove the user
+        lobby.removeUserId(user.getId());
+        lobbyRepository.save(lobby);
+    }
+
+        //lets a user join a lobby
     public void joinLobby(Lobby lobby, User user) {
         List<User> users = getUsersFromLobby(lobby.getId());
         if(users.size() >= 4) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

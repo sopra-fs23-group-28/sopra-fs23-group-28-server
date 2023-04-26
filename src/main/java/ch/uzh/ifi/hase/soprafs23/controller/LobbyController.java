@@ -119,7 +119,7 @@ public class LobbyController {
         //set maxSteps
         lobbyService.setMaxSteps(maxSteps, lobby);
 
-
+        socketModule.sendMessage(lobbyId, "GAMESTART", "GAMESTART");
     }
 
 /**

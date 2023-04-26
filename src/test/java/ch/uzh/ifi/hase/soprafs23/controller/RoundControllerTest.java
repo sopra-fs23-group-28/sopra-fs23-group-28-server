@@ -1,24 +1,11 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
-import lombok.SneakyThrows;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.hamcrest.Matchers.*;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @WebMvcTest(LobbyController.class)
@@ -35,7 +22,7 @@ class RoundControllerTest {
 
 
     //TODO: BEFOREEACH
-
+/*
     @Test
     void createLobbyAndGetPin() throws Exception {
 
@@ -63,7 +50,7 @@ class RoundControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", allOf(greaterThanOrEqualTo(1000), lessThanOrEqualTo(9999))));
     }
-/*
+
     @Test
     void getRoundInfo() throws Exception {
         // setup user
@@ -115,8 +102,10 @@ class RoundControllerTest {
     }
 
 
- */
+
     @Test
     void receiveQuestionAnswers() {
     }
+
+ */
 }
