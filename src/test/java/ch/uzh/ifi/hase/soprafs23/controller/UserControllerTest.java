@@ -1,23 +1,24 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
+
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-
-import static org.mockito.Mockito.doThrow;
 
 
 @WebMvcTest(UserController.class)
@@ -67,6 +68,40 @@ class UserControllerTest {
                 .andExpect(status().reason("The username provided is not unique. Therefore, the user could not be created!"));
     }
 
+    /*
+    @Test
+    public void testGetAllUsers() throws Exception {
+        // Create mock data
+        List<User> users = new ArrayList<>();
+        users.add(new User("John", "Doe"));
+        users.add(new User("Jane", "Doe"));
+
+        List<UserGetDTO> userGetDTOs = new ArrayList<>();
+        UserGetDTO userGetDTO1 = new UserGetDTO();
+        userGetDTO1.setUsername("Testuser1");
+        userGetDTOs.add(userGetDTO1);
+
+        UserGetDTO userGetDTO2 = new UserGetDTO();
+        userGetDTO2.setUsername("Testuser2");
+        userGetDTOs.add(userGetDTO2);
+
+        // Set up mock behavior
+        when(lobbyService.getUsersFromLobby(1L)).thenReturn(users);
+        when(DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(users.get(0))).thenReturn(userGetDTOs.get(0));
+        when(DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(users.get(1))).thenReturn(userGetDTOs.get(1));
+
+        // Send request and expect correct answer
+        mockMvc.perform(get("/users/{lobbyId}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].firstName", is(userGetDTOs.get(0).getFirstName())))
+                .andExpect(jsonPath("$.[0].lastName", is(userGetDTOs.get(0).getLastName())))
+                .andExpect(jsonPath("$.[1].firstName", is(userGetDTOs.get(1).getFirstName())))
+                .andExpect(jsonPath("$.[1].lastName", is(userGetDTOs.get(1).getLastName())));
+
+        // Verify lobbyService.getUsersFromLobby is called
+        verify(lobbyService, times(1)).getUsersFromLobby(1L);
+    }
+*/
 
 
 }
