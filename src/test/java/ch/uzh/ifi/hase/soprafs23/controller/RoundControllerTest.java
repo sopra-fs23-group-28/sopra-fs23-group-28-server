@@ -88,36 +88,7 @@ class RoundControllerTest {
         given(userService.getUserByToken(Mockito.any())).willReturn(user);
         given(lobbyService.createLobby(user)).willReturn(lobby);
     }
-/*
-    @Test
-    void createLobbyAndGetPin() throws Exception {
 
-        // setup user
-        User user = new User();
-        user.setId(1L);
-        user.setUsername("uniqueUsername");
-        user.setToken("123");
-
-        //setup lobby & set lobbycreator for user
-        Lobby lobby = new Lobby();
-        lobby.setId(4400L);
-        lobby.addUserId(1L);
-        lobby.setCreatorId(1L);
-        user.setGameCreator(true);
-
-        //mock userService.getUserByToken, needed by LobbyService.createLobby
-        given(userService.getUserByToken(Mockito.any())).willReturn(user);
-        given(lobbyService.createLobby(user)).willReturn(lobby);
-
-        //send request and check if pin meets criteria
-        mockMvc.perform(post("/lobbies")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"token\": \"123\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", allOf(greaterThanOrEqualTo(1000), lessThanOrEqualTo(9999))));
-    }
-
- */
 
     @Test
     void getRoundInfo() throws Exception {
