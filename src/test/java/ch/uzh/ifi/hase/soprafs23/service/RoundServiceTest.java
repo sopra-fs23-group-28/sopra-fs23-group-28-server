@@ -97,6 +97,8 @@ class RoundServiceTest {
         List<String> answers = new ArrayList<String>();
         answers.add("dummyanswer");
         answers.add("dummyanswer");
+        answers.add("dummyanswer");
+        answers.add("dummyanswer");
         round.setAnswers(answers);
         APIOutput dummyAPIOutput = new APIOutput();
         APIOutputQuestion APIQuestion = new APIOutputQuestion();
@@ -104,7 +106,6 @@ class RoundServiceTest {
         dummyAPIOutput.setApiOutputQuestion(APIQuestion);
         dummyAPIOutput.setCorrectAnswer("answer");
         dummyAPIOutput.setIncorrectAnswers(answers);
-
         roundservice.setAPIOutput(1111L, dummyAPIOutput);
         assertTrue(round.getCurrentQuestion() != null);
     }
