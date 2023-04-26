@@ -22,6 +22,8 @@ public class LobbyService {
     private final UserService userService;
     private final LobbyRepository lobbyRepository;
 
+    private final Random random = new Random();
+
 
     @Autowired
     public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
@@ -38,7 +40,6 @@ public class LobbyService {
         Lobby lobby = new Lobby();
 
         //generate Id
-        Random random = new Random();
         int pin = random.nextInt(9000) + 1000;
         lobby.setId((long) pin);
 

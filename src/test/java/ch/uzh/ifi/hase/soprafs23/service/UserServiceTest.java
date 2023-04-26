@@ -56,8 +56,32 @@ class UserServiceTest {
         String color = "Blue";
         User UserWithCamel = userService.setCamelColor(testUser.getId(), color);
 
-        assertEquals(UserWithCamel.getCamelColor(), CamelColors.BLUE);
+        assertEquals(CamelColors.BLUE, UserWithCamel.getCamelColor());
     }
 
 
+
+
+    @Test
+    void updateStepStateOfUser() {
+    }
+
+
+    @Test
+    void getUserByToken() {
+    }
+
+
+
+    @Test
+    void deleteUser() {
+    }
+
+    @Test
+    void updateTimeAndAnswer() {
+    }
+
+    @Test
+    void userIsReady() {
+    }
 }
