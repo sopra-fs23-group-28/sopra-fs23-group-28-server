@@ -19,8 +19,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -94,21 +93,19 @@ class UserControllerTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-        /*
+
         // Create mock data
         User user = new User();
         user.setUsername("testuser");
 
+        Mockito.doNothing().when(userService).deleteUser(Mockito.any());
+
+
         // Send request and expect correct answer
         mockMvc.perform(delete("/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\": \"John\", \"lastName\": \"Doe\"}"))
+                        .content("{\"token\": \"123\"}"))
                 .andExpect(status().isNoContent());
-
-        // Verify userService.deleteUser is called
-        verify(userService, times(1)).deleteUser(user);
-
-         */
     }
 
 
