@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
@@ -8,14 +9,11 @@ import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Random;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
@@ -36,12 +34,10 @@ class LobbyControllerTest {
         @MockBean
         private LobbyRepository lobbyRepository;
         @MockBean
-        private Random random = new Random();
+        private SocketModule socketModule;
 
         @BeforeEach
         void setUp() {
-            MockitoAnnotations.initMocks(this);
-            lobbyService = new LobbyService(userService, lobbyRepository);
         // setup user
         User user = new User();
         user.setId(1L);
@@ -62,7 +58,6 @@ class LobbyControllerTest {
 
     @Test
     void createLobbyAndGetPin() throws Exception {
-
         //send request and check if pin meets criteria
         mockMvc.perform(post("/lobbies")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,5 +93,4 @@ class LobbyControllerTest {
                         .content("{\"token\": \"123\"}"))
                 .andExpect(status().isNoContent());
     }
-
 }
