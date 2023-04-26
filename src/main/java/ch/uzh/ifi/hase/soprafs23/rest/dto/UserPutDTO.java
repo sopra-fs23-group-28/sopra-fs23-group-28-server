@@ -18,6 +18,9 @@ public class UserPutDTO {
     public Long getAnswerIndex() {
         return answerIndex;
     }
+    public void setAnswerIndex(Long answerIndex) {
+         this.answerIndex = answerIndex;
+    }
 
     public void setQuestionIndex(Long questionIndex) {
         this.answerIndex = questionIndex;

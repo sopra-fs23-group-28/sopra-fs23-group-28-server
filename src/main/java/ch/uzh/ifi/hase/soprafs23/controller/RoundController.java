@@ -86,7 +86,7 @@ public class RoundController {
         //update User with the time he voted and the index of the answer
         userService.updateTimeAndAnswer(userPutDTO.getToken(), userPutDTO.getTime(), userPutDTO.getAnswerIndex());
         roundService.incVoteCount(lobbyId);
-        System.out.println("ANSWER COUNT: " + roundService.getRound(lobbyId).getAnswerCount());
+
         if(roundService.getRound(lobbyId).getAnswerCount() == 4) {
             gameService.evaluateAnswers(lobbyId);
         }
