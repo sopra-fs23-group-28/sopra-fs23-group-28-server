@@ -59,32 +59,30 @@ class RoundServiceTest {
 
     @Test
     void createRound() {
-    roundservice.createRound(1111L);
-    assertEquals(1111L, testLobby.getRound().getId());
+        roundservice.createRound(1111L);
+        assertEquals(1111L, testLobby.getRound().getId());
     }
-
 
     @Test
     void chooseCategory() {
-    roundservice.createRound(1111L);
-    roundservice.chooseCategory(1111L);
-    Round round = roundservice.getRound(1111L);
-    assertTrue(round.getCategories().size() == 3);
-    assertTrue(round.getCategories().contains(round.getChosenCategory()));
+        roundservice.createRound(1111L);
+        roundservice.chooseCategory(1111L);
+        Round round = roundservice.getRound(1111L);
+        assertTrue(round.getCategories().size() == 3);
+        assertTrue(round.getCategories().contains(round.getChosenCategory()));
     }
-
 
     @Test
     void incVoteCount() {
-    roundservice.createRound(1111L);
-    roundservice.incVoteCount(1111L);
-    Round round = roundservice.getRound(1111L);
-    assertEquals(round.getAnswerCount(), 1L);
+        roundservice.createRound(1111L);
+        roundservice.incVoteCount(1111L);
+        Round round = roundservice.getRound(1111L);
+        assertEquals(round.getAnswerCount(), 1L);
     }
 
     @Test
     void setAPIOutput() {
-    roundservice.createRound(1111L);
+        roundservice.createRound(1111L);
 
     }
 

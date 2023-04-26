@@ -50,7 +50,6 @@ public class Lobby{
     public Long getRoundNumber() {
         return this.roundNumber;
     }
-
     public void incRoundNumber() {
         this.roundNumber += 1;
     }
@@ -74,4 +73,6 @@ public class Lobby{
     public void setRound(Round round) {
         this.round = round;
     }
+
+    public void removeUserId(Long id){this.userIds.remove(id);}
 }
