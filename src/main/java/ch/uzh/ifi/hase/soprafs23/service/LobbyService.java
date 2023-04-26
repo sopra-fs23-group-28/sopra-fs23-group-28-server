@@ -21,7 +21,6 @@ import java.util.Random;
 public class LobbyService {
     private final UserService userService;
     private final LobbyRepository lobbyRepository;
-
     private final Random random = new Random();
 
 
