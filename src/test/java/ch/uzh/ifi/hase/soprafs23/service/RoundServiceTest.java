@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RoundServiceTest {
 
@@ -129,6 +128,5 @@ class RoundServiceTest {
     assertEquals(0,round.getCategoryVotes().size());
     roundservice.addCategoryVote(Categories.geography, 1111L);
     assertEquals(1,round.getCategoryVotes().size());
-
     }
 }
