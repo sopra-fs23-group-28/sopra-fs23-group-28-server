@@ -4,7 +4,6 @@ import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +88,7 @@ class LobbyControllerTest {
                         .content("{\"token\": \"123\"}"))
                 .andExpect(status().isNoContent());
     }
-    /*
+
     @Test
     void lobbyInfo() throws Exception {
 
@@ -114,11 +113,9 @@ class LobbyControllerTest {
         mockMvc.perform(put("/lobbies/4400/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"token\": \"123\"}"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
-
-     */
     @Test
     void startGame() throws Exception {
         // setup user
