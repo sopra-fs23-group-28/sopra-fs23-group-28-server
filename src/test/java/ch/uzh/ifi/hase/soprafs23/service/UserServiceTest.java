@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserServiceTest {
 
@@ -57,31 +57,5 @@ class UserServiceTest {
         User UserWithCamel = userService.setCamelColor(testUser.getId(), color);
 
         assertEquals(CamelColors.BLUE, UserWithCamel.getCamelColor());
-    }
-
-
-
-
-    @Test
-    void updateStepStateOfUser() {
-    }
-
-
-    @Test
-    void getUserByToken() {
-    }
-
-
-
-    @Test
-    void deleteUser() {
-    }
-
-    @Test
-    void updateTimeAndAnswer() {
-    }
-
-    @Test
-    void userIsReady() {
     }
 }
