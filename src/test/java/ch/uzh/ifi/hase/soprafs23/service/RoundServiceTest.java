@@ -83,26 +83,45 @@ class RoundServiceTest {
         assertEquals(round.getAnswerCount(), 1L);
     }
 
+    /**
+     * This test case validates the setAPIOutput() method of the RoundService class.
+     * This method is responsible for the external Trivia API in our project and therefor crucial.
+     * The test ensures that the current question is not null and the logic of fetching external questions work.
+     */
     @Test
     void setAPIOutput() {
+
+        // Create a new round with id 1111
         roundservice.createRound(1111L);
+
+        // get the created round
         Round round = roundservice.getRound(1111L);
+
+        // setup a few dummy answers and set them to the round
         List<String> answers = new ArrayList<String>();
         answers.add("dummyanswer");
         answers.add("dummyanswer");
         answers.add("dummyanswer");
         answers.add("dummyanswer");
         round.setAnswers(answers);
+
+        // Create a dummy APIOutput object
         APIOutput dummyAPIOutput = new APIOutput();
+
+        // Create a dummy APIOutputQuestion object and set its text
         APIOutputQuestion APIQuestion = new APIOutputQuestion();
         APIQuestion.setText("question");
+
+        // Set the APIOutput object's question and answers
         dummyAPIOutput.setApiOutputQuestion(APIQuestion);
         dummyAPIOutput.setCorrectAnswer("answer");
         dummyAPIOutput.setIncorrectAnswers(answers);
-        roundservice.setAPIOutput(1111L, dummyAPIOutput);
-        assertTrue(round.getCurrentQuestion() != null);
-    }
 
+        // Set the APIOutput to the round we created and assert it is not Null
+        roundservice.setAPIOutput(1111L, dummyAPIOutput);
+        assertNotNull(round.getCurrentQuestion());
+    }
+    
     @Test
     void addCategoryVote() {
     roundservice.createRound(1111L);
