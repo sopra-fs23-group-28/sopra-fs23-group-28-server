@@ -37,6 +37,11 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
+    /**
+     *
+     * This is a rest interface test for POST /users
+     * @throws Exception
+     */
     @Test
     void createUser_validInput() throws Exception {
         // setup user
