@@ -34,9 +34,12 @@ public class SocketService {
 
         }
     }
-    public void sendRightAnswer(Long lobbyId, Long answer){
-        sendMessageToRoom(lobbyId.toString(), "ROUND", answer.toString());
+    public void sendRigthAnswer(Long lobbyId, Long answer){
+        sendMessageToRoom(lobbyId.toString(), "ROUND",  answer.toString());
+    }
 
+    public void sendFinish(Long lobbyId, String answer){
+        sendMessageToRoom(lobbyId.toString(), "FINISH",  answer);
     }
 
 

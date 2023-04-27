@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.config.SocketService;
+import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
@@ -38,7 +39,8 @@ public class GameService {
     public void evaluateAnswers(Long lobbyId) {
 
         List<User> users = lobbyService.getUsersFromLobby(lobbyId);
-        Round round = lobbyService.getLobby(lobbyId).getRound();
+        Lobby lobby =lobbyService.getLobby(lobbyId);
+        Round round = lobby.getRound();
         System.out.println("IN EVALUATE, boolean: " + round.isTimerOver());
         round.setTimerOver(true);
         // Filter users who answered correctly
@@ -83,7 +85,8 @@ public class GameService {
                     break;
             }
         }
-        socketService.sendRightAnswer(lobbyId, roundService.getRound(lobbyId).getRightAnswer()+1);
+        socketService.sendRigthAnswer(lobbyId, roundService.getRound(lobbyId).getRightAnswer()+1);
+        if(Objects.equals(lobby.getMaxSteps(), lobby.getRoundNumber())) socketService.sendFinish(lobbyId,"FINISH");
         System.out.println("EVALUATE HAS FINISHED");
     }
 }
