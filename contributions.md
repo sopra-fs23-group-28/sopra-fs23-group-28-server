@@ -181,6 +181,20 @@ does not allow portforwarding for what we needed. A static IP was also not possi
 and with reverse proxies in a separate VM. This is we went with different approaches to get this IP via an API to the FrontEnd.
 
 * *26.04.2023, Wednesday:*: People: Samuel, Elia, Harris. Description: Small refactoring to support FrontEnd Flow, worked heavily on Unit tests
+Finished socket.Io to work on Google cloud.
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/40
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/68
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/69
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/70
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/71
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/72
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/73
+
+* *27.04.2023, Thursday:*: People: Samuel, Elia, Harris. Description: Send finish info to frontend via socket event 
+in order to show the winner screen.
+    * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/74
+
+
 
 
 FrontEnd:
