@@ -1,8 +1,8 @@
-## contributions.md
+contributions.md
 
-## Milestone 3
+# Milestone 3
 
-# 28.03. - 02.04.2023
+## 28.03. - 02.04.2023
 
 Backend:
 * *29.03.2023, Wednesday:* People: Elia, Samuel, Harris. Description: created user entity and lobby entity, 
@@ -47,7 +47,7 @@ FrontEnd:
 * *28.03. - 02.04.* People: Markus, Cedric. Working on the view templates in TeleportHQ.
 
 
-# 03.04. - 09.04.
+## 03.04. - 09.04.
 
 BackEnd:
 * *07.04.2023, Friday:* People: Harris. Description: wrote two Tests for Issue 14, started test for Issue 19 but failed. 
@@ -78,7 +78,7 @@ with tokens.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/21
 
 
-# 10.04. - 16.04.
+## 10.04. - 16.04.
 
 BackEnd:
 * *12.04.2023, Wednesday:* People: Samuel, Elia, Harris. Description: fixed Test for Issue 19, created delete mapping
@@ -136,7 +136,7 @@ Upgrading react-router-dom to v6^, making first adjustments and testing possible
 * *16.04.2023, Sunday:* People: Markus. Finishing router upgrades, relocating RouteGuards.
 
 
-# 17.04. - 23.04
+## 17.04. - 23.04
 
 BackEnd:
 * *17.04.2023, Monday:* People: Samuel, Elia, Harris. Description: automated postman websockets tests with javascript 
@@ -167,7 +167,7 @@ FrontEnd:
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/11
 
 
-# 24.04. - 27.04.
+## 24.04. - 27.04.
 
 BackEnd:
 * *24.04.2023, Monday:* People: Samuel, Elia, Harris. Description: receive answer questions, handle player punishment / advance based on
@@ -197,7 +197,7 @@ Local tests work and let the game progress past the lobby.
 
 
 
-## Milestone 4
+# Milestone 4
 
-# 28.04. - 30.04.
+## 28.04. - 30.04.
 
