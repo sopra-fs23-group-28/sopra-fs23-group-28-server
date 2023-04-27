@@ -86,7 +86,18 @@ public class GameService {
             }
         }
         socketService.sendRigthAnswer(lobbyId, roundService.getRound(lobbyId).getRightAnswer()+1);
-        if(Objects.equals(lobby.getMaxSteps(), lobby.getRoundNumber())) socketService.sendFinish(lobbyId,"FINISH");
+        if(isFinished(lobbyId)) socketService.sendFinish(lobbyId,"FINISH");
         System.out.println("EVALUATE HAS FINISHED");
+    }
+
+    //checks whether a  user in a lobby has reached the maxSteps
+    private boolean isFinished(Long lobbyId) {
+        Lobby lobby = lobbyService.getLobby(lobbyId);
+        List<User> users = lobbyService.getUsersFromLobby(lobbyId);
+
+        for(User user : users) {
+            if(user.getStepState() >= lobby.getMaxSteps()) return true;
+        }
+        return false;
     }
 }
