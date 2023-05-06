@@ -130,6 +130,8 @@ public class SocketModule {
             //fetch room from URL parameter
             String room = client.getHandshakeData().getSingleUrlParam("room");
             String token = client.getHandshakeData().getSingleUrlParam("token");
+            String isSpectator = client.getHandshakeData().getSingleUrlParam("spectator");
+
 
                 //try to get the Lobby with this specific room PIN - if it does not exist, an error is being raised and caught.
                 try {
