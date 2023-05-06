@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Objects;
 
+
 @Service
 public class QuestionService {
     private final RestTemplate restTemplate;
@@ -20,9 +21,10 @@ public class QuestionService {
     private final LobbyService lobbyService;
 
 
-    public QuestionService(RestTemplate restTemplate, RoundService roundService) {
+    public QuestionService(RestTemplate restTemplate, RoundService roundService, LobbyService lobbyService) {
         this.restTemplate = restTemplate;
         this.roundService = roundService;
+        this.lobbyService = lobbyService;
     }
 
     public APIOutput getQuestion(String url) {
@@ -38,7 +40,6 @@ public class QuestionService {
     public void createQuestion(Long lobbyId){
         Lobby lobby = lobbyService.getLobby(lobbyId);
         Round round = roundService.getRound(lobbyId);
-        Categories chosenCategory = round.getChosenCategory();
 
         //build the API Call String
         String TriviaAPICall = "https://the-trivia-api.com/v2/questions/?limit=1&difficulties=" + lobby.getDifficulty().toString().toLowerCase() + "&categories=" + round.getChosenCategory().toString();

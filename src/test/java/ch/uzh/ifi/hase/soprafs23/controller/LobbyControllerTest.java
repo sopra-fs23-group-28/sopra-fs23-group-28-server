@@ -54,6 +54,8 @@ class LobbyControllerTest {
         //mock userService.getUserByToken, needed by LobbyService.createLobby
         given(userService.getUserByToken(Mockito.any())).willReturn(user);
         given(lobbyService.createLobby(user)).willReturn(lobby);
+        given(lobbyService.getLobby(4440L)).willReturn(lobby);
+        Mockito.doNothing().when(lobbyService).setDifficulty(Mockito.any(), Mockito.any());
     }
 
     @Test
@@ -91,6 +93,14 @@ class LobbyControllerTest {
         mockMvc.perform(put("/lobbies/4400")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"token\": \"123\"}"))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void setDifficultyForLobbyTest() throws Exception {
+        mockMvc.perform(put("/lobbies/4400/difficulties")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"token\": \"123\", \"difficulty\": \"EASY\"}"))
                 .andExpect(status().isNoContent());
     }
 }

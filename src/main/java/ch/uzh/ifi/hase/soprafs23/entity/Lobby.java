@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
+import ch.uzh.ifi.hase.soprafs23.constant.Difficulties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,8 @@ public class Lobby{
     @Column
     private Long maxSteps;
 
+    @Column
+    private Difficulties difficulty;
 
     @Column
     @ElementCollection
@@ -75,4 +79,12 @@ public class Lobby{
     }
 
     public void removeUserId(Long id){this.userIds.remove(id);}
+
+    public Difficulties getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulties difficulty) {
+        this.difficulty = difficulty;
+    }
 }

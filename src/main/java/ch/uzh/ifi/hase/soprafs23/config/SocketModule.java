@@ -140,12 +140,11 @@ public class SocketModule {
                     //does this lobby exist?
                     Lobby lobby = lobbyService.getLobby(parseLong(room));
 
-                    //is this user approved to join?
-
-                    lobbyService.isUserTokenInLobby(token, lobby);
+                    //is this user approved to join or spectator?
+                    if (isSpectator == null) lobbyService.isUserTokenInLobby(token, lobby);
 
                     //send message to whole room about a new user having joined
-                    socketService.sendMessageToRoom(room,"NEWUSER","ANEWUSERJOINED");
+                    if (isSpectator == null) socketService.sendMessageToRoom(room,"NEWUSER","ANEWUSERJOINED");
 
                     //join the socketIO room
                     client.joinRoom(room);

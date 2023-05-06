@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.controller;
 import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.DifficultyPutDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.startPostDTO;
@@ -80,6 +81,20 @@ public class LobbyController {
 
         //join lobby
         lobbyService.leaveLobby(lobby, user);
+    }
+
+    /**
+     * PUT /lobbies/{lobbyId}/difficulties
+     * the RequestBody consist only of a User token. This is why the userPostDTO is being used.
+     **/
+    @PutMapping("/lobbies/{lobbyId}/difficulties")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setDifficultyForLobby(@PathVariable Long lobbyId, @RequestBody DifficultyPutDTO difficultyPutDTO){
+        //authentification
+        User user = userService.getUserByToken(difficultyPutDTO.getToken());
+
+        //change difficulty
+        lobbyService.setDifficulty(lobbyId, difficultyPutDTO.getDifficulty());
     }
 
      /**

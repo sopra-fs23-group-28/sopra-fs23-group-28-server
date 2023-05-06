@@ -57,7 +57,6 @@ public class UserController {
 
   }
 
-
   @GetMapping("/users/{lobbyId}")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -76,9 +75,16 @@ public class UserController {
     @DeleteMapping ("/users")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@RequestBody UserPostDTO userPostDTO) {
-      User user = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
-      userService.deleteUser(user);
+    User user = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
+    userService.deleteUser(user);
+  }
+
+    @PutMapping("/users/{userId}/states")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void resetStepState(@PathVariable Long userId, @RequestBody UserPutDTO userPutDTO) {
+        User user = userService.getUserByToken(userPutDTO.getToken());
+        if(!Objects.equals(user.getId(), userId)) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not authenticated");
+        userService.resetSteps(userId);
     }
-
-
 }

@@ -74,4 +74,5 @@ public class IntegrationTest {
         // Assert that the user is in the lobby using the isUserTokenInLobby method
         assertDoesNotThrow(() -> lobbyService.isUserTokenInLobby(token, lobbyService.getLobby(lobbyId)));
     }
+
 }
