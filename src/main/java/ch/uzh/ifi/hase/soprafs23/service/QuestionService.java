@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.TriviaAPIHandler.APIOutput;
-import ch.uzh.ifi.hase.soprafs23.constant.Categories;
+import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -17,6 +17,7 @@ import java.util.Objects;
 public class QuestionService {
     private final RestTemplate restTemplate;
     private final RoundService roundService;
+    private final LobbyService lobbyService;
 
 
     public QuestionService(RestTemplate restTemplate, RoundService roundService) {
@@ -35,11 +36,12 @@ public class QuestionService {
     }
 
     public void createQuestion(Long lobbyId){
+        Lobby lobby = lobbyService.getLobby(lobbyId);
         Round round = roundService.getRound(lobbyId);
         Categories chosenCategory = round.getChosenCategory();
 
         //build the API Call String
-        String TriviaAPICall = "https://the-trivia-api.com/v2/questions/?limit=1&difficulties=medium&categories=" + chosenCategory.toString();
+        String TriviaAPICall = "https://the-trivia-api.com/v2/questions/?limit=1&difficulties=" + lobby.getDifficulty().toString().toLowerCase() + "&categories=" + round.getChosenCategory().toString();
         APIOutput question = getQuestion(TriviaAPICall);
 
         roundService.setAPIOutput(lobbyId, question);

@@ -116,5 +116,19 @@ class UserControllerTest {
                 .andExpect(status().isNoContent());
     }
 
+    @Test
+    public void resetStepstate() throws Exception {
+        User user = new User();
+        user.setId(1L);
+
+        given(userService.getUserByToken(Mockito.any())).willReturn(user);
+        Mockito.doNothing().when(userService).resetSteps(Mockito.any());
+
+        // Send request and expect correct answer
+        mockMvc.perform(put("/users/1/states")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"token\": \"123\"}"))
+                .andExpect(status().isNoContent());
+    }
 
 }

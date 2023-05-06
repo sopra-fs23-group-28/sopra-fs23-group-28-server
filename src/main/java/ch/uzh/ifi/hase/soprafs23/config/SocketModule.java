@@ -125,7 +125,6 @@ public class SocketModule {
         };
     }
 
-
     private ConnectListener onConnected() {
         return (client) -> {
             //fetch room from URL parameter
