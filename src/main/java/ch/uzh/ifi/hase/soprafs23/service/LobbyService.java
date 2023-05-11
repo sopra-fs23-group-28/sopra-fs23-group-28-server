@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.constant.Difficulties;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
@@ -174,6 +175,14 @@ public class LobbyService {
     public void increaseRoundNumber(Long lobbyId) {
         Lobby lobby = getLobby(lobbyId);
         lobby.incRoundNumber();
+        lobbyRepository.save(lobby);
+    }
+
+    public void setDifficulty(Long lobbyId, Difficulties difficulty) {
+        //fetch lobby
+        Lobby lobby = getLobby(lobbyId);
+        //set difficulty
+        lobby.setDifficulty(difficulty);
         lobbyRepository.save(lobby);
     }
 }

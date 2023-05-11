@@ -213,5 +213,18 @@ Local tests work and let the game progress past the lobby.
 
 # Milestone 4
 
-## 28.04. - 30.04.
+## 01.05. - 08.05.
+
+BackEnd:
+* *06.05.2023, Saturday:* People: Samuel, Elia, Harris. Description: tried to get SSL to run with some GCloud settings but failed. Went on to
+ overview endpoint / socket auth, PUT Mapping for question difficulty, API HTTP Status Code refactoring, tests.
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/75
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/78
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/79
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/80
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/81
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/82
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/83
+
+
 

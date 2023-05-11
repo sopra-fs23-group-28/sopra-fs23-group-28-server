@@ -125,5 +125,12 @@ public class UserService {
 
     }
 
+    public void resetSteps(Long id){
+      User user = getUserById(id);
+      user.setStepState(0L);
+      user.setIsReady(false);
+      userRepository.save(user);
+    }
+
 
 }

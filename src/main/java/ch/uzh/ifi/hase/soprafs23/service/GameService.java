@@ -4,9 +4,7 @@ import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,7 +85,6 @@ public class GameService {
         }
         socketService.sendRigthAnswer(lobbyId, roundService.getRound(lobbyId).getRightAnswer()+1);
         if(isFinished(lobbyId)) socketService.sendFinish(lobbyId,"FINISH");
-        System.out.println("EVALUATE HAS FINISHED");
     }
 
     //checks whether a  user in a lobby has reached the maxSteps
