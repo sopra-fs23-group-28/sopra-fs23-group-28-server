@@ -44,8 +44,9 @@ public class GameService {
         // Filter users who answered correctly
         List<User> correctUsers = new ArrayList<>();
         for (User user : users) {
+            Long answerIdx = user.getAnswerIndex();
+            if(answerIdx == null) continue;
             //if user got the right answer, did a -1 because round saves right answer from 0 to 3, while user has 1 to 4
-
             if (Objects.equals(user.getAnswerIndex()-1, round.getRightAnswer())) {
                 correctUsers.add(user);
             }

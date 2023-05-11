@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 public class RoundController {
     private final LobbyService lobbyService;
@@ -57,8 +59,9 @@ public class RoundController {
 
         if (categoryId < 1 || categoryId > 4) {throw new ResponseStatusException(HttpStatus.BAD_REQUEST);}
 
-        //fetch round
-        Round round = lobbyService.getLobby(lobbyId).getRound();
+        //fetch round and lobby
+        Lobby lobby = lobbyService.getLobby(lobbyId);
+        Round round = lobby.getRound();
 
         //in the Pathvariable, we get 1-4 as the chosen category, this is how we get which Category enum was meant with that.
         Categories category = round.getCategories().get(categoryId-1);
@@ -68,7 +71,7 @@ public class RoundController {
 
 
         //if all votes have been taken the timer can be aborted
-        if(round.getCategoryVotes().size() == 4){
+        if(round.getCategoryVotes().size() == lobby.getUserIds().size()){
             lobbyService.setTimerOver(lobbyId, true);
           roundService.chooseCategory(lobbyId);
         }
@@ -87,7 +90,9 @@ public class RoundController {
         userService.updateTimeAndAnswer(userPutDTO.getToken(), userPutDTO.getTime(), userPutDTO.getAnswerIndex());
         roundService.incVoteCount(lobbyId);
 
-        if(roundService.getRound(lobbyId).getAnswerCount() == 4) {
+        List<Long> userIds = lobbyService.getLobby(lobbyId).getUserIds();
+
+        if(roundService.getRound(lobbyId).getAnswerCount() == userIds.size()) {
             gameService.evaluateAnswers(lobbyId);
         }
     }

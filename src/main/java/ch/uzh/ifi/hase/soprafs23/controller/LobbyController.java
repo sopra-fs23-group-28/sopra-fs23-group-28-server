@@ -70,7 +70,7 @@ public class LobbyController {
      **/
     @PutMapping("/lobbies/{lobbyId}/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void leaveLobby(@PathVariable Long lobbyId, @PathVariable Long userId, @RequestBody UserPostDTO userPostDTO){
+    public void leaveLobby(@PathVariable Long lobbyId, @PathVariable Long id, @RequestBody UserPostDTO userPostDTO){
 
         //fetch user
         User internalUser = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
