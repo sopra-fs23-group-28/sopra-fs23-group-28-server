@@ -19,7 +19,7 @@ env: flex
 # extra-instance messaging system or data store would be needed.
 #manual_scaling:
  # instances: 1
- 
+
 automatic_scaling:
   max_num_instances: 1
 
@@ -33,11 +33,3 @@ network:
 runtime_config:
   operating_system: "ubuntu22"
   runtime_version: "17"
-
-spring:
-  cors:
-    allowed-origins: "*"
-    allowed-methods: GET, POST, PUT, DELETE, OPTIONS
-    allowed-headers: "*"
-    allow-credentials: true
-    max-age: 3600
