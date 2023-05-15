@@ -34,6 +34,10 @@ runtime_config:
   operating_system: "ubuntu22"
   runtime_version: "17"
 
-access_settings:
-  cors_settings:
-    allow_http_options: true
+spring:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, POST, PUT, DELETE, OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+    max-age: 3600
