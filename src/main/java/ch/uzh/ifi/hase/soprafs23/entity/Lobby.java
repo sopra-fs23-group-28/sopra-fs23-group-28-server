@@ -15,23 +15,17 @@ public class Lobby{
 
     @Id
     private Long id;
-
     @Column(nullable = false)
     private Long creatorId;
-
     @Column
     private Long roundNumber = 0L;
-
     @Column
     private Long maxSteps;
-
     @Column
-    private Difficulties difficulty;
-
+    private Difficulties difficulty = Difficulties.MEDIUM;
     @Column
     @ElementCollection
     private List<Long> userIds = new ArrayList<>();
-
 
     public Lobby() {
         this.userIds = new ArrayList<>();

@@ -33,3 +33,7 @@ network:
 runtime_config:
   operating_system: "ubuntu22"
   runtime_version: "17"
+
+access_settings:
+  cors_settings:
+    allow_http_options: true
