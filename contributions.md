@@ -232,3 +232,6 @@ BackEnd:
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/89
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/86
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/85
+
+* *11.05.2023, Thursday:* People: Elia, Samuel, Harris, Cédric. Description: set init value for difficulty, tried maany different things to get SSl to run without success
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/88
