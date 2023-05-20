@@ -56,8 +56,7 @@ public class GameService {
             }
         }
 
-
-        // Sort the correct users based on time taken to answer
+        // Sort the correct/incorrect users based on time taken to answer and then merge them
         correctUsers.sort(Comparator.comparingDouble(User::getTime));
         incorrectUser.sort(Comparator.comparingDouble(User::getTime));
         correctUsers.addAll(incorrectUser);
@@ -66,7 +65,7 @@ public class GameService {
         Collections.reverse(correctUsers);
 
         // Assign scores based on position in the sorted list
-        // currently, first one advances 4, 2nd advances 3, 3rd advances 1, last gets thrown back -1
+        // currently, first one advances 4, 2nd advances 3, 3rd advances 1, last gets thrown back the amount that the last loser voted on
         int numUsers = correctUsers.size();
         for (int i = 0; i < numUsers; i++) {
             User user = correctUsers.get(i);

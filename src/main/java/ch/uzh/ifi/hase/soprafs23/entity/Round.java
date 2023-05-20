@@ -99,7 +99,6 @@ public class Round{
         isTimerOver = timerOver;
     }
 
-
     public String getCurrentQuestion() {
         return currentQuestion;
     }
