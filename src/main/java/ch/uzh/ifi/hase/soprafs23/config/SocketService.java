@@ -16,22 +16,14 @@ public class SocketService {
     @Autowired
     public SocketService(SocketIOServer socketIOServer) {
         this.socketIOServer = socketIOServer;
-
     }
-
     public void sendMessage(String eventName, SocketIOClient client, String message) {
         client.sendEvent(eventName, new Message(MessageType.SERVER, message));
     }
 
     public void sendMessageToRoom(String room, String eventName, String message) {
         for (SocketIOClient client : socketIOServer.getRoomOperations(room).getClients()) { //go through all clients
-
-            log.info(String.valueOf(client.getNamespace()));
-            log.info(client.getNamespace().getRoomOperations(room).toString());
-
-                client.sendEvent(eventName,
-                        new Message(MessageType.SERVER, message));
-
+            client.sendEvent(eventName, new Message(MessageType.SERVER, message));
         }
     }
     public void sendRigthAnswer(Long lobbyId, Long answer){

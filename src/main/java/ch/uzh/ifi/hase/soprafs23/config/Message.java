@@ -22,11 +22,6 @@ public class Message {
         this.room = room;
     }
 
-
-    public String getMessage() {
-        return this.message;
-    }
-
     public String getRoom() {
         return this.room;
     }

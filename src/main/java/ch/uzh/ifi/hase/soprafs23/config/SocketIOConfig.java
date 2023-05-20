@@ -7,15 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 
 public class SocketIOConfig {
-
-
     private String host = "0.0.0.0";
-
     private Integer port = 65080;
 
-    /**
-     * @return
-     */
     @Bean
     public SocketIOServer socketIOServer() {
         com.corundumstudio.socketio.Configuration config = new com.corundumstudio.socketio.Configuration();

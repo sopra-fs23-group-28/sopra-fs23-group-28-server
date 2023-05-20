@@ -127,6 +127,7 @@ public class SocketModule {
         };
     }
 
+
     private ConnectListener onConnected() {
         return (client) -> {
             //fetch room from URL parameter
@@ -134,31 +135,23 @@ public class SocketModule {
             String token = client.getHandshakeData().getSingleUrlParam("token");
             String isSpectator = client.getHandshakeData().getSingleUrlParam("spectator");
 
-
                 //try to get the Lobby with this specific room PIN - if it does not exist, an error is being raised and caught.
                 try {
-                    log.info("Socket ID[{}]  Client tries to connect...", client.getSessionId().toString());
-
                     //does this lobby exist?
                     Lobby lobby = lobbyService.getLobby(parseLong(room));
-
                     //is this user approved to join or spectator?
                     if (isSpectator == null) lobbyService.isUserTokenInLobby(token, lobby);
-
                     //send message to whole room about a new user having joined
                     if (isSpectator == null) socketService.sendMessageToRoom(room,"NEWUSER","ANEWUSERJOINED");
-
                     //join the socketIO room
                     client.joinRoom(room);
 
                     socketService.sendMessage("JOIN", client, "JOINEDROOM");
 
-
                     //check if lobby is full, if yes, send Message to room that round can be started
-                    if (lobbyService.getUsersFromLobby(lobby.getId()).size() == 4) {
+                    if (lobbyService.getUsersFromLobby(lobby.getId()).size() >= 4) {
                         socketService.sendMessageToRoom(room,"GAMEMASTER","LOBBYISFULL");
                     }
-
                 }
                 catch(ResponseStatusException e) {
                     e.printStackTrace();

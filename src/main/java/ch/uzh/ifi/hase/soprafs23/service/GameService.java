@@ -17,9 +17,7 @@ import java.util.List;
 @Transactional
 public class GameService {
     private final UserService userService;
-
     private final LobbyService lobbyService;
-
     private final SocketService socketService;
     private final RoundService roundService;
 
@@ -27,9 +25,7 @@ public class GameService {
     @Autowired
     public GameService(UserService userService, LobbyService lobbyService, SocketService socketService, RoundService roundService) {
         this.userService = userService;
-
         this.lobbyService = lobbyService;
-
         this.socketService = socketService;
         this.roundService = roundService;
     }
@@ -89,8 +85,8 @@ public class GameService {
                     break;
             }
         }
-        socketService.sendRigthAnswer(lobbyId, roundService.getRound(lobbyId).getRightAnswer()+1);
-        if(isFinished(lobbyId)) socketService.sendFinish(lobbyId,"FINISH");
+        socketService.sendMessageToRoom(lobbyId.toString(), "ROUND", String.valueOf(roundService.getRound(lobbyId).getRightAnswer()+1));
+        if(isFinished(lobbyId)) socketService.sendMessageToRoom(lobbyId.toString(),"FINISH","FINISH");
     }
 
     //checks whether a  user in a lobby has reached the maxSteps

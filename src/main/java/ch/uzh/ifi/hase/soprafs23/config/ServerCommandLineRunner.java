@@ -14,7 +14,5 @@ public class ServerCommandLineRunner implements CommandLineRunner {
         this.server = server1;
     }
     @Override
-    public void run(String... args) throws Exception {
-        server.start();
-    }
+    public void run(String... args) throws Exception {server.start();}
 }
