@@ -43,17 +43,12 @@ public class GameService {
         round.setTimerOver(true);
         // Filter users who answered correctly
         List<User> correctUsers = new ArrayList<>();
+        List<User> incorrectUser = new ArrayList<>();
         for (User user : users) {
-            Long answerIdx = user.getAnswerIndex();
-            if(answerIdx == null) continue;
-            //if user got the right answer, did a -1 because round saves right answer from 0 to 3, while user has 1 to 4
-            if (Objects.equals(user.getAnswerIndex()-1, round.getRightAnswer())) {
-                correctUsers.add(user);
-            }
-            //users that are wrong get -1
-            else {
-                if(user.getStepState() != 0) userService.updateStepStateOfUser(-1L, user.getId());
-            }
+            //if user did not answer OR did answer wrong. answerIndex-1 because round saves right answer from 0 to 3, while user has 1 to 4
+            if(user.getAnswerIndex()-1 != round.getRightAnswer()) incorrectUser.add(user);
+            //if user got the right answer
+            else correctUsers.add(user);
         }
 
         // Sort the correct/incorrect users based on time taken to answer and then merge them

@@ -152,4 +152,8 @@ public class RoundService {
         lobbyRepository.save(lobbyService.getLobby(lobbyId));
     }
 
+    public Long getPunishmentSteps(Long lobbyId){
+        Round round = getRound(lobbyId);
+        return round.getPunishmentSteps();
+    }
 }

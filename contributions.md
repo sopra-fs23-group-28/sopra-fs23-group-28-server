@@ -233,5 +233,11 @@ BackEnd:
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/86
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/85
 
-* *11.05.2023, Thursday:* People: Elia, Samuel, Harris, Cédric. Description: set init value for difficulty, tried maany different things to get SSl to run without success
+* *15.05.2023, Monday:* People: Elia, Samuel, Harris, Cédric. Description: set init value for difficulty, tried maany different things to get SSl to run without success
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/88
+
+* *20.05.2023, Saturday:* People: Elia, Samuel, Harris. Description: Implemented functionality for the loser to chose the punishment steps for the next round. Refactored 
+* code (increased encapsulation) and decreased coupling. Added a new socket call "WHEEL" which tells the client how much the difficulty wheel shall spin.
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97

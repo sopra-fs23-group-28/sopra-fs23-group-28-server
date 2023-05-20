@@ -27,6 +27,8 @@ public class Lobby{
     @ElementCollection
     private List<Long> userIds = new ArrayList<>();
 
+
+
     public Lobby() {
         this.userIds = new ArrayList<>();
     }
