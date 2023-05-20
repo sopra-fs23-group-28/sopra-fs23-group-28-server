@@ -38,10 +38,10 @@ public class User implements Serializable {
   private boolean isReady;
 
   @Column()
-  private float time;
+  private float time = 15000;
 
   @Column()
-  private Long answerIndex;
+  private Long answerIndex = 0L;
 
   public Long getId() {
     return id;

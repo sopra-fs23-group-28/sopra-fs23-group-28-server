@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
+import ch.uzh.ifi.hase.soprafs23.constant.Difficulties;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class LobbyGetDTO {
     private Long roundNumber;
     private Long maxSteps;
     private List<Long> userIds;
+    private Difficulties difficulty;
 
     public LobbyGetDTO() {
         this.userIds = new ArrayList<>();
@@ -47,4 +50,8 @@ public class LobbyGetDTO {
     public List<Long> getUserIds() {return new ArrayList<>(userIds);}
 
     public void addUserId(Long playerId){this.userIds.add(playerId);}
+
+    public Difficulties getDifficulty() {return difficulty;}
+
+    public void setDifficulty(Difficulties difficulty) {this.difficulty = difficulty;}
 }

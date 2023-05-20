@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -59,7 +59,12 @@ public class GameService {
 
         // Sort the correct users based on time taken to answer
         correctUsers.sort(Comparator.comparingDouble(User::getTime));
-        System.out.println("ENTERING SWITCH");
+        incorrectUser.sort(Comparator.comparingDouble(User::getTime));
+        correctUsers.addAll(incorrectUser);
+
+        //reverse the Collection so that the switch statement can judge the loser at index 0
+        Collections.reverse(correctUsers);
+
         // Assign scores based on position in the sorted list
         // currently, first one advances 4, 2nd advances 3, 3rd advances 1, last gets thrown back -1
         int numUsers = correctUsers.size();
@@ -67,20 +72,26 @@ public class GameService {
             User user = correctUsers.get(i);
             switch (i) {
                 case 0:
-                    userService.updateStepStateOfUser(3L, user.getId());
-                    System.out.println("USER GOT FIRST PLACE"+ user.getUsername());
+                    Long punishmentSteps = roundService.getPunishmentSteps(lobbyId);
+                    if (user.getStepState() != 0) {
+                        //take the minimum of users steps and punishment steps s.t. no negative steps happen
+                        Long updateSteps = -Math.min(user.getStepState(), punishmentSteps);
+                        userService.updateStepStateOfUser(updateSteps, user.getId());
+                    }
+                    socketService.sendMessageToRoom(lobbyId.toString(), "LOSER", user.getId().toString());
+                    System.out.println("USER sucks" + user.getUsername());
                     break;
                 case 1:
-                    userService.updateStepStateOfUser(2L, user.getId());
-                    System.out.println("USER GOT 2nd place"+ user.getUsername());
-                    break;
-                case 2:
                     userService.updateStepStateOfUser(1L, user.getId());
                     System.out.println("USER GOT 3rd place"+ user.getUsername());
                     break;
+                case 2:
+                    userService.updateStepStateOfUser(2L, user.getId());
+                    System.out.println("USER GOT 2nd place"+ user.getUsername());
+                    break;
                 default:
-                    if (user.getStepState() != 0) userService.updateStepStateOfUser(-1L, user.getId());
-                    System.out.println("USER sucks" + user.getUsername());
+                    userService.updateStepStateOfUser(3L, user.getId());
+                    System.out.println("USER GOT FIRST PLACE"+ user.getUsername());
                     break;
             }
         }

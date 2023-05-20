@@ -45,6 +45,7 @@ public interface DTOMapper {
   @Mapping(source = "roundNumber", target = "roundNumber")
   @Mapping(source = "maxSteps", target = "maxSteps")
   @Mapping(source = "userIds", target = "userIds")
+  @Mapping(source = "difficulty", target = "difficulty")
   LobbyGetDTO convertLobbyEntityToLobbyGetDTO(Lobby lobby);
 
   @Mapping(source = "categories", target = "categories")

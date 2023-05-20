@@ -59,10 +59,9 @@ public class SocketModule {
             }
 
             //set the timer to false because at this point evaluating answer has finished completely
-            lobbyService.setTimerOver(lobbyId, false);
-            lobbyService.resetAnswerCounter(lobbyId);
-            lobbyService.increaseRoundNumber(lobbyId);
+            lobbyService.resetRound(lobbyId);
             questionService.createQuestion(lobbyId);
+
         };
     };
 
@@ -114,6 +113,9 @@ public class SocketModule {
                 if(lobby.getRoundNumber() == 0) socketService.sendMessageToRoom(data.getRoom(), "READY", "GETCATEGORY");
                 // else it is for the Question
                 else socketService.sendMessageToRoom(data.getRoom(), "READY", "GETQUESTION");
+
+                if(lobby.getRoundNumber() % 4 == 0)
+                    socketService.sendMessageToRoom(data.getRoom(), "WHEEL", String.valueOf(lobbyService.randomInt()));
 
                 //reset isReady for the lobby
                 lobbyService.resetIsLobbyReady(lobbyId);

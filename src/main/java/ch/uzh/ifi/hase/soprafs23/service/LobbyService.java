@@ -185,4 +185,23 @@ public class LobbyService {
         lobby.setDifficulty(difficulty);
         lobbyRepository.save(lobby);
     }
+
+    public void resetRound(Long lobbyId){
+
+        //Reset answer time to 15000 and answeridx to 0 for each user and at first initialization
+        List<User> users = getUsersFromLobby(lobbyId);
+        for(User u : users){
+            u.setAnswerIndex(0L);
+            u.setTime(15000);
+        }
+
+
+        setTimerOver(lobbyId, false);
+        resetAnswerCounter(lobbyId);
+        increaseRoundNumber(lobbyId);
+    }
+    public int randomInt(){
+        return random.nextInt(30,361);
+    }
+
 }
