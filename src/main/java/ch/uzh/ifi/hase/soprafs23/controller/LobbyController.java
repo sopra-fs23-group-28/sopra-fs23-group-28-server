@@ -118,7 +118,7 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void startGame(@PathVariable Long lobbyId, @RequestBody startPostDTO startPostDTO){
         //fetch user
-        User internalUser = DTOMapper.INSTANCE.convertStartPostDTOtoUserEntity(startPostDTO);
+        User internalUser = DTOMapper.INSTANCE.convertStartPostDTOtoUserEntitytest(startPostDTO);
         User user = userService.getUserByToken(internalUser.getToken());
 
         //convert to internal representation to get maxSteps
