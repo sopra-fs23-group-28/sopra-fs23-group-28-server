@@ -1,6 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.config;
 
-import ch.uzh.ifi.hase.soprafs23.service.RoundService;
+import ch.uzh.ifi.hase.soprafs23.constant.MessageType;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import org.slf4j.Logger;
@@ -26,17 +26,4 @@ public class SocketService {
             client.sendEvent(eventName, new Message(MessageType.SERVER, message));
         }
     }
-    public void sendRigthAnswer(Long lobbyId, Long answer){
-        sendMessageToRoom(lobbyId.toString(), "ROUND",  answer.toString());
-    }
-
-    public void sendFinish(Long lobbyId, String answer){
-        sendMessageToRoom(lobbyId.toString(), "FINISH",  answer);
-    }
-
-
-
-
-
-
 }

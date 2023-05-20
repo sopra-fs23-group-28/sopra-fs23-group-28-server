@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.config;
 
+import ch.uzh.ifi.hase.soprafs23.constant.MessageType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

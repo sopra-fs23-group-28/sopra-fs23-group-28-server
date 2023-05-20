@@ -21,7 +21,6 @@ public class GameService {
     private final SocketService socketService;
     private final RoundService roundService;
 
-
     @Autowired
     public GameService(UserService userService, LobbyService lobbyService, SocketService socketService, RoundService roundService) {
         this.userService = userService;
@@ -60,30 +59,18 @@ public class GameService {
         int numUsers = correctUsers.size();
         for (int i = 0; i < numUsers; i++) {
             User user = correctUsers.get(i);
-            switch (i) {
-                case 0:
-                    Long punishmentSteps = roundService.getPunishmentSteps(lobbyId);
-                    if (user.getStepState() != 0) {
-                        //take the minimum of users steps and punishment steps s.t. no negative steps happen
-                        Long updateSteps = -Math.min(user.getStepState(), punishmentSteps);
-                        userService.updateStepStateOfUser(updateSteps, user.getId());
-                    }
-                    socketService.sendMessageToRoom(lobbyId.toString(), "LOSER", user.getId().toString());
-                    System.out.println("USER sucks" + user.getUsername());
-                    break;
-                case 1:
-                    userService.updateStepStateOfUser(1L, user.getId());
-                    System.out.println("USER GOT 3rd place"+ user.getUsername());
-                    break;
-                case 2:
-                    userService.updateStepStateOfUser(2L, user.getId());
-                    System.out.println("USER GOT 2nd place"+ user.getUsername());
-                    break;
-                default:
-                    userService.updateStepStateOfUser(3L, user.getId());
-                    System.out.println("USER GOT FIRST PLACE"+ user.getUsername());
-                    break;
+            //for the first in the aray, the loser
+            if (i == 0) {
+                Long punishmentSteps = roundService.getPunishmentSteps(lobbyId);
+                if (user.getStepState() != 0) {
+                    //take the minimum of users steps and punishment steps s.t. no negative steps happen
+                    Long updateSteps = -Math.min(user.getStepState(), punishmentSteps);
+                    userService.updateStepStateOfUser(updateSteps, user.getId());
+                }
+                socketService.sendMessageToRoom(lobbyId.toString(), "LOSER", user.getId().toString());
             }
+            //for all others
+            else userService.updateStepStateOfUser(Long.valueOf(i), user.getId());
         }
         socketService.sendMessageToRoom(lobbyId.toString(), "ROUND", String.valueOf(roundService.getRound(lobbyId).getRightAnswer()+1));
         if(isFinished(lobbyId)) socketService.sendMessageToRoom(lobbyId.toString(),"FINISH","FINISH");

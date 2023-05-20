@@ -169,8 +169,5 @@ public class SocketModule {
         };
     }
 
-    //method to send message after game start
-    public void sendMessage(Long lobbyId, String eventName, String message) {
-        socketService.sendMessageToRoom(lobbyId.toString(), eventName, message);
-    }
+
 }
