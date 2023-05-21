@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
+import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
@@ -34,7 +35,7 @@ class LobbyControllerTest {
         @MockBean
         private LobbyRepository lobbyRepository;
         @MockBean
-        private SocketModule socketModule;
+        private SocketService socketService;
 
         @BeforeEach
         void setUp() {

@@ -24,10 +24,8 @@ public class LobbyController {
     private final LobbyService lobbyService;
     private final UserService userService;
     private final SocketService socketService;
-    private final SocketModule socketModule;
-    LobbyController(LobbyService lobbyService, UserService userService, SocketModule socketModule, SocketService socketService) {
+    LobbyController(LobbyService lobbyService, UserService userService, SocketService socketService) {
         this.lobbyService = lobbyService;
-        this.socketModule = socketModule;
         this.userService = userService;
         this.socketService = socketService;
     }
@@ -121,7 +119,7 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void startGame(@PathVariable Long lobbyId, @RequestBody startPostDTO startPostDTO){
         //fetch user
-        User internalUser = DTOMapper.INSTANCE.convertStartPostDTOtoUserEntitytest(startPostDTO);
+        User internalUser = DTOMapper.INSTANCE.convertStartPostDTOtoUserEntity(startPostDTO);
         User user = userService.getUserByToken(internalUser.getToken());
 
         //convert to internal representation to get maxSteps

@@ -29,7 +29,7 @@ public interface DTOMapper {
   @Mapping(source = "maxSteps", target = "maxSteps")
   Lobby convertStartPostDTOtoLobbyEntity(startPostDTO startPostDTO);
   @Mapping(source = "token", target = "token")
-  User convertStartPostDTOtoUserEntitytest(startPostDTO startPostDTO);
+  User convertStartPostDTOtoUserEntity(startPostDTO startPostDTO);
   @Mapping(source = "username", target = "username")
   @Mapping(source = "token", target = "token")
   User convertUserPostDTOtoUserEntity(UserPostDTO userPostDTO);
