@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
 import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
@@ -71,7 +70,6 @@ class LobbyControllerTest {
 
     @Test
     void joinLobby() throws Exception {
-
         //send request and check if it throws errors
         mockMvc.perform(put("/lobbies/4400/users")
                         .contentType(MediaType.APPLICATION_JSON)

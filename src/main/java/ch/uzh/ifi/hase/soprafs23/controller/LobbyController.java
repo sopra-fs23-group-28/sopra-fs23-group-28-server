@@ -61,7 +61,7 @@ public class LobbyController {
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
         //join lobby
-        lobbyService.joinLobby(lobby.getId(), user);
+        lobbyService.joinLobby(lobbyId, user);
     }
 
     /**
@@ -80,7 +80,7 @@ public class LobbyController {
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
         //leave lobby
-        lobbyService.leaveLobby(lobby.getId(), user);
+        lobbyService.leaveLobby(lobbyId, user);
     }
 
     /**
@@ -123,7 +123,6 @@ public class LobbyController {
         //convert to internal representation to get maxSteps
         Lobby internalLobby = DTOMapper.INSTANCE.convertStartPostDTOtoLobbyEntity(startPostDTO);
         Long maxSteps = internalLobby.getMaxSteps();
-
         //fetch lobby
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
@@ -131,7 +130,7 @@ public class LobbyController {
         lobbyService.validate(lobby, user);
 
         //set maxSteps
-        lobbyService.setMaxSteps(maxSteps, lobby.getId());
+        lobbyService.setMaxSteps(maxSteps, lobbyId);
 
         socketService.sendMessageToRoom(lobbyId.toString(), "GAMESTART", "GAMESTART");
     }
