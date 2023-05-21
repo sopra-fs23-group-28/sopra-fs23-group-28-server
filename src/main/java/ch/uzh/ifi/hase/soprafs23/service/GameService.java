@@ -69,8 +69,9 @@ public class GameService {
                 }
                 socketService.sendMessageToRoom(lobbyId.toString(), "LOSER", user.getId().toString());
             }
+            else if(incorrectUser.contains(user)) continue;
             //for all others
-            else userService.updateStepStateOfUser(Long.valueOf(i), user.getId());
+            else userService.updateStepStateOfUser(Long.valueOf(i)+2L, user.getId());
         }
         socketService.sendMessageToRoom(lobbyId.toString(), "ROUND", String.valueOf(roundService.getRound(lobbyId).getRightAnswer()+1));
         if(isFinished(lobbyId)) socketService.sendMessageToRoom(lobbyId.toString(),"FINISH","FINISH");

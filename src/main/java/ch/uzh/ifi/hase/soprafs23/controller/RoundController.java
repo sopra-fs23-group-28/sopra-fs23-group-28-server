@@ -97,4 +97,14 @@ public class RoundController {
         }
     }
 
+    @PutMapping("/lobbies/{lobbyId}/punishments")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void setPunishmentSteps(@PathVariable Long lobbyId, @RequestBody UserPutDTO userPutDTO) {
+        //authentication
+        lobbyService.isUserTokenInLobby(userPutDTO.getToken(), lobbyService.getLobby(lobbyId));
+
+        roundService.setPunishmentSteps(lobbyId, userPutDTO.getPunishmentSteps());
+    }
+
 }

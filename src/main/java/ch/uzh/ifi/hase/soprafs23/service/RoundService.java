@@ -156,4 +156,10 @@ public class RoundService {
         Round round = getRound(lobbyId);
         return round.getPunishmentSteps();
     }
+
+    public void setPunishmentSteps(Long lobbyId, Long punishmentSteps){
+        Round round = getRound(lobbyId);
+        round.setPunishmentSteps(punishmentSteps);
+        lobbyRepository.save(lobbyService.getLobby(lobbyId));
+    }
 }

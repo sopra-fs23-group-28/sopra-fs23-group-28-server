@@ -6,6 +6,8 @@ public class UserPutDTO {
     private String token;
     private Long answerIndex;
 
+    private Long punishmentSteps;
+
 
     public float getTime() {
         return time;
@@ -32,5 +34,13 @@ public class UserPutDTO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Long getPunishmentSteps() {
+        return punishmentSteps;
+    }
+
+    public void setPunishmentSteps(Long punishmentSteps) {
+        this.punishmentSteps = punishmentSteps;
     }
 }

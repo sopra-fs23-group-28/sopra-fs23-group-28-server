@@ -26,4 +26,8 @@ public class Message {
     public String getRoom() {
         return this.room;
     }
+
+    public String getMessage() {
+        return this.message;
+    }
 }
