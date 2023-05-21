@@ -72,7 +72,7 @@ public class IntegrationTest {
         Long lobbyId = Long.valueOf(jsonNode2.get("id").asText());
 
         // Assert that the user is in the lobby using the isUserTokenInLobby method
-        assertDoesNotThrow(() -> lobbyService.isUserTokenInLobby(token, lobbyService.getLobby(lobbyId)));
+        assertDoesNotThrow(() -> lobbyService.isUserTokenInLobby(token, lobbyId));
     }
 
 }

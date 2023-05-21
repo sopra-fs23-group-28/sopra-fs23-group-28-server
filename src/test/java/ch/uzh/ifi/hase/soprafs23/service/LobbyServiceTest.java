@@ -65,7 +65,7 @@ class LobbyServiceTest {
 
     @Test
     void joinLobby() {
-        lobbyService.joinLobby(testLobby, testUser);
+        lobbyService.joinLobby(testLobby.getId(), testUser);
 
         //check that userId is in Lobby
         List<Long> ids = testLobby.getUserIds();
@@ -84,7 +84,7 @@ class LobbyServiceTest {
     @Test
     void setMaxSteps() {
         Long maxSteps = 3L;
-        lobbyService.setMaxSteps(maxSteps, testLobby);
+        lobbyService.setMaxSteps(maxSteps, testLobby.getId());
 
         assertEquals(testLobby.getMaxSteps(), maxSteps);
     }

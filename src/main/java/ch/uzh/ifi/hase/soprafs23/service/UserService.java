@@ -91,8 +91,8 @@ public class UserService {
       return user;
     }
 
-    public void deleteUser(User user){
-      User userToDelete = userRepository.findByToken(user.getToken());
+    public void deleteUser(String usertoken){
+      User userToDelete = userRepository.findByToken(usertoken);
       if(userToDelete == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User to be deleted could not be found");
       userRepository.delete(userToDelete);
       userRepository.flush();

@@ -24,7 +24,6 @@ public class LobbyService {
     private final LobbyRepository lobbyRepository;
     private final Random random = new Random();
 
-
     @Autowired
     public LobbyService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
         this.userService = userService;
@@ -63,7 +62,8 @@ public class LobbyService {
     }
 
     //checks if given token of a user exists in a given lobby
-    public void isUserTokenInLobby(String token, Lobby lobby) {
+    public void isUserTokenInLobby(String token, Long lobbyId) {
+        Lobby lobby = getLobby(lobbyId);
         List<User> users = getUsersFromLobby(lobby.getId());
 
         for (User user2 : users) {
@@ -74,7 +74,9 @@ public class LobbyService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    public void leaveLobby(Lobby lobby, User user) {
+    public void leaveLobby(Long lobbyId, User user) {
+        Lobby lobby = getLobby(lobbyId);
+
         //check if user was in the round before deleting it
         List<User> users = getUsersFromLobby(lobby.getId());
         boolean userFound = false;
@@ -95,7 +97,8 @@ public class LobbyService {
     }
 
         //lets a user join a lobby
-    public void joinLobby(Lobby lobby, User user) {
+    public void joinLobby(Long lobbyId, User user) {
+        Lobby lobby = getLobby(lobbyId);
         List<User> users = getUsersFromLobby(lobby.getId());
         if(users.size() >= 4) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "Lobby is full!");
@@ -125,7 +128,8 @@ public class LobbyService {
     }
 
     //sets the maximum steps for a game
-    public void setMaxSteps(Long steps, Lobby lobby){
+    public void setMaxSteps(Long steps, Long lobbyId){
+        Lobby lobby = getLobby(lobbyId);
         lobby.setMaxSteps(steps);
         lobbyRepository.save(lobby);
     }

@@ -16,39 +16,29 @@ public class LobbyGetDTO {
     public LobbyGetDTO() {
         this.userIds = new ArrayList<>();
     }
-
     public Long getId() {
         return this.id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public Long getCreatorId() {
         return this.creatorId;
     }
-
     public void setCreatorId(Long creatorId) {this.creatorId = creatorId;}
-
     public Long getRoundNumber() {
         return this.roundNumber;
     }
-
     public void setRoundNumber(Long roundNumber) {
         this.roundNumber = roundNumber;
     }
-
     public Long getMaxSteps() {
         return this.maxSteps;
     }
-
     public void setMaxSteps(Long maxSteps) {
         this.maxSteps = maxSteps;
     }
-
     public List<Long> getUserIds() {return new ArrayList<>(userIds);}
-
     public void addUserId(Long playerId){this.userIds.add(playerId);}
 
     public Difficulties getDifficulty() {return difficulty;}

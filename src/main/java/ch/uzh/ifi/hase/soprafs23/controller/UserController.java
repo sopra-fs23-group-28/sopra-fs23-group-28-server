@@ -32,6 +32,12 @@ public class UserController {
       this.lobbyService = lobbyService;
   }
 
+  /**
+  *
+  * POST /users
+  * create a user
+  * */
+
   @PostMapping("/users")
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -47,6 +53,12 @@ public class UserController {
       return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(createdUser);
   }
 
+    /**
+     *
+     * PUT /users/{userId}
+     * set the color of a user's camel
+     * */
+
   @PutMapping("/users/{userId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
@@ -56,6 +68,12 @@ public class UserController {
       return DTOMapper.INSTANCE.convertUserEntityToUserGetDTO(updatedUser);
 
   }
+
+  /**
+   *
+   * GET /users/{lobbyId}
+   * get a list of all user objects
+   * */
 
   @GetMapping("/users/{lobbyId}")
   @ResponseStatus(HttpStatus.OK)
@@ -72,12 +90,25 @@ public class UserController {
       return userGetDTOs;
   }
 
+
+    /**
+     *
+     * DELETE /users
+     * delete a user Entity
+     * */
+
     @DeleteMapping ("/users")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@RequestBody UserPostDTO userPostDTO) {
     User user = DTOMapper.INSTANCE.convertUserPostDTOtoUserEntity(userPostDTO);
-    userService.deleteUser(user);
+    userService.deleteUser(user.getToken());
   }
+
+    /**
+     *
+     * PUT /users/{userId}/states
+     * reset the user state (to allow the possibility of another game round)
+     * */
 
     @PutMapping("/users/{userId}/states")
     @ResponseStatus(HttpStatus.NO_CONTENT)

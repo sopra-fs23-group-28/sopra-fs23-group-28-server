@@ -2,9 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
 public class startPostDTO {
     private Long maxSteps;
-
     private String token;
-
     public Long getMaxSteps() {
         return maxSteps;
     }

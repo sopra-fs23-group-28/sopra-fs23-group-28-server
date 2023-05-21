@@ -241,3 +241,11 @@ BackEnd:
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
+
+* *21.05.2023, Sunday:* People: Elia, Samuel, Harris. Description: fixed bugs with the functionality for the loser to chose the punishment steps for the next round. Refactored
+* code (increased encapsulation) and decreased coupling. Changed the method calls to be more consistent (id's instead of whole objects) and for better encapsulation.
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/94
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/96
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66

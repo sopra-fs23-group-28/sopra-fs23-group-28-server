@@ -47,7 +47,7 @@ public class SocketModule {
             Long lobbyId = Long.valueOf(data.getRoom());
             String token = client.getHandshakeData().getSingleUrlParam("token");
             try {
-                lobbyService.isUserTokenInLobby(token, lobbyService.getLobby(lobbyId));
+                lobbyService.isUserTokenInLobby(token, lobbyId);
 
             } catch (Exception e) {
                 socketService.sendMessage("ROUND", client, "AUTHFAIL");
@@ -140,7 +140,7 @@ public class SocketModule {
                     //does this lobby exist?
                     Lobby lobby = lobbyService.getLobby(parseLong(room));
                     //is this user approved to join or spectator?
-                    if (isSpectator == null) lobbyService.isUserTokenInLobby(token, lobby);
+                    if (isSpectator == null) lobbyService.isUserTokenInLobby(token, lobby.getId());
                     //send message to whole room about a new user having joined
                     if (isSpectator == null) socketService.sendMessageToRoom(room,"NEWUSER","ANEWUSERJOINED");
                     //join the socketIO room

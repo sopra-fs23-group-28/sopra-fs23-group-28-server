@@ -20,7 +20,6 @@ public class QuestionService {
     private final RoundService roundService;
     private final LobbyService lobbyService;
 
-
     public QuestionService(RestTemplate restTemplate, RoundService roundService, LobbyService lobbyService) {
         this.restTemplate = restTemplate;
         this.roundService = roundService;

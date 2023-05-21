@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
 import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
@@ -62,11 +61,11 @@ public class LobbyController {
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
         //join lobby
-        lobbyService.joinLobby(lobby, user);
+        lobbyService.joinLobby(lobby.getId(), user);
     }
 
     /**
-     * PUT /lobbies/{lobbyId}/users/{userId}
+     * PUT /lobbies/{lobbyId}/users/{userId} - leave a lobby
      * the RequestBody consist only of a User token. This is why the userPostDTO is being used.
      **/
     @PutMapping("/lobbies/{lobbyId}/users/{id}")
@@ -80,8 +79,8 @@ public class LobbyController {
         //fetch lobby
         Lobby lobby = lobbyService.getLobby(lobbyId);
 
-        //join lobby
-        lobbyService.leaveLobby(lobby, user);
+        //leave lobby
+        lobbyService.leaveLobby(lobby.getId(), user);
     }
 
     /**
@@ -92,7 +91,7 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void setDifficultyForLobby(@PathVariable Long lobbyId, @RequestBody DifficultyPutDTO difficultyPutDTO){
         //authentification
-        User user = userService.getUserByToken(difficultyPutDTO.getToken());
+        userService.getUserByToken(difficultyPutDTO.getToken());
 
         //change difficulty
         lobbyService.setDifficulty(lobbyId, difficultyPutDTO.getDifficulty());
@@ -108,7 +107,6 @@ public class LobbyController {
 
         //fetch lobby
         Lobby lobby = lobbyService.getLobby(lobbyId);
-
         return DTOMapper.INSTANCE.convertLobbyEntityToLobbyGetDTO(lobby);
     }
 
@@ -133,7 +131,7 @@ public class LobbyController {
         lobbyService.validate(lobby, user);
 
         //set maxSteps
-        lobbyService.setMaxSteps(maxSteps, lobby);
+        lobbyService.setMaxSteps(maxSteps, lobby.getId());
 
         socketService.sendMessageToRoom(lobbyId.toString(), "GAMESTART", "GAMESTART");
     }
@@ -142,7 +140,6 @@ public class LobbyController {
  *
  * GET the current IP address under which the socket can be reached.
  * Believe me, there is absolutely no possibility to solve it otherwise.
- *
  * */
 
     @GetMapping("/external-ip")

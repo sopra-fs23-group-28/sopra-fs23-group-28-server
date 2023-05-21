@@ -15,31 +15,22 @@ public class User implements Serializable {
   @Id
   @GeneratedValue
   private Long id;
-
   @Column(nullable = false, unique = true)
   private String username;
-
   @Column(nullable = false, unique = true)
   private String token;
-
   @Column()
   private CamelColors camelColor;
-
   @Column()
   private Long stepState = 0L;
-
   @Column()
   private BonusTools bonusTool;
-
   @Column()
   private boolean gameCreator;
-
   @Column()
   private boolean isReady;
-
   @Column()
   private float time = 15000;
-
   @Column()
   private Long answerIndex = 0L;
 
