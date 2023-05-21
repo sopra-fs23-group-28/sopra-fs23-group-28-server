@@ -149,7 +149,7 @@ public class SocketModule {
                     socketService.sendMessage("JOIN", client, "JOINEDROOM");
 
                     //check if lobby is full, if yes, send Message to room that round can be started
-                    if (lobbyService.getUsersFromLobby(lobby.getId()).size() >= 4) {
+                    if (lobbyService.getUsersFromLobby(lobby.getId()).size() >= 2) {
                         socketService.sendMessageToRoom(room,"GAMEMASTER","LOBBYISFULL");
                     }
                 }

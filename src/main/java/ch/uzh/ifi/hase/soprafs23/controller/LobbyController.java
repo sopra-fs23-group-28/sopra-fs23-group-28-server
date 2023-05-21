@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.config.SocketModule;
+import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.DifficultyPutDTO;
@@ -22,11 +23,13 @@ import java.net.URL;
 public class LobbyController {
     private final LobbyService lobbyService;
     private final UserService userService;
+    private final SocketService socketService;
     private final SocketModule socketModule;
-    LobbyController(LobbyService lobbyService, UserService userService, SocketModule socketModule) {
+    LobbyController(LobbyService lobbyService, UserService userService, SocketModule socketModule, SocketService socketService) {
         this.lobbyService = lobbyService;
         this.socketModule = socketModule;
         this.userService = userService;
+        this.socketService = socketService;
     }
 
      /** POST /lobbies
@@ -134,7 +137,7 @@ public class LobbyController {
         //set maxSteps
         lobbyService.setMaxSteps(maxSteps, lobby);
 
-        socketModule.sendMessage(lobbyId, "GAMESTART", "GAMESTART");
+        socketService.sendMessageToRoom(lobbyId.toString(), "GAMESTART", "GAMESTART");
     }
 
 /**
