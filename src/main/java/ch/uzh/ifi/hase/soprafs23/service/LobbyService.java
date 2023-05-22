@@ -199,13 +199,8 @@ public class LobbyService {
             u.setTime(15000);
         }
 
-
         setTimerOver(lobbyId, false);
         resetAnswerCounter(lobbyId);
         increaseRoundNumber(lobbyId);
     }
-    public int randomInt(){
-        return random.nextInt(30,361);
-    }
-
 }

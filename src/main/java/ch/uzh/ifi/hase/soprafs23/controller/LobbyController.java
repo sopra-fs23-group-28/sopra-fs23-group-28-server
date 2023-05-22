@@ -92,9 +92,7 @@ public class LobbyController {
     public void setDifficultyForLobby(@PathVariable Long lobbyId, @RequestBody DifficultyPutDTO difficultyPutDTO){
         //authentification
         userService.getUserByToken(difficultyPutDTO.getToken());
-
-        //change difficulty
-        lobbyService.setDifficulty(lobbyId, difficultyPutDTO.getDifficulty());
+        socketService.sendMessageToRoom(lobbyId.toString(), "WHEEL", String.valueOf(difficultyPutDTO.getDifficultyWheelDegree()));
     }
 
      /**

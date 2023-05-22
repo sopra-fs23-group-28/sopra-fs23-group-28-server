@@ -114,9 +114,6 @@ public class SocketModule {
                 // else it is for the Question
                 else socketService.sendMessageToRoom(data.getRoom(), "READY", "GETQUESTION");
 
-                if(lobby.getRoundNumber() % 4 == 0)
-                    socketService.sendMessageToRoom(data.getRoom(), "WHEEL", String.valueOf(lobbyService.randomInt()));
-
                 //reset isReady for the lobby
                 lobbyService.resetIsLobbyReady(lobbyId);
             }
