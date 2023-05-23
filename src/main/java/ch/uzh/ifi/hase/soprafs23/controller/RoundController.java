@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
@@ -23,12 +24,14 @@ public class RoundController {
     private final UserService userService;
     private final RoundService roundService;
     private final GameService gameService;
+    private final SocketService socketService;
 
-    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, GameService gameService) {
+    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, GameService gameService, SocketService socketService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
         this.roundService= roundService;
         this.gameService = gameService;
+        this.socketService = socketService;
     }
 
     /**
@@ -105,6 +108,9 @@ public class RoundController {
         lobbyService.isUserTokenInLobby(userPutDTO.getToken(), lobbyId);
 
         roundService.setPunishmentSteps(lobbyId, userPutDTO.getPunishmentSteps());
+
+        //send notification to room
+        socketService.sendMessageToRoom(lobbyId.toString(),"LOSER","PUNISHMENTSET");
     }
 
 }
