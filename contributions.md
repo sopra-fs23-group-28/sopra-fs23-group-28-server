@@ -226,6 +226,8 @@ BackEnd:
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/82
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/83
 
+## 09.05. - 16.05.
+
 * *11.05.2023, Thursday:* People: Elia, Samuel, Harris. Description: Changed parts of code so that game logic works with 2-4 people. Fixed leaveLobby endpoint
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/91
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/90
@@ -235,6 +237,8 @@ BackEnd:
 
 * *15.05.2023, Monday:* People: Elia, Samuel, Harris, Cédric. Description: set init value for difficulty, tried maany different things to get SSl to run without success
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/88
+
+## 17.05. - 24.05.
 
 * *20.05.2023, Saturday:* People: Elia, Samuel, Harris. Description: Implemented functionality for the loser to chose the punishment steps for the next round. Refactored 
 * code (increased encapsulation) and decreased coupling. Added a new socket call "WHEEL" which tells the client how much the difficulty wheel shall spin.
