@@ -1,16 +1,17 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.config.SocketService;
 import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
-import ch.uzh.ifi.hase.soprafs23.service.*;
+import ch.uzh.ifi.hase.soprafs23.service.GameService;
+import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs23.service.RoundService;
+import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,7 +20,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,21 +32,14 @@ class RoundControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private LobbyService lobbyService;
-
     @MockBean
     private UserService userService;
-
     @MockBean
-    private QuestionService questionService;
-
+    private SocketService socketService;
     @MockBean
     private GameService gameService;
-
-
-
     @MockBean
     private RoundService roundService;
 
@@ -92,8 +85,6 @@ class RoundControllerTest {
 
     @Test
     void getRoundInfo() throws Exception {
-
-
         mockMvc.perform(get("/lobbies/4400/rounds"))
                 .andExpect(status().isOk());
 
@@ -101,15 +92,11 @@ class RoundControllerTest {
 
     @Test
     void receiveCategoryAnswers() throws Exception {
-
-
         mockMvc.perform(put("/lobbies/4400/categories/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"token\": \"123\"}"))
                 .andExpect(status().isNoContent());
     }
-
-
 
     @Test
     void receiveQuestionAnswers() throws Exception {
