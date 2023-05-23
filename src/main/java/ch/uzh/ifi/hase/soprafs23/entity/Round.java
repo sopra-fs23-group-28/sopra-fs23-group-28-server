@@ -25,10 +25,8 @@ public class Round{
     private Categories chosenCategory;
     @Column
     private String currentQuestion;
-
     @Column
     private Long punishmentSteps;
-
     @Column
     @ElementCollection
     private List<String> answers;

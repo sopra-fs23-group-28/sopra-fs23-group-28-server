@@ -253,3 +253,9 @@ BackEnd:
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/96
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
+
+* *23.05.2023, Tuesday:* People: Elia, Samuel, Harris, Markus. Description: giving back the punishment Steps in the Round.
+  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/67
+
+
+
