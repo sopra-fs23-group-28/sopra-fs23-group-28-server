@@ -26,7 +26,7 @@ public class Round{
     @Column
     private String currentQuestion;
     @Column
-    private Long punishmentSteps;
+    private Long punishmentSteps = 0L;
     @Column
     @ElementCollection
     private List<String> answers;
