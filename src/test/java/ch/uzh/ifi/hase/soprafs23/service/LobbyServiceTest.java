@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.constant.Difficulties;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,13 +22,15 @@ class LobbyServiceTest {
 
     @Mock
     private LobbyRepository LobbyRepository;
-
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private LobbyService lobbyService;
 
     private Lobby testLobby;
     private User testUser;
+    private Round testround;
 
     @BeforeEach
     public void setup() {
@@ -39,8 +43,14 @@ class LobbyServiceTest {
         testUser = new User();
         testUser.setId(1L);
 
+        testround = new Round();
+        testLobby.setRound(testround);
+        testround.setLobby(testLobby);
+
+
         // Mocking LobbyRepository
         Mockito.when(LobbyRepository.findById(Mockito.any())).thenReturn(Optional.ofNullable(testLobby));
+        Mockito.when(userService.getUserById(Mockito.any())).thenReturn(testUser);
         Mockito.when(LobbyRepository.save(Mockito.any())).thenReturn(testLobby);
 
     }
@@ -102,20 +112,57 @@ class LobbyServiceTest {
             lobbyService.validate(lobby, tuser);
         }, "Not authenticated!");
     }
-/*
+
     @Test
-    void isLobbyTimerOver() {
-        Lobby lobby = new Lobby();
-        Long id= lobby.getId();
-
-        Round round = new Round();
-        lobby.setRound(round);
-        round.setTimerOver(false);
-
-        assertFalse(lobbyService.isLobbyTimerOver(id));
-
+    void leaveLobby(){
+        testUser.setUsername("testUser");
+        testLobby.addUserId(testUser.getId());
+        lobbyService.leaveLobby(testLobby.getId(), testUser);
+        assertTrue(testLobby.getUserIds().size() == 0);
     }
- */
+
+    @Test
+    void IsLobbyTimerOver(){
+        testround.setTimerOver(false);
+        assertTrue(!lobbyService.isLobbyTimerOver(testLobby.getId()));
+    }
+
+    @Test
+    void setLobbyTimerOver(){
+        testround.setTimerOver(false);
+        lobbyService.setTimerOver(testLobby.getId(), true);
+        assertTrue(testround.isTimerOver());
+    }
+
+    @Test
+    void resetRound(){
+        testround.setTimerOver(true);
+        lobbyService.resetRound(testLobby.getId());
+        assertTrue(!testround.isTimerOver());
+    }
+
+    @Test
+    void setDifficulty(){
+        lobbyService.setDifficulty(testLobby.getId(), Difficulties.EASY);
+        assertEquals(testLobby.getDifficulty(), Difficulties.EASY);
+    }
+
+    @Test
+    void incRoundNumber(){
+        testLobby.resetRoundNumber();
+
+        lobbyService.increaseRoundNumber(testLobby.getId());
+        assertTrue(testLobby.getRoundNumber() == 1L);
+    }
+
+    @Test
+    void resetAnswerCounter(){
+        testround.incrementAnswerCount();
+        assertTrue(testround.getAnswerCount() == 1L);
+
+        lobbyService.resetAnswerCounter(testLobby.getId());
+        assertTrue(testround.getAnswerCount() == 0L);
+    }
 
 
 

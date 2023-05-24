@@ -22,7 +22,7 @@ public class Round{
     @ElementCollection
     private List<Categories> categoryVotes = new ArrayList<>();
     @Column
-    private Categories chosenCategory;
+    private Categories chosenCategory = Categories.geography;
     @Column
     private String currentQuestion;
     @Column
