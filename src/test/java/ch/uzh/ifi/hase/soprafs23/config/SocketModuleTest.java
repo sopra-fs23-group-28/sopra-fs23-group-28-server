@@ -104,4 +104,26 @@ public class SocketModuleTest {
         verify(roundService).createRound(lobbyId);
         verify(lobbyService).resetIsLobbyReady(lobbyId);
     }
+
+    @Test
+    public void testOnRoundReceived_Success() throws Exception {
+        //setup mock, message and user
+        Message message = new Message(MessageType.CLIENT, " ", "123");
+        SocketIOClient client = mock(SocketIOClient.class);
+
+        User user = new User();
+        user.setGameCreator(true);
+
+        //setup return values
+        when(client.getHandshakeData()).thenReturn(handshakeData);
+        when(userService.getUserByToken(Mockito.any())).thenReturn(user);
+
+        //execute onRoundReceived
+        socketModule.onRoundReceived().onData(client, message, null);
+
+        //make sure that methods were called once
+        verify(lobbyService, times(1)).resetRound(anyLong());
+        verify(questionService, times(1)).createQuestion(anyLong());
+    }
+
 }

@@ -42,7 +42,7 @@ public class SocketModule {
         server.addEventListener("ROUND", Message.class, onRoundReceived());
     }
 
-    private DataListener<Message> onRoundReceived(){
+    protected DataListener<Message> onRoundReceived(){
         return (client, data, ackSender) -> {
             Long lobbyId = Long.valueOf(data.getRoom());
             String token = client.getHandshakeData().getSingleUrlParam("token");

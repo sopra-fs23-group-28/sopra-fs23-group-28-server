@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserServiceTest {
@@ -35,6 +36,7 @@ class UserServiceTest {
 
         // Mocking userRepository
         Mockito.when(userRepository.save(Mockito.any())).thenReturn(testUser);
+        Mockito.when(userRepository.findByToken(Mockito.any())).thenReturn(testUser);
         Mockito.when(userRepository.findById(Mockito.any())).thenReturn(Optional.ofNullable(testUser));
 
     }
@@ -57,6 +59,34 @@ class UserServiceTest {
         User UserWithCamel = userService.setCamelColor(testUser.getId(), color);
 
         assertEquals(CamelColors.BLUE, UserWithCamel.getCamelColor());
+    }
+
+    @Test
+    void updateStepState() {
+        testUser.setStepState(4L);
+        userService.updateStepStateOfUser(3L, testUser.getId());
+        assertTrue(testUser.getStepState() == 7L);
+    }
+
+    @Test
+    void updatedTimeAndAnswer() {
+        testUser.setTime(0f);
+        userService.updateTimeAndAnswer("1", 3.5f, 1L);
+        assertTrue(testUser.getTime() == 3.5f);
+    }
+
+    @Test
+    void resetSteps() {
+        testUser.setStepState(5L);
+        userService.resetSteps(testUser.getId());
+        assertTrue(testUser.getStepState() == 0L);
+    }
+
+    @Test
+    void setUserReady() {
+        testUser.setIsReady(false);
+        userService.setUserIsReady(testUser.getId());
+        assertTrue(testUser.getIsReady() == true);
     }
 
 }
