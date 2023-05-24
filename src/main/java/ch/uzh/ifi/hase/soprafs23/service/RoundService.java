@@ -20,17 +20,15 @@ public class RoundService {
     private final LobbyRepository lobbyRepository;
     private final LobbyService lobbyService;
     private final SocketService socketService;
-    private final QuestionService questionService;
     private final Random random = new Random();
 
     @Autowired
     public RoundService(UserService userService, @Qualifier("lobbyRepository") LobbyRepository lobbyRepository,
-                        SocketService socketService, LobbyService lobbyService, QuestionService questionService) {
+                        SocketService socketService, LobbyService lobbyService) {
         this.userService = userService;
         this.lobbyRepository = lobbyRepository;
         this.lobbyService = lobbyService;
         this.socketService = socketService;
-        this.questionService = questionService;
     }
 
     /**
@@ -81,8 +79,6 @@ public class RoundService {
         Categories chosenCategory = getCategoryWithMostVotes(categories, categoryVotes);
         System.out.println(chosenCategory + "came back from method");
         round.setChosenCategory(chosenCategory);
-
-        questionService.createQuestion(lobbyId);
 
         socketService.sendMessageToRoom(lobbyId.toString(), "CATEGORY", "VOTINGDONE");
 

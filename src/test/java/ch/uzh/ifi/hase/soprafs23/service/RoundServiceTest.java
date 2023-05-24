@@ -29,10 +29,11 @@ class RoundServiceTest {
 
     @Mock
     private SocketService socketService;
-    @Mock
-    private QuestionService questionService;
+
+
     @InjectMocks
     private RoundService roundservice;
+
     private Lobby testLobby;
     private User testUser;
 
@@ -54,7 +55,8 @@ class RoundServiceTest {
         Mockito.when(LobbyRepository.save(Mockito.any())).thenReturn(testLobby);
         Mockito.when(lobbyService.getLobby(Mockito.any())).thenReturn(testLobby);
         Mockito.doNothing().when(socketService).sendMessageToRoom(Mockito.any(),Mockito.any(),Mockito.any());
-        Mockito.doNothing().when(questionService).createQuestion(Mockito.any());
+
+
     }
 
     @Test
