@@ -287,3 +287,6 @@ BackEnd:
 FrontEnd:
 * *23.05.2023, Tuesday:* People: Markus. Description: Working on small fixes and started documentation.
 * *24.05.2023, Wednesday:* People: Markus. Description: Collection last issues, working on documentation and preparing last CSS overhauls.
+
+BackEnd:
+* *24.05.2023, Wednesday:* People: Elia, Samuel, Harris. Description: Wrote tests for gameService, socketModule, lobbyService and userService
