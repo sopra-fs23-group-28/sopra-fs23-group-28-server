@@ -8,10 +8,7 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.RoundGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
-import ch.uzh.ifi.hase.soprafs23.service.GameService;
-import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
-import ch.uzh.ifi.hase.soprafs23.service.RoundService;
-import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import ch.uzh.ifi.hase.soprafs23.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,9 +23,12 @@ public class RoundController {
     private final GameService gameService;
     private final SocketService socketService;
 
-    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, GameService gameService, SocketService socketService) {
+    private final QuestionService questionService;
+
+    RoundController(LobbyService lobbyService, UserService userService, RoundService roundService, GameService gameService, SocketService socketService, QuestionService questionService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
+        this.questionService = questionService;
         this.roundService= roundService;
         this.gameService = gameService;
         this.socketService = socketService;
@@ -71,6 +71,7 @@ public class RoundController {
         //if all votes have been taken the timer can be aborted
         if(round.getCategoryVotes().size() == lobby.getUserIds().size()){
             lobbyService.setTimerOver(lobbyId, true);
+            questionService.createQuestion(lobbyId);
           roundService.chooseCategory(lobbyId);
         }
     }

@@ -5,10 +5,7 @@ import ch.uzh.ifi.hase.soprafs23.constant.Categories;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Round;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.service.GameService;
-import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
-import ch.uzh.ifi.hase.soprafs23.service.RoundService;
-import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import ch.uzh.ifi.hase.soprafs23.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -42,6 +39,9 @@ class RoundControllerTest {
     private GameService gameService;
     @MockBean
     private RoundService roundService;
+
+    @MockBean
+    private QuestionService questionService;
 
 
     @BeforeEach

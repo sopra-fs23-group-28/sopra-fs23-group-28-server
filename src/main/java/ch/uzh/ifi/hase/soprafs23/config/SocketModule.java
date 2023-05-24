@@ -91,7 +91,9 @@ public class SocketModule {
                 //execute chooseCategory as soon as timer is over
                 roundService.chooseCategory(Long.valueOf(data.getRoom()));
                 socketService.sendMessageToRoom(data.getRoom(), "CATEGORY", "VOTINGDONE");
+
             }
+            questionService.createQuestion(Long.valueOf(data.getRoom()));
         };
     }
 
