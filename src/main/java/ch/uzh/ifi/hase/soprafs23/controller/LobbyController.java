@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 @RestController
 public class LobbyController {
@@ -123,6 +124,12 @@ public class LobbyController {
         Long maxSteps = internalLobby.getMaxSteps();
         //fetch lobby
         Lobby lobby = lobbyService.getLobby(lobbyId);
+
+        List<User> users = lobbyService.getUsersFromLobby(lobbyId);
+
+        for(User iterateUser : users) {
+            userService.resetSteps(iterateUser.getId());
+        }
 
         //validate that creator is making request
         lobbyService.validate(lobby, user);
