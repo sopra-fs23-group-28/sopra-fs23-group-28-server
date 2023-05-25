@@ -1,86 +1,78 @@
-# SoPra RESTful Service Template FS23
+# Group 28 - Camel Race 
 
-## Getting started with Spring Boot
--   Documentation: https://docs.spring.io/spring-boot/docs/current/reference/html/index.html
--   Guides: http://spring.io/guides
-    -   Building a RESTful Web Service: http://spring.io/guides/gs/rest-service/
-    -   Building REST services with Spring: https://spring.io/guides/tutorials/rest/
+## Introduction
 
-## Setup this Template with your IDE of choice
-Download your IDE of choice (e.g., [IntelliJ](https://www.jetbrains.com/idea/download/), [Visual Studio Code](https://code.visualstudio.com/), or [Eclipse](http://www.eclipse.org/downloads/)). Make sure Java 17 is installed on your system (for Windows, please make sure your `JAVA_HOME` environment variable is set to the correct version of Java).
+This is the backend for the trivia quiz based game for 2 - 4 players. It was initially designed to be played locally with other people around you
+but it can also be done remotely. We were inspired to do this by a carnival game.
 
-### IntelliJ
-1. File -> Open... -> SoPra server template
-2. Accept to import the project as a `gradle project`
-3. To build right click the `build.gradle` file and choose `Run Build`
+## Technologies that are used
 
-### VS Code
-The following extensions can help you get started more easily:
--   `vmware.vscode-spring-boot`
--   `vscjava.vscode-spring-initializr`
--   `vscjava.vscode-spring-boot-dashboard`
--   `vscjava.vscode-java-pack`
+* [Java Spring Boot](https://spring.io/projects/spring-boot) - JAVA BackEnd
+* [Netty socket.io for Java](https://github.com/mrniko/netty-socketio) - Java implementation for socket.io
 
-**Note:** You'll need to build the project first with Gradle, just click on the `build` command in the _Gradle Tasks_ extension. Then check the _Spring Boot Dashboard_ extension if it already shows `soprafs23` and hit the play button to start the server. If it doesn't show up, restart VS Code and check again.
+## High-level Components
 
-## Building with Gradle
-You can use the local Gradle Wrapper to build the application.
--   macOS: `./gradlew`
--   Linux: `./gradlew`
--   Windows: `./gradlew.bat`
+These are the main files necessary to get a good overview for the game from a backend perspective :
 
-More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) and [Gradle](https://gradle.org/docs/).
+1. Our API-endpoints can be found in the [Controller package](https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/tree/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller)
+2. The [config](https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/tree/main/src/main/java/ch/uzh/ifi/hase/soprafs23/config) package contains our socket listeners and emitters, the most important class here is socketModule which is responsible for the interaction with the frontend
+3. The [Service](https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/tree/main/src/components/views/overview.js) package contains all service classes is the main hub for the websocket, there you can see all components involved in the question & answer game flow right up until the end of the game.
 
-### Build
+### Setup
+You can start the game under the following link: http://sopra-fs23-group-28-client.oa.r.appspot.com
 
-```bash
-./gradlew build
+Or copy this and the client side repo (https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client) to your machine.
+Then set it all up with the respective set-up instructions.
+
+### Launch and deployment
+
+1. git clone this repository to your local repository: https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server.git
+2. open your favorite IDE and import the cloned repository as a 'gradle project'. Gradle will then manage all the dependencies for you.
+3. To build, right-click the `build.gradle` file and choose `Run Build`
+4. To run the application, run the following line of code in the project root directory
+
+```
+./gradlew bootrun
 ```
 
-### Run
+## Running the tests
 
-```bash
-./gradlew bootRun
+You can run the tests with the built-in "run Tests" feature of your IDE or by using
+
 ```
-
-You can verify that the server is running by visiting `localhost:8080` in your browser.
-
-### Test
-
-```bash
 ./gradlew test
 ```
 
-### Development Mode
-You can start the backend in development mode, this will automatically trigger a new build and reload the application
-once the content of a file has been changed.
+## Roadmap
 
-Start two terminal windows and run:
+These features would be a good choice if one would want to further develop our project:
 
-`./gradlew build --continuous`
+* Gadgets: Power-ups that are rewarded for correct answer streaks (example names: camel round house kick, vodka bottle)
+* Random events: with a small chance on the diffuclty wheel, this event redistributes the players on the field
+* Tilting spin button: when the difficulty wheel spin button hits a new section it tilts for a bit
 
-and in the other one:
+## Authors
 
-`./gradlew bootRun`
+FrontEnd authors:
 
-If you want to avoid running all tests with every change, use the following command instead:
+* **Cédric Styner** - *Main contributor* - [glt-cs](https://github.com/glt-cs)
+* **Markus Senn** - *Main contributor* - [iKusii](https://github.com/iKusii)
 
-`./gradlew build --continuous -xtest`
+BackEnd authors:
+* **Elia Aeberhard** - *Main contributor* - [Elyisha](https://github.com/Elyisha)
+* **Harris** - *Main contributor* - [so-ri](https://github.com/so-ri)
+* **Samuel Frank** - *Main contributor* - [samuelfrnk](https://github.com/samuelfrnk)
 
-## API Endpoint Testing with Postman
-We recommend using [Postman](https://www.getpostman.com) to test your API Endpoints.
+Team:
+* **Dennys Huber** - *Responsible TA* - [devnnys](https://github.com/devnnys)
+* **Roy Rutishauser** - *template provider* - [royru](https://github.com/royru)
+* **Luis Torrejón** - *template provider* - [luis-tm](https://github.com/luis-tm)
 
-## Debugging
-If something is not working and/or you don't know what is going on. We recommend using a debugger and step-through the process step-by-step.
+## Acknowledgments
 
-To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you start with `./gradlew bootRun` command), do the following:
+* Thanks to all the people that helped, on- and offline
+* No camels were harmed in the making of this game (well not directly)
 
-1. Open Tab: **Run**/Edit Configurations
-2. Add a new Remote Configuration and name it properly
-3. Start the Server in Debug mode: `./gradlew bootRun --debug-jvm`
-4. Press `Shift + F9` or the use **Run**/Debug "Name of your task"
-5. Set breakpoints in the application where you need it
-6. Step through the process one step at a time
+## License
 
-## Testing
-Have a look here: https://www.baeldung.com/spring-boot-testing
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE.md) file for details
