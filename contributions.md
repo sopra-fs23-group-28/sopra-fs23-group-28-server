@@ -276,6 +276,13 @@ FrontEnd:
 	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/2
 	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/3
 
+* *18.05.2023, Thursday:* People: Cedric. Description: PunishmentSlider and API call is created and bugfixed.
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/6
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/8
+
+* *20.05.2023, Saturday:* People: Cedric. Description: PunishmentSlider tested with the Socket Messages.
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/6
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/8
 
 ## 22.05. - 25.05.
 
@@ -285,7 +292,16 @@ BackEnd:
 
 
 FrontEnd:
+
+* *22.05.2023, Monday:* People: Cedric. Description: Refactored Socket in overview.
+* *22.05.2023, Monday:* People: Cedric. Description: testing the workflow and bugfixed Wheel and Punishment socket problems.
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/6
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/8
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/9
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/29
+
 * *23.05.2023, Tuesday:* People: Markus. Description: Working on small fixes and started documentation.
+* *23.05.2023, Tuesday:* People: Cedric. Description: fix smaller bugs.
 * *24.05.2023, Wednesday:* People: Markus. Description: Collection last issues, working on documentation and preparing last CSS overhauls.
 
 BackEnd:
