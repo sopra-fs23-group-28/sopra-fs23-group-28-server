@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class GameServiceTest {
@@ -63,7 +62,7 @@ class GameServiceTest {
         doReturn(4L).when(lobby).getMaxSteps();
         when(lobbyService.getUsersFromLobby(lobbyId)).thenReturn(users);
         when(lobbyService.getLobby(lobbyId)).thenReturn(lobby);
-        when(roundService.getPunishmentSteps(lobbyId)).thenReturn(5L);
+        when(lobbyService.getPunishmentSteps(lobbyId)).thenReturn(5L);
         when(roundService.getRound(lobbyId)).thenReturn(round);
 
         //run the test
