@@ -195,8 +195,6 @@ in order to show the winner screen.
     * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/74
 
 
-
-
 FrontEnd:
 * *24.04.2023, Monday:* People: Cedric. Placing sockets and working on getting them to work (connect to the backend).
 Local tests work and let the game progress past the lobby.
@@ -213,49 +211,82 @@ Local tests work and let the game progress past the lobby.
 
 # Milestone 4
 
-## 01.05. - 08.05.
+## 01.05. - 07.05.
 
 BackEnd:
 * *06.05.2023, Saturday:* People: Samuel, Elia, Harris. Description: tried to get SSL to run with some GCloud settings but failed. Went on to
  overview endpoint / socket auth, PUT Mapping for question difficulty, API HTTP Status Code refactoring, tests.
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/75
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/78
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/79
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/80
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/81
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/82
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/83
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/75
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/78
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/79
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/80
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/81
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/82
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/83
 
-## 09.05. - 16.05.
 
+FrontEnd:
+* *05.05.2023, Friday:* People: Markus. Description: Designing the difficulty wheel and implementing it in JSX + CSS.
+	People: Cedric. Description: Working on correct display of leaving and joining players.
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/28
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/14
+
+* *06.05.2023, Saturday:* People: Markus. Description: Implementing the animation logic and first attempts for socket connection.
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/29
+
+
+## 08.05. - 14.05.
+
+BackEnd:
 * *11.05.2023, Thursday:* People: Elia, Samuel, Harris. Description: Changed parts of code so that game logic works with 2-4 people. Fixed leaveLobby endpoint
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/91
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/90
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/89
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/86
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/85
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/91
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/90
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/89
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/86
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/85
 
+
+FrontEnd:
+* Took joker week since not a lot was left to be added on the frontend part. Worked both on minor fixes on the side when backend needed us.
+
+
+## 15.05. - 21.05.
+
+BackEnd:
 * *15.05.2023, Monday:* People: Elia, Samuel, Harris, Cédric. Description: set init value for difficulty, tried maany different things to get SSl to run without success
   *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/88
 
-## 17.05. - 24.05.
-
 * *20.05.2023, Saturday:* People: Elia, Samuel, Harris. Description: Implemented functionality for the loser to chose the punishment steps for the next round. Refactored 
 * code (increased encapsulation) and decreased coupling. Added a new socket call "WHEEL" which tells the client how much the difficulty wheel shall spin.
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
 
 * *21.05.2023, Sunday:* People: Elia, Samuel, Harris. Description: fixed bugs with the functionality for the loser to chose the punishment steps for the next round. Refactored
 * code (increased encapsulation) and decreased coupling. Changed the method calls to be more consistent (id's instead of whole objects) and for better encapsulation.
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/94
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/96
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/94
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/95
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/96
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/97
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/66
 
+
+FrontEnd:
+* *15.05.2023, Monday:* People: Cedric. Description: Finished the winner screen with variable user amount and continues working on SSL problem.
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/2
+	* https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-client/issues/3
+
+
+## 22.05. - 25.05.
+
+BackEnd:
 * *23.05.2023, Tuesday:* People: Elia, Samuel, Harris, Markus. Description: giving back the punishment Steps in the Round. Inform Clients that they were set.
-  *https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/67
+  * https://github.com/sopra-fs23-group-28/sopra-fs23-group-28-server/issues/67
 
 
+FrontEnd:
+* *23.05.2023, Tuesday:* People: Markus. Description: Working on small fixes and started documentation.
+* *24.05.2023, Wednesday:* People: Markus. Description: Collection last issues, working on documentation and preparing last CSS overhauls.
 
+BackEnd:
+* *24.05.2023, Wednesday:* People: Elia, Samuel, Harris. Description: Wrote tests for gameService, socketModule, lobbyService and userService

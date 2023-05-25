@@ -42,7 +42,7 @@ public class SocketModule {
         server.addEventListener("ROUND", Message.class, onRoundReceived());
     }
 
-    private DataListener<Message> onRoundReceived(){
+    protected DataListener<Message> onRoundReceived(){
         return (client, data, ackSender) -> {
             Long lobbyId = Long.valueOf(data.getRoom());
             String token = client.getHandshakeData().getSingleUrlParam("token");
@@ -97,7 +97,7 @@ public class SocketModule {
         };
     }
 
-    private DataListener<Message> onReadyReceived(){
+    protected DataListener<Message> onReadyReceived(){
         return (senderClient, data, ackSender) -> {
             //we check if each user in the lobby is ready (has sent something to the READY listener).
             // if yes, send out GETCATEGORY
@@ -127,7 +127,7 @@ public class SocketModule {
     }
 
 
-    private ConnectListener onConnected() {
+    protected ConnectListener onConnected() {
         return (client) -> {
             //fetch room from URL parameter
             String room = client.getHandshakeData().getSingleUrlParam("room");
