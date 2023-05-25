@@ -61,7 +61,7 @@ public class GameService {
             User user = correctUsers.get(i);
             //for the first in the aray, the loser
             if (i == 0) {
-                Long punishmentSteps = roundService.getPunishmentSteps(lobbyId);
+                Long punishmentSteps = lobbyService.getPunishmentSteps(lobbyId);
                 if (user.getStepState() != 0) {
                     //take the minimum of users steps and punishment steps s.t. no negative steps happen
                     Long updateSteps = -Math.min(user.getStepState(), punishmentSteps);

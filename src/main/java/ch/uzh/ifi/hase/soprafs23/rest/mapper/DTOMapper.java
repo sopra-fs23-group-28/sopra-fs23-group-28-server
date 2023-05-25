@@ -44,12 +44,12 @@ public interface DTOMapper {
   @Mapping(source = "maxSteps", target = "maxSteps")
   @Mapping(source = "userIds", target = "userIds")
   @Mapping(source = "difficulty", target = "difficulty")
+  @Mapping(source = "punishmentSteps", target = "punishmentSteps")
   LobbyGetDTO convertLobbyEntityToLobbyGetDTO(Lobby lobby);
   @Mapping(source = "categories", target = "categories")
   @Mapping(source = "chosenCategory", target = "chosenCategory")
   @Mapping(source = "answers", target = "answers")
   @Mapping(source = "currentQuestion", target = "currentQuestion")
-  @Mapping(source = "punishmentSteps", target = "punishmentSteps")
   RoundGetDTO convertRoundEntityToRoundGetDTO(Round round);
 
   // because the playerIds in the User entity consist of a List of users, its mapping needs to be defined separately.

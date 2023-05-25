@@ -26,7 +26,8 @@ public class Lobby{
     @Column
     @ElementCollection
     private List<Long> userIds = new ArrayList<>();
-
+    @Column
+    private Long punishmentSteps = 0L;
 
 
     public Lobby() {
@@ -69,5 +70,13 @@ public class Lobby{
     }
     public void setDifficulty(Difficulties difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public Long getPunishmentSteps() {
+        return punishmentSteps;
+    }
+
+    public void setPunishmentSteps(Long punishmentSteps) {
+        this.punishmentSteps = punishmentSteps;
     }
 }

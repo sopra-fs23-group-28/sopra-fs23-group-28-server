@@ -107,9 +107,7 @@ public class RoundController {
     public void setPunishmentSteps(@PathVariable Long lobbyId, @RequestBody UserPutDTO userPutDTO) {
         //authentication
         lobbyService.isUserTokenInLobby(userPutDTO.getToken(), lobbyId);
-
-        roundService.setPunishmentSteps(lobbyId, userPutDTO.getPunishmentSteps());
-
+        lobbyService.setPunishmentSteps(lobbyId, userPutDTO.getPunishmentSteps());
         //send notification to room
         socketService.sendMessageToRoom(lobbyId.toString(),"LOSER","PUNISHMENTSET");
     }

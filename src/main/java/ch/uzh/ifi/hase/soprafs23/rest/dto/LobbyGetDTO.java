@@ -12,6 +12,7 @@ public class LobbyGetDTO {
     private Long maxSteps;
     private List<Long> userIds;
     private Difficulties difficulty;
+    private Long punishmentSteps = 0L;
 
     public LobbyGetDTO() {
         this.userIds = new ArrayList<>();
@@ -44,4 +45,12 @@ public class LobbyGetDTO {
     public Difficulties getDifficulty() {return difficulty;}
 
     public void setDifficulty(Difficulties difficulty) {this.difficulty = difficulty;}
+
+    public Long getPunishmentSteps() {
+        return punishmentSteps;
+    }
+
+    public void setPunishmentSteps(Long punishmentSteps) {
+        this.punishmentSteps = punishmentSteps;
+    }
 }

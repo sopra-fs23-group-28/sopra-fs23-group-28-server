@@ -203,4 +203,16 @@ public class LobbyService {
         resetAnswerCounter(lobbyId);
         increaseRoundNumber(lobbyId);
     }
+
+
+    public Long getPunishmentSteps(Long lobbyId){
+        Lobby lobby = getLobby(lobbyId);
+        return lobby.getPunishmentSteps();
+    }
+
+    public void setPunishmentSteps(Long lobbyId, Long punishmentSteps){
+        Lobby lobby = getLobby(lobbyId);
+        lobby.setPunishmentSteps(punishmentSteps);
+        lobbyRepository.save(lobby);
+    }
 }

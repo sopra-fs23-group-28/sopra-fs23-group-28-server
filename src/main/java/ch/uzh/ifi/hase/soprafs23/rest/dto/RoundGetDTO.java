@@ -10,7 +10,6 @@ public class RoundGetDTO {
     private Categories chosenCategory;
     private List<String> answers = new ArrayList<>();
     private String currentQuestion;
-    private String punishmentSteps;
     public List<Categories> getCategories() {
         return categories;
     }
@@ -35,6 +34,4 @@ public class RoundGetDTO {
     public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
-    public String getPunishmentSteps() {return punishmentSteps;}
-    public void setPunishmentSteps(String punishmentSteps) {this.punishmentSteps = punishmentSteps;}
 }

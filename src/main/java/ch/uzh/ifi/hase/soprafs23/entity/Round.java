@@ -26,8 +26,6 @@ public class Round{
     @Column
     private String currentQuestion;
     @Column
-    private Long punishmentSteps = 0L;
-    @Column
     @ElementCollection
     private List<String> answers;
     @Column
@@ -107,8 +105,4 @@ public class Round{
     public void incrementAnswerCount() {
         this.answerCount+=1;
     }
-
-    public Long getPunishmentSteps() {return punishmentSteps;}
-
-    public void setPunishmentSteps(Long punishmentSteps) {this.punishmentSteps = punishmentSteps;}
 }

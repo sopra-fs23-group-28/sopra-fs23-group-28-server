@@ -151,15 +151,4 @@ public class RoundService {
         round.addCategoryVotes(category);
         lobbyRepository.save(lobbyService.getLobby(lobbyId));
     }
-
-    public Long getPunishmentSteps(Long lobbyId){
-        Round round = getRound(lobbyId);
-        return round.getPunishmentSteps();
-    }
-
-    public void setPunishmentSteps(Long lobbyId, Long punishmentSteps){
-        Round round = getRound(lobbyId);
-        round.setPunishmentSteps(punishmentSteps);
-        lobbyRepository.save(lobbyService.getLobby(lobbyId));
-    }
 }
